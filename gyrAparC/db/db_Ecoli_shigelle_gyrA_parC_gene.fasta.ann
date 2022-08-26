@@ -1,0 +1,1863 @@
+387490 931 11
+0 lcl|ON032642.1_cds_UQK85295.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=UQK85295.1] [location=<1..>387] [gbkey=CDS]
+0 387 0
+0 lcl|ON032641.1_cds_UQK85294.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=UQK85294.1] [location=<1..>387] [gbkey=CDS]
+387 387 0
+0 lcl|MZ359375.1_cds_UPP31096.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31096.1] [location=<1..>332] [gbkey=CDS]
+774 330 0
+0 lcl|MZ359374.1_cds_UPP31095.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31095.1] [location=<1..>332] [gbkey=CDS]
+1104 330 0
+0 lcl|MZ359373.1_cds_UPP31094.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31094.1] [location=<1..>332] [gbkey=CDS]
+1434 330 0
+0 lcl|MZ359372.1_cds_UPP31093.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31093.1] [location=<1..>332] [gbkey=CDS]
+1764 330 0
+0 lcl|MZ359371.1_cds_UPP31092.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31092.1] [location=<1..>332] [gbkey=CDS]
+2094 330 0
+0 lcl|MZ359370.1_cds_UPP31091.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31091.1] [location=<1..>332] [gbkey=CDS]
+2424 330 0
+0 lcl|MZ359369.1_cds_UPP31090.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31090.1] [location=<1..>332] [gbkey=CDS]
+2754 330 0
+0 lcl|MZ359368.1_cds_UPP31089.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31089.1] [location=<1..>332] [gbkey=CDS]
+3084 330 0
+0 lcl|MZ359367.1_cds_UPP31088.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31088.1] [location=<1..>332] [gbkey=CDS]
+3414 330 0
+0 lcl|MZ359366.1_cds_UPP31087.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31087.1] [location=<1..>332] [gbkey=CDS]
+3744 330 0
+0 lcl|MZ359365.1_cds_UPP31086.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31086.1] [location=<1..>332] [gbkey=CDS]
+4074 330 0
+0 lcl|MZ359364.1_cds_UPP31085.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31085.1] [location=<1..>332] [gbkey=CDS]
+4404 330 0
+0 lcl|MZ359363.1_cds_UPP31084.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31084.1] [location=<1..>332] [gbkey=CDS]
+4734 330 0
+0 lcl|MZ359362.1_cds_UPP31083.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31083.1] [location=<1..>332] [gbkey=CDS]
+5064 330 0
+0 lcl|MZ359361.1_cds_UPP31082.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31082.1] [location=<1..>332] [gbkey=CDS]
+5394 330 0
+0 lcl|MZ359360.1_cds_UPP31081.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31081.1] [location=<1..>332] [gbkey=CDS]
+5724 330 0
+0 lcl|MZ359359.1_cds_UPP31080.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31080.1] [location=<1..>332] [gbkey=CDS]
+6054 330 0
+0 lcl|MZ359358.1_cds_UPP31079.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31079.1] [location=<1..>332] [gbkey=CDS]
+6384 330 0
+0 lcl|MZ359357.1_cds_UPP31078.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31078.1] [location=<1..>332] [gbkey=CDS]
+6714 330 0
+0 lcl|MZ359356.1_cds_UPP31077.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31077.1] [location=<1..>332] [gbkey=CDS]
+7044 330 0
+0 lcl|MZ359355.1_cds_UPP31076.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31076.1] [location=<1..>332] [gbkey=CDS]
+7374 330 0
+0 lcl|MZ359354.1_cds_UPP31075.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31075.1] [location=<1..>332] [gbkey=CDS]
+7704 330 0
+0 lcl|MZ359353.1_cds_UPP31074.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=UPP31074.1] [location=<1..>332] [gbkey=CDS]
+8034 330 0
+0 lcl|MW380972.1_cds_UPN67929.1_1 [gene=parC] [protein=ParC] [protein_id=UPN67929.1] [location=<1..>249] [gbkey=CDS]
+8364 249 0
+0 lcl|MW380971.1_cds_UPN67928.1_1 [gene=gyrA] [protein=GyrA] [protein_id=UPN67928.1] [location=<1..>282] [gbkey=CDS]
+8613 282 0
+0 lcl|OM105882.1_cds_UJT76425.1_1 [gene=parC] [protein=ParC] [protein_id=UJT76425.1] [location=<1..>393] [gbkey=CDS]
+8895 393 0
+0 lcl|OM105881.1_cds_UJT76424.1_1 [gene=parC] [protein=ParC] [protein_id=UJT76424.1] [location=<1..>393] [gbkey=CDS]
+9288 393 0
+0 lcl|OM105880.1_cds_UJT76423.1_1 [gene=parC] [protein=ParC] [protein_id=UJT76423.1] [location=<1..>393] [gbkey=CDS]
+9681 393 0
+0 lcl|OM105879.1_cds_UJT76422.1_1 [gene=parC] [protein=ParC] [protein_id=UJT76422.1] [location=<1..>393] [gbkey=CDS]
+10074 393 0
+0 lcl|OM105878.1_cds_UJT76421.1_1 [gene=parC] [protein=ParC] [protein_id=UJT76421.1] [location=<1..>393] [gbkey=CDS]
+10467 393 0
+0 lcl|OM105877.1_cds_UJT76420.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=UJT76420.1] [location=<1..>645] [gbkey=CDS]
+10860 645 0
+0 lcl|OM105876.1_cds_UJT76419.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=UJT76419.1] [location=<1..>645] [gbkey=CDS]
+11505 645 0
+0 lcl|OM105875.1_cds_UJT76418.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=UJT76418.1] [location=<1..>645] [gbkey=CDS]
+12150 645 0
+0 lcl|OM105874.1_cds_UJT76417.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=UJT76417.1] [location=<1..>645] [gbkey=CDS]
+12795 645 0
+0 lcl|OM105873.1_cds_UJT76416.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=UJT76416.1] [location=<1..>645] [gbkey=CDS]
+13440 645 0
+0 lcl|MW266106.1_cds_QYU59204.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QYU59204.1] [location=<1..>276] [gbkey=CDS]
+14085 276 0
+0 lcl|MW266105.1_cds_QYU59203.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QYU59203.1] [location=<1..>276] [gbkey=CDS]
+14361 276 0
+0 lcl|MW266104.1_cds_QYU59202.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QYU59202.1] [location=<1..>277] [gbkey=CDS]
+14637 277 0
+0 lcl|MW266103.1_cds_QYU59201.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QYU59201.1] [location=<1..>276] [gbkey=CDS]
+14914 276 0
+0 lcl|MW266102.1_cds_QYU59200.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QYU59200.1] [location=<1..>276] [gbkey=CDS]
+15190 276 0
+0 lcl|MW396723.1_cds_QQG64134.1_1 [gene=parC] [protein=DNA Topoisomerase IV subunitA] [protein_id=QQG64134.1] [location=<1..>377] [gbkey=CDS]
+15466 377 0
+0 lcl|MT157332.1_cds_QOE88838.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QOE88838.1] [location=<1..>540] [gbkey=CDS]
+15843 540 0
+0 lcl|MG242340.1_cds_AWA45389.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AWA45389.1] [location=<1..>597] [gbkey=CDS]
+16383 597 0
+0 lcl|MN808552.1_cds_QNT60752.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=QNT60752.1] [location=<1..>284] [gbkey=CDS]
+16980 284 0
+0 lcl|MN808551.1_cds_QNT60751.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=QNT60751.1] [location=<1..>342] [gbkey=CDS]
+17264 340 0
+0 lcl|MT334398.1_cds_QNN94469.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=QNN94469.1] [location=<1..>246] [gbkey=CDS]
+17604 245 0
+0 lcl|MT334397.1_cds_QNN94468.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=QNN94468.1] [location=<1..>264] [gbkey=CDS]
+17849 263 0
+0 lcl|MT334396.1_cds_QNN94467.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=QNN94467.1] [location=<1..>284] [gbkey=CDS]
+18112 283 0
+0 lcl|MN258072.1_cds_QNH85206.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=QNH85206.1] [location=<1..>612] [gbkey=CDS]
+18395 611 0
+0 lcl|MN258071.1_cds_QNH85205.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QNH85205.1] [location=<1..>612] [gbkey=CDS]
+19006 612 0
+0 lcl|MN258070.1_cds_QNH85204.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=QNH85204.1] [location=<1..>606] [gbkey=CDS]
+19618 604 0
+0 lcl|MN258069.1_cds_QNH85203.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=QNH85203.1] [location=<1..>600] [gbkey=CDS]
+20222 598 0
+0 lcl|MN258068.1_cds_QNH85202.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=QNH85202.1] [location=<1..>600] [gbkey=CDS]
+20820 598 0
+0 lcl|MN258067.1_cds_QNH85201.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=QNH85201.1] [location=<1..>602] [gbkey=CDS]
+21418 600 0
+0 lcl|MN258066.1_cds_QNH85200.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=QNH85200.1] [location=<1..>601] [gbkey=CDS]
+22018 599 0
+0 lcl|MN258064.1_cds_QNH85198.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QNH85198.1] [location=<1..>601] [gbkey=CDS]
+22617 601 0
+0 lcl|MN258063.1_cds_QNH85197.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=QNH85197.1] [location=<1..>603] [gbkey=CDS]
+23218 601 1
+0 lcl|MN258062.1_cds_QNH85196.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QNH85196.1] [location=<1..>544] [gbkey=CDS]
+23819 544 0
+0 lcl|MN258061.1_cds_QNH85195.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QNH85195.1] [location=<1..>563] [gbkey=CDS]
+24363 563 0
+0 lcl|MN258060.1_cds_QNH85194.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QNH85194.1] [location=<1..>576] [gbkey=CDS]
+24926 576 0
+0 lcl|MN258059.1_cds_QNH85193.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=QNH85193.1] [location=<1..>602] [gbkey=CDS]
+25502 600 0
+0 lcl|MN258058.1_cds_QNH85192.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QNH85192.1] [location=<1..>611] [gbkey=CDS]
+26102 611 0
+0 lcl|MN258057.1_cds_QNH85191.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QNH85191.1] [location=<1..>612] [gbkey=CDS]
+26713 612 0
+0 lcl|MK564164.1_cds_QEQ12769.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12769.1] [location=1..2259] [gbkey=CDS]
+27325 2259 0
+0 lcl|MK564163.1_cds_QEQ12768.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12768.1] [location=1..2259] [gbkey=CDS]
+29584 2259 0
+0 lcl|MK564162.1_cds_QEQ12767.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12767.1] [location=1..2259] [gbkey=CDS]
+31843 2259 0
+0 lcl|MK564161.1_cds_QEQ12766.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12766.1] [location=1..2259] [gbkey=CDS]
+34102 2259 0
+0 lcl|MK564156.1_cds_QEQ12761.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QEQ12761.1] [location=1..2628] [gbkey=CDS]
+36361 2628 0
+0 lcl|MK564155.1_cds_QEQ12760.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QEQ12760.1] [location=1..2628] [gbkey=CDS]
+38989 2628 0
+0 lcl|MK564154.1_cds_QEQ12759.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QEQ12759.1] [location=1..2628] [gbkey=CDS]
+41617 2628 0
+0 lcl|MK564153.1_cds_QEQ12758.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QEQ12758.1] [location=1..2628] [gbkey=CDS]
+44245 2628 0
+0 lcl|MK973064.1_cds_QDF62690.1_1 [gene=parC] [protein=topoisomerase IV subunit A] [protein_id=QDF62690.1] [location=<1..>186] [gbkey=CDS]
+46873 186 0
+0 lcl|MK973063.1_cds_QDF62689.1_1 [gene=parC] [protein=topoisomerase IV subunit A] [protein_id=QDF62689.1] [location=<1..>184] [gbkey=CDS]
+47059 184 0
+0 lcl|MK994975.1_cds_QDD67388.1_1 [gene=parC] [protein=topoisomerase IV subunit A] [protein_id=QDD67388.1] [location=<1..>207] [gbkey=CDS]
+47243 207 0
+0 lcl|MK994974.1_cds_QDD67387.1_1 [gene=parC] [protein=topoisomerase IV subunit A] [protein_id=QDD67387.1] [location=<1..>204] [gbkey=CDS]
+47450 204 0
+0 lcl|MF804408.1_cds_ATX64249.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ATX64249.1] [location=<1..>205] [gbkey=CDS]
+47654 204 0
+0 lcl|MF804407.1_cds_ATX64248.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ATX64248.1] [location=<1..>181] [gbkey=CDS]
+47858 180 0
+0 lcl|MF804406.1_cds_ATX64247.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=3] [protein_id=ATX64247.1] [location=<1..>244] [gbkey=CDS]
+48038 242 0
+0 lcl|MF804405.1_cds_ATX64246.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=3] [protein_id=ATX64246.1] [location=<1..>238] [gbkey=CDS]
+48280 236 0
+0 lcl|MT371582.1_cds_QJD57074.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=QJD57074.1] [location=<1..>284] [gbkey=CDS]
+48516 284 0
+0 lcl|MT371578.1_cds_QJD57070.1_1 [gene=gyrA] [protein=gyrase A] [frame=3] [protein_id=QJD57070.1] [location=<1..>331] [gbkey=CDS]
+48800 329 0
+0 lcl|MK111065.1_cds_QGQ60110.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [frame=2] [protein_id=QGQ60110.1] [location=<1..>425] [gbkey=CDS]
+49129 424 0
+0 lcl|MK111064.1_cds_QGQ60109.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [frame=2] [protein_id=QGQ60109.1] [location=<1..>425] [gbkey=CDS]
+49553 424 0
+0 lcl|MK111063.1_cds_QGQ60108.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [frame=2] [protein_id=QGQ60108.1] [location=<1..>425] [gbkey=CDS]
+49977 424 0
+0 lcl|MK087042.1_cds_QGQ60102.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=QGQ60102.1] [location=<1..>321] [gbkey=CDS]
+50401 320 0
+0 lcl|MK087041.1_cds_QGQ60101.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=QGQ60101.1] [location=<1..>326] [gbkey=CDS]
+50721 326 0
+0 lcl|MK087040.1_cds_QGQ60100.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=QGQ60100.1] [location=<1..>324] [gbkey=CDS]
+51047 324 0
+0 lcl|MK570907.1_cds_QFG76292.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76292.1] [location=<1..>190] [gbkey=CDS]
+51371 190 0
+0 lcl|MK570906.1_cds_QFG76291.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76291.1] [location=<1..>190] [gbkey=CDS]
+51561 190 0
+0 lcl|MK570905.1_cds_QFG76290.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76290.1] [location=<1..>190] [gbkey=CDS]
+51751 190 0
+0 lcl|MK570904.1_cds_QFG76289.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76289.1] [location=<1..>190] [gbkey=CDS]
+51941 190 0
+0 lcl|MK570903.1_cds_QFG76288.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76288.1] [location=<1..>190] [gbkey=CDS]
+52131 190 0
+0 lcl|MK570902.1_cds_QFG76287.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76287.1] [location=<1..>190] [gbkey=CDS]
+52321 190 0
+0 lcl|MK570901.1_cds_QFG76286.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76286.1] [location=<1..>190] [gbkey=CDS]
+52511 190 0
+0 lcl|MK570900.1_cds_QFG76285.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76285.1] [location=<1..>190] [gbkey=CDS]
+52701 190 0
+0 lcl|MK570899.1_cds_QFG76284.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76284.1] [location=<1..>190] [gbkey=CDS]
+52891 190 0
+0 lcl|MK570898.1_cds_QFG76283.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76283.1] [location=<1..>190] [gbkey=CDS]
+53081 190 0
+0 lcl|MK570897.1_cds_QFG76282.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76282.1] [location=<1..>190] [gbkey=CDS]
+53271 190 0
+0 lcl|MK570896.1_cds_QFG76281.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76281.1] [location=<1..>190] [gbkey=CDS]
+53461 190 0
+0 lcl|MK570895.1_cds_QFG76280.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76280.1] [location=<1..>190] [gbkey=CDS]
+53651 190 0
+0 lcl|MK570894.1_cds_QFG76279.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76279.1] [location=<1..>190] [gbkey=CDS]
+53841 190 0
+0 lcl|MK570893.1_cds_QFG76278.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76278.1] [location=<1..>190] [gbkey=CDS]
+54031 190 0
+0 lcl|MK570892.1_cds_QFG76277.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76277.1] [location=<1..>190] [gbkey=CDS]
+54221 190 0
+0 lcl|MK570891.1_cds_QFG76276.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76276.1] [location=<1..>190] [gbkey=CDS]
+54411 190 0
+0 lcl|MK570890.1_cds_QFG76275.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76275.1] [location=<1..>190] [gbkey=CDS]
+54601 190 0
+0 lcl|MK570889.1_cds_QFG76274.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76274.1] [location=<1..>190] [gbkey=CDS]
+54791 190 0
+0 lcl|MK570888.1_cds_QFG76273.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76273.1] [location=<1..>190] [gbkey=CDS]
+54981 190 0
+0 lcl|MK570887.1_cds_QFG76272.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76272.1] [location=<1..>190] [gbkey=CDS]
+55171 190 0
+0 lcl|MK570886.1_cds_QFG76271.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76271.1] [location=<1..>190] [gbkey=CDS]
+55361 190 0
+0 lcl|MK570885.1_cds_QFG76270.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76270.1] [location=<1..>190] [gbkey=CDS]
+55551 190 0
+0 lcl|MK570884.1_cds_QFG76269.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76269.1] [location=<1..>190] [gbkey=CDS]
+55741 190 0
+0 lcl|MK570883.1_cds_QFG76268.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76268.1] [location=<1..>190] [gbkey=CDS]
+55931 190 0
+0 lcl|MK570882.1_cds_QFG76267.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76267.1] [location=<1..>190] [gbkey=CDS]
+56121 190 0
+0 lcl|MK570881.1_cds_QFG76266.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76266.1] [location=<1..>190] [gbkey=CDS]
+56311 190 0
+0 lcl|MK570880.1_cds_QFG76265.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76265.1] [location=<1..>190] [gbkey=CDS]
+56501 190 0
+0 lcl|MK570879.1_cds_QFG76264.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76264.1] [location=<1..>190] [gbkey=CDS]
+56691 190 0
+0 lcl|MK570878.1_cds_QFG76263.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76263.1] [location=<1..>190] [gbkey=CDS]
+56881 190 0
+0 lcl|MK570877.1_cds_QFG76262.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76262.1] [location=<1..>190] [gbkey=CDS]
+57071 190 0
+0 lcl|MK570876.1_cds_QFG76261.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76261.1] [location=<1..>190] [gbkey=CDS]
+57261 190 0
+0 lcl|MK570875.1_cds_QFG76260.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76260.1] [location=<1..>190] [gbkey=CDS]
+57451 190 0
+0 lcl|MK570874.1_cds_QFG76259.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QFG76259.1] [location=<1..>190] [gbkey=CDS]
+57641 190 0
+0 lcl|MK578655.1_cds_QEQ12233.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12233.1] [location=<1..>266] [gbkey=CDS]
+57831 266 0
+0 lcl|MK578654.1_cds_QEQ12232.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12232.1] [location=<1..>266] [gbkey=CDS]
+58097 266 0
+0 lcl|MK578653.1_cds_QEQ12231.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12231.1] [location=<1..>266] [gbkey=CDS]
+58363 266 0
+0 lcl|MK578652.1_cds_QEQ12230.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12230.1] [location=<1..>266] [gbkey=CDS]
+58629 266 0
+0 lcl|MK578651.1_cds_QEQ12229.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12229.1] [location=<1..>266] [gbkey=CDS]
+58895 266 0
+0 lcl|MK578650.1_cds_QEQ12228.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12228.1] [location=<1..>266] [gbkey=CDS]
+59161 266 0
+0 lcl|MK578649.1_cds_QEQ12227.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12227.1] [location=<1..>266] [gbkey=CDS]
+59427 266 0
+0 lcl|MK578648.1_cds_QEQ12226.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12226.1] [location=<1..>266] [gbkey=CDS]
+59693 266 0
+0 lcl|MK578647.1_cds_QEQ12225.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12225.1] [location=<1..>266] [gbkey=CDS]
+59959 266 0
+0 lcl|MK578646.1_cds_QEQ12224.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12224.1] [location=<1..>266] [gbkey=CDS]
+60225 266 0
+0 lcl|MK578645.1_cds_QEQ12223.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12223.1] [location=<1..>266] [gbkey=CDS]
+60491 266 0
+0 lcl|MK578644.1_cds_QEQ12222.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12222.1] [location=<1..>266] [gbkey=CDS]
+60757 266 0
+0 lcl|MK578643.1_cds_QEQ12221.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12221.1] [location=<1..>266] [gbkey=CDS]
+61023 266 0
+0 lcl|MK578642.1_cds_QEQ12220.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12220.1] [location=<1..>266] [gbkey=CDS]
+61289 266 0
+0 lcl|MK578641.1_cds_QEQ12219.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12219.1] [location=<1..>266] [gbkey=CDS]
+61555 266 0
+0 lcl|MK578640.1_cds_QEQ12218.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12218.1] [location=<1..>266] [gbkey=CDS]
+61821 266 0
+0 lcl|MK578639.1_cds_QEQ12217.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12217.1] [location=<1..>266] [gbkey=CDS]
+62087 266 0
+0 lcl|MK578638.1_cds_QEQ12216.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12216.1] [location=<1..>266] [gbkey=CDS]
+62353 266 0
+0 lcl|MK578637.1_cds_QEQ12215.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12215.1] [location=<1..>266] [gbkey=CDS]
+62619 266 0
+0 lcl|MK578636.1_cds_QEQ12214.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12214.1] [location=<1..>266] [gbkey=CDS]
+62885 266 0
+0 lcl|MK578635.1_cds_QEQ12213.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12213.1] [location=<1..>266] [gbkey=CDS]
+63151 266 0
+0 lcl|MK578634.1_cds_QEQ12212.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12212.1] [location=<1..>266] [gbkey=CDS]
+63417 266 0
+0 lcl|MK578633.1_cds_QEQ12211.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12211.1] [location=<1..>266] [gbkey=CDS]
+63683 266 0
+0 lcl|MK578632.1_cds_QEQ12210.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12210.1] [location=<1..>266] [gbkey=CDS]
+63949 266 0
+0 lcl|MK578631.1_cds_QEQ12209.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12209.1] [location=<1..>266] [gbkey=CDS]
+64215 266 0
+0 lcl|MK578630.1_cds_QEQ12208.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12208.1] [location=<1..>266] [gbkey=CDS]
+64481 266 0
+0 lcl|MK578629.1_cds_QEQ12207.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12207.1] [location=<1..>266] [gbkey=CDS]
+64747 266 0
+0 lcl|MK578628.1_cds_QEQ12206.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12206.1] [location=<1..>266] [gbkey=CDS]
+65013 266 0
+0 lcl|MK578627.1_cds_QEQ12205.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12205.1] [location=<1..>266] [gbkey=CDS]
+65279 266 0
+0 lcl|MK578626.1_cds_QEQ12204.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12204.1] [location=<1..>266] [gbkey=CDS]
+65545 266 0
+0 lcl|MK578625.1_cds_QEQ12203.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12203.1] [location=<1..>266] [gbkey=CDS]
+65811 266 0
+0 lcl|MK578624.1_cds_QEQ12202.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12202.1] [location=<1..>266] [gbkey=CDS]
+66077 266 0
+0 lcl|MK578623.1_cds_QEQ12201.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12201.1] [location=<1..>266] [gbkey=CDS]
+66343 266 0
+0 lcl|MK578622.1_cds_QEQ12200.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QEQ12200.1] [location=<1..>266] [gbkey=CDS]
+66609 266 0
+0 lcl|MN148182.1_cds_QEN99194.1_1 [gene=parC] [protein=DNA topoisomerase 4 subunit A] [protein_id=QEN99194.1] [location=<1..>282] [gbkey=CDS]
+66875 282 0
+0 lcl|MN148181.1_cds_QEN99193.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QEN99193.1] [location=<1..>252] [gbkey=CDS]
+67157 252 0
+0 lcl|LC490691.1_cds_BBN21315.1_1 [gene=ParC] [protein=topoisomerase IV] [protein_id=BBN21315.1] [location=<1..>284] [gbkey=CDS]
+67409 284 0
+0 lcl|MK959321.1_cds_QCX20249.1_1 [gene=gyrA] [protein=DNA gyrase subunit A GyrA] [protein_id=QCX20249.1] [location=<1..>255] [gbkey=CDS]
+67693 255 0
+0 lcl|MK959320.1_cds_QCX20248.1_1 [gene=gyrA] [protein=DNA gyrase subunit A GyrA] [protein_id=QCX20248.1] [location=<1..>252] [gbkey=CDS]
+67948 252 0
+0 lcl|MK959323.1_cds_QCX20217.1_1 [gene=parC] [protein=DNA topoisomerase 4 subunit A ParC] [protein_id=QCX20217.1] [location=<1..>285] [gbkey=CDS]
+68200 285 0
+0 lcl|MK959322.1_cds_QCX20216.1_1 [gene=parC] [protein=DNA topoisomerase 4 subunit A ParC] [protein_id=QCX20216.1] [location=<1..>282] [gbkey=CDS]
+68485 282 0
+0 lcl|MK174289.1_cds_QBY97674.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QBY97674.1] [location=<1..>312] [gbkey=CDS]
+68767 312 0
+0 lcl|MK174288.1_cds_QBY97673.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QBY97673.1] [location=<1..>312] [gbkey=CDS]
+69079 312 0
+0 lcl|MK174287.1_cds_QBY97672.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=QBY97672.1] [location=<1..>312] [gbkey=CDS]
+69391 312 0
+0 lcl|MK174286.1_cds_QBY97671.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QBY97671.1] [location=<1..>413] [gbkey=CDS]
+69703 413 0
+0 lcl|MK174285.1_cds_QBY97670.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QBY97670.1] [location=<1..>413] [gbkey=CDS]
+70116 413 0
+0 lcl|MK174284.1_cds_QBY97669.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=QBY97669.1] [location=<1..>413] [gbkey=CDS]
+70529 413 0
+0 lcl|MH523403.1_cds_QBG81636.1_1 [gene=parC] [protein=ParC] [frame=2] [protein_id=QBG81636.1] [location=<1..>877] [gbkey=CDS]
+70942 876 0
+0 lcl|MH704891.1_cds_AXL94549.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94549.1] [location=<1..>584] [gbkey=CDS]
+71818 584 0
+0 lcl|MH704890.1_cds_AXL94548.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94548.1] [location=<1..>480] [gbkey=CDS]
+72402 480 0
+0 lcl|MH704889.1_cds_AXL94547.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94547.1] [location=<1..>570] [gbkey=CDS]
+72882 570 0
+0 lcl|MH704888.1_cds_AXL94546.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94546.1] [location=<1..>567] [gbkey=CDS]
+73452 567 0
+0 lcl|MH704887.1_cds_AXL94545.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94545.1] [location=<1..>564] [gbkey=CDS]
+74019 564 0
+0 lcl|MH704886.1_cds_AXL94544.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94544.1] [location=<1..>564] [gbkey=CDS]
+74583 564 0
+0 lcl|MH704885.1_cds_AXL94543.1_1 [gene=gyrA] [protein=DNA topoisomerase/ATP-hydrolyzing subunit A] [protein_id=AXL94543.1] [location=<1..>591] [gbkey=CDS]
+75147 591 0
+0 lcl|MH704884.1_cds_AXL94542.1_1 [gene=gyrA] [protein=DNA topoisomerase/ATP-hydrolyzing subunit A] [protein_id=AXL94542.1] [location=<1..>576] [gbkey=CDS]
+75738 576 0
+0 lcl|MH704883.1_cds_AXL94541.1_1 [gene=gyrA] [protein=DNA topoisomerase/ATP-hydrolyzing subunit A] [protein_id=AXL94541.1] [location=<1..>578] [gbkey=CDS]
+76314 578 0
+0 lcl|MH704882.1_cds_AXL94540.1_1 [gene=gyrA] [protein=DNA topoisomerase/ATP-hydrolyzing subunit A] [protein_id=AXL94540.1] [location=<1..>638] [gbkey=CDS]
+76892 638 0
+0 lcl|MH704881.1_cds_AXL94539.1_1 [gene=gyrA] [protein=DNA topoisomerase/ATP-hydrolyzing subunit A] [protein_id=AXL94539.1] [location=<1..>580] [gbkey=CDS]
+77530 580 0
+0 lcl|MH704880.1_cds_AXL94538.1_1 [gene=gyrA] [protein=DNA topoisomerase/ATP-hydrolyzing subunit A] [protein_id=AXL94538.1] [location=<1..>554] [gbkey=CDS]
+78110 554 0
+0 lcl|MH688034.1_cds_AXL94529.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94529.1] [location=<1..>597] [gbkey=CDS]
+78664 597 0
+0 lcl|MH688033.1_cds_AXL94528.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94528.1] [location=<1..>557] [gbkey=CDS]
+79261 557 0
+0 lcl|MH688032.1_cds_AXL94527.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94527.1] [location=<1..>593] [gbkey=CDS]
+79818 593 0
+0 lcl|MH688031.1_cds_AXL94526.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94526.1] [location=<1..>597] [gbkey=CDS]
+80411 597 0
+0 lcl|MH688030.1_cds_AXL94525.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94525.1] [location=<1..>574] [gbkey=CDS]
+81008 574 0
+0 lcl|MH688029.1_cds_AXL94524.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94524.1] [location=<1..>571] [gbkey=CDS]
+81582 571 0
+0 lcl|MH688028.1_cds_AXL94523.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94523.1] [location=<1..>581] [gbkey=CDS]
+82153 581 0
+0 lcl|MH688027.1_cds_AXL94522.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94522.1] [location=<1..>587] [gbkey=CDS]
+82734 587 0
+0 lcl|MH688026.1_cds_AXL94521.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94521.1] [location=<1..>577] [gbkey=CDS]
+83321 577 0
+0 lcl|MH688025.1_cds_AXL94520.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94520.1] [location=<1..>584] [gbkey=CDS]
+83898 584 0
+0 lcl|MH688024.1_cds_AXL94519.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94519.1] [location=<1..>578] [gbkey=CDS]
+84482 578 0
+0 lcl|MH688023.1_cds_AXL94518.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AXL94518.1] [location=<1..>584] [gbkey=CDS]
+85060 584 0
+0 lcl|MH688022.1_cds_AXL94517.1_1 [gene=gyrA] [protein=DNA topoisomerase (ATP-hydrolyzing) subunit A] [protein_id=AXL94517.1] [location=<1..>595] [gbkey=CDS]
+85644 595 0
+0 lcl|MH688021.1_cds_AXL94516.1_1 [gene=gyrA] [protein=DNA topoisomerase (ATP-hydrolyzing) subunit A] [protein_id=AXL94516.1] [location=<1..>548] [gbkey=CDS]
+86239 548 0
+0 lcl|MH688020.1_cds_AXL94515.1_1 [gene=gyrA] [protein=DNA topoisomerase (ATP-hydrolyzing) subunit A] [protein_id=AXL94515.1] [location=<1..>547] [gbkey=CDS]
+86787 547 0
+0 lcl|MH688019.1_cds_AXL94514.1_1 [gene=gyrA] [protein=DNA topoisomerase (ATP-hydrolyzing) subunit A] [protein_id=AXL94514.1] [location=<1..>592] [gbkey=CDS]
+87334 592 0
+0 lcl|MH688018.1_cds_AXL94513.1_1 [gene=gyrA] [protein=DNA topoisomerase (ATP-hydrolyzing) subunit A] [protein_id=AXL94513.1] [location=<1..>595] [gbkey=CDS]
+87926 595 0
+0 lcl|MH688017.1_cds_AXL94512.1_1 [gene=gyrA] [protein=DNA topoisomerase (ATP-hydrolyzing) subunit A] [protein_id=AXL94512.1] [location=<1..>595] [gbkey=CDS]
+88521 595 0
+0 lcl|MH688016.1_cds_AXL94511.1_1 [gene=gyrA] [protein=DNA topoisomerase (ATP-hydrolyzing) subunit A] [protein_id=AXL94511.1] [location=<1..>595] [gbkey=CDS]
+89116 595 0
+0 lcl|MH688015.1_cds_AXL94510.1_1 [gene=gyrA] [protein=DNA topoisomerase (ATP-hydrolyzing) subunit A] [protein_id=AXL94510.1] [location=<1..>605] [gbkey=CDS]
+89711 605 0
+0 lcl|MH688014.1_cds_AXL94509.1_1 [gene=gyrA] [protein=DNA topoisomerase (ATP-hydrolyzing) subunit A] [protein_id=AXL94509.1] [location=<1..>602] [gbkey=CDS]
+90316 602 0
+0 lcl|MH688013.1_cds_AXL94508.1_1 [gene=gyrA] [protein=DNA topoisomerase (ATP-hydrolyzing) subunit A] [protein_id=AXL94508.1] [location=<1..>601] [gbkey=CDS]
+90918 601 0
+0 lcl|MH688012.1_cds_AXL94507.1_1 [gene=gyrA] [protein=DNA topoisomerase (ATP-hydrolyzing) subunit A] [protein_id=AXL94507.1] [location=<1..>598] [gbkey=CDS]
+91519 598 0
+0 lcl|MH688011.1_cds_AXL94506.1_1 [gene=gyrA] [protein=DNA topoisomerase (ATP-hydrolyzing) subunit A] [protein_id=AXL94506.1] [location=<1..>597] [gbkey=CDS]
+92117 597 0
+0 lcl|KX817789.1_cds_AQQ10939.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AQQ10939.1] [location=<1..>568] [gbkey=CDS]
+92714 568 0
+0 lcl|KX817788.1_cds_AQQ10938.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AQQ10938.1] [location=<1..>624] [gbkey=CDS]
+93282 624 0
+0 lcl|KX817781.1_cds_AQQ10937.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AQQ10937.1] [location=<1..>570] [gbkey=CDS]
+93906 570 0
+0 lcl|KX817780.1_cds_AQQ10936.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AQQ10936.1] [location=<1..>630] [gbkey=CDS]
+94476 630 0
+0 lcl|KX817773.1_cds_AQQ10935.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AQQ10935.1] [location=<1..>577] [gbkey=CDS]
+95106 577 0
+0 lcl|KX817772.1_cds_AQQ10934.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AQQ10934.1] [location=<1..>218] [gbkey=CDS]
+95683 218 0
+0 lcl|KX817793.1_cds_AQQ10927.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AQQ10927.1] [location=<1..>242] [gbkey=CDS]
+95901 242 0
+0 lcl|KX817792.1_cds_AQQ10926.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AQQ10926.1] [location=<1..>248] [gbkey=CDS]
+96143 248 0
+0 lcl|KX817785.1_cds_AQQ10925.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AQQ10925.1] [location=<1..>232] [gbkey=CDS]
+96391 232 0
+0 lcl|KX817784.1_cds_AQQ10924.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AQQ10924.1] [location=<1..>248] [gbkey=CDS]
+96623 248 0
+0 lcl|KX817777.1_cds_AQQ10923.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AQQ10923.1] [location=<1..>249] [gbkey=CDS]
+96871 249 0
+0 lcl|KX817776.1_cds_AQQ10922.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AQQ10922.1] [location=<1..>244] [gbkey=CDS]
+97120 244 0
+0 lcl|MF462291.1_cds_AWN08359.1_1 [gene=parC] [protein=DNA topoisomerase IV] [protein_id=AWN08359.1] [location=<1..>366] [gbkey=CDS]
+97364 366 0
+0 lcl|MF462290.1_cds_AWN08358.1_1 [gene=parC] [protein=DNA topoisomerase IV] [protein_id=AWN08358.1] [location=<1..>372] [gbkey=CDS]
+97730 372 0
+0 lcl|MF374503.1_cds_AVP74293.1_1 [gene=parC] [protein=ParC] [protein_id=AVP74293.1] [location=<1..>440] [gbkey=CDS]
+98102 440 0
+0 lcl|MF374502.1_cds_AVP74292.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AVP74292.1] [location=<1..>513] [gbkey=CDS]
+98542 513 0
+0 lcl|MF288968.1_cds_AVP74291.1_1 [gene=parC] [protein=ParC] [protein_id=AVP74291.1] [location=<1..>471] [gbkey=CDS]
+99055 471 0
+0 lcl|MF288967.1_cds_AVP74290.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AVP74290.1] [location=1..>530] [gbkey=CDS]
+99526 530 0
+0 lcl|KM675929.1_cds_AKN91197.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit C] [protein_id=AKN91197.1] [location=<1..>816] [gbkey=CDS]
+100056 816 0
+0 lcl|KM675928.1_cds_AKN91196.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit C] [protein_id=AKN91196.1] [location=<1..>816] [gbkey=CDS]
+100872 816 0
+0 lcl|KM675927.1_cds_AKN91195.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit C] [protein_id=AKN91195.1] [location=<1..>816] [gbkey=CDS]
+101688 816 0
+0 lcl|MF039632.1_cds_ATX64251.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=ATX64251.1] [location=<1..>601] [gbkey=CDS]
+102504 600 0
+0 lcl|MF039631.1_cds_ATX64250.1_1 [gene=gyrA] [protein=DNA gyrase] [protein_id=ATX64250.1] [location=<1..>571] [gbkey=CDS]
+103104 571 0
+0 lcl|MF139048.1_cds_ATX64236.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=ATX64236.1] [location=<1..>213] [gbkey=CDS]
+103675 213 0
+0 lcl|MF139047.1_cds_ATX64235.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [frame=2] [protein_id=ATX64235.1] [location=<1..>213] [gbkey=CDS]
+103888 212 0
+0 lcl|MF139043.1_cds_ATX64234.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=ATX64234.1] [location=<1..>567] [gbkey=CDS]
+104100 567 0
+0 lcl|MF139042.1_cds_ATX64233.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=ATX64233.1] [location=<1..>567] [gbkey=CDS]
+104667 567 0
+0 lcl|MF139046.1_cds_ATX64232.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=ATX64232.1] [location=<1..>600] [gbkey=CDS]
+105234 599 0
+0 lcl|MF139045.1_cds_ATX64231.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=ATX64231.1] [location=<1..>537] [gbkey=CDS]
+105833 537 0
+0 lcl|MF139044.1_cds_ATX64230.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=ATX64230.1] [location=<1..>567] [gbkey=CDS]
+106370 567 0
+0 lcl|KY308189.1_cds_ASU87391.1_1 [gene=parC] [protein=ParC] [frame=2] [protein_id=ASU87391.1] [location=<1..>688] [gbkey=CDS]
+106937 687 0
+0 lcl|KY753823.1_cds_ASR73650.1_1 [gene=gyrA] [protein=DNA gyrase A subunit] [protein_id=ASR73650.1] [location=388..>447] [gbkey=CDS]
+107624 60 0
+0 lcl|KY753821.1_cds_ASR73648.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit] [frame=2] [protein_id=ASR73648.1] [location=<1..>395] [gbkey=CDS]
+107684 394 0
+0 lcl|KX583671.1_cds_AQA28818.1_1 [gene=parC] [protein=DNA topoisomerase IV, subunit A] [protein_id=AQA28818.1] [location=<1..>250] [gbkey=CDS]
+108078 250 0
+0 lcl|KX583670.1_cds_AQA28817.1_1 [gene=parC] [protein=DNA topoisomerase IV, subunit A] [protein_id=AQA28817.1] [location=<1..>245] [gbkey=CDS]
+108328 245 0
+0 lcl|KX583669.1_cds_AQA28816.1_1 [gene=parC] [protein=DNA topoisomerase IV, subunit A] [protein_id=AQA28816.1] [location=<1..>239] [gbkey=CDS]
+108573 239 0
+0 lcl|KX583668.1_cds_AQA28815.1_1 [gene=parC] [protein=DNA topoisomerase IV, subunit A] [protein_id=AQA28815.1] [location=<1..>245] [gbkey=CDS]
+108812 245 0
+0 lcl|KX583663.1_cds_AQA28814.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=AQA28814.1] [location=<1..>631] [gbkey=CDS]
+109057 631 0
+0 lcl|KX583662.1_cds_AQA28813.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=AQA28813.1] [location=<1..>631] [gbkey=CDS]
+109688 631 0
+0 lcl|KX583661.1_cds_AQA28812.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=AQA28812.1] [location=<1..>632] [gbkey=CDS]
+110319 632 0
+0 lcl|KX583660.1_cds_AQA28811.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=AQA28811.1] [location=<1..>585] [gbkey=CDS]
+110951 585 0
+0 lcl|KU586880.1_cds_AQA28743.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AQA28743.1] [location=<1..>249] [gbkey=CDS]
+111536 249 0
+0 lcl|KU586879.1_cds_AQA28742.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AQA28742.1] [location=<1..>246] [gbkey=CDS]
+111785 246 0
+0 lcl|KU586878.1_cds_AQA28741.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AQA28741.1] [location=<1..>246] [gbkey=CDS]
+112031 246 0
+0 lcl|KU586877.1_cds_AQA28740.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AQA28740.1] [location=<1..>246] [gbkey=CDS]
+112277 246 0
+0 lcl|KU586876.1_cds_AQA28739.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AQA28739.1] [location=<1..>246] [gbkey=CDS]
+112523 246 0
+0 lcl|KU586875.1_cds_AQA28738.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AQA28738.1] [location=<1..>246] [gbkey=CDS]
+112769 246 0
+0 lcl|KU586874.1_cds_AQA28737.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AQA28737.1] [location=<1..>246] [gbkey=CDS]
+113015 246 0
+0 lcl|KU586873.1_cds_AQA28736.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AQA28736.1] [location=<1..>246] [gbkey=CDS]
+113261 246 0
+0 lcl|KU586872.1_cds_AQA28735.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AQA28735.1] [location=<1..>246] [gbkey=CDS]
+113507 246 0
+0 lcl|KU586848.1_cds_AQA28711.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AQA28711.1] [location=<1..>645] [gbkey=CDS]
+113753 645 0
+0 lcl|KU586847.1_cds_AQA28710.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AQA28710.1] [location=<1..>645] [gbkey=CDS]
+114398 645 0
+0 lcl|KU586846.1_cds_AQA28709.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AQA28709.1] [location=<1..>645] [gbkey=CDS]
+115043 645 0
+0 lcl|KU586845.1_cds_AQA28708.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AQA28708.1] [location=<1..>645] [gbkey=CDS]
+115688 645 0
+0 lcl|KU586844.1_cds_AQA28707.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AQA28707.1] [location=<1..>645] [gbkey=CDS]
+116333 645 0
+0 lcl|KU586843.1_cds_AQA28706.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AQA28706.1] [location=<1..>645] [gbkey=CDS]
+116978 645 0
+0 lcl|KU586842.1_cds_AQA28705.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AQA28705.1] [location=<1..>645] [gbkey=CDS]
+117623 645 0
+0 lcl|KU586841.1_cds_AQA28704.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AQA28704.1] [location=<1..>645] [gbkey=CDS]
+118268 645 0
+0 lcl|KU586840.1_cds_AQA28703.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AQA28703.1] [location=<1..>645] [gbkey=CDS]
+118913 645 0
+0 lcl|KX169190.1_cds_APU94749.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=APU94749.1] [location=<1..>213] [gbkey=CDS]
+119558 213 0
+0 lcl|KX169189.1_cds_APU94748.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=APU94748.1] [location=<1..>218] [gbkey=CDS]
+119771 218 0
+0 lcl|KX169187.1_cds_APU94747.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=APU94747.1] [location=<1..>213] [gbkey=CDS]
+119989 213 0
+0 lcl|KX169186.1_cds_APU94746.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=APU94746.1] [location=<1..>211] [gbkey=CDS]
+120202 211 0
+0 lcl|KX169183.1_cds_APU94745.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=APU94745.1] [location=<1..>209] [gbkey=CDS]
+120413 209 0
+0 lcl|KX169188.1_cds_APU94744.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=APU94744.1] [location=<1..>614] [gbkey=CDS]
+120622 614 0
+0 lcl|KX169185.1_cds_APU94743.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=APU94743.1] [location=<1..>614] [gbkey=CDS]
+121236 614 0
+0 lcl|KX169184.1_cds_APU94742.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=APU94742.1] [location=<1..>566] [gbkey=CDS]
+121850 566 0
+0 lcl|L03728.1_cds_AAA91496.1_1 [gene=parB] [protein_id=AAA91496.1] [location=complement(<1..258)] [gbkey=CDS]
+122416 258 0
+0 lcl|L03728.1_cds_AAA91497.1_2 [gene=parC] [protein_id=AAA91497.1] [location=complement(255..548)] [gbkey=CDS]
+122674 294 0
+0 lcl|L03728.1_cds_AAA91498.1_3 [gene=parD] [protein_id=AAA91498.1] [location=699..950] [gbkey=CDS]
+122968 252 0
+0 lcl|EU561348.1_cds_ACC68679.1_1 [gene=parC] [protein=ParC] [frame=2] [protein_id=ACC68679.1] [location=<1..>386] [gbkey=CDS]
+123220 385 0
+0 lcl|EU513000.1_cds_ACB71407.1_1 [gene=parC] [protein=ParC] [protein_id=ACB71407.1] [location=<1..>390] [gbkey=CDS]
+123605 390 0
+0 lcl|EU512999.1_cds_ACB71406.1_1 [gene=parC] [protein=ParC] [protein_id=ACB71406.1] [location=<1..>380] [gbkey=CDS]
+123995 380 0
+0 lcl|EU512998.1_cds_ACB71405.1_1 [gene=parC] [protein=ParC] [protein_id=ACB71405.1] [location=<1..>390] [gbkey=CDS]
+124375 390 0
+0 lcl|EU512996.1_cds_ACB71403.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ACB71403.1] [location=<1..>456] [gbkey=CDS]
+124765 456 0
+0 lcl|EU512995.1_cds_ACB71402.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ACB71402.1] [location=<1..>449] [gbkey=CDS]
+125221 449 0
+0 lcl|EU447176.1_cds_ACA42555.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=ACA42555.1] [location=<1..>264] [gbkey=CDS]
+125670 264 0
+0 lcl|EU447174.1_cds_ACA42553.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=ACA42553.1] [location=<1..>266] [gbkey=CDS]
+125934 266 0
+0 lcl|EU305702.1_cds_ABY55552.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ABY55552.1] [location=complement(<1..>2049)] [gbkey=CDS]
+126200 2049 0
+0 lcl|EU281544.1_cds_ABX76740.1_1 [gene=parC] [protein=ParC] [protein_id=ABX76740.1] [location=1..>402] [gbkey=CDS]
+128249 402 0
+0 lcl|AY065817.1_cds_AAL67648.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit] [frame=3] [protein_id=AAL67648.1] [location=<1..>361] [gbkey=CDS]
+128651 359 0
+0 lcl|AY065816.1_cds_AAL67647.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit] [frame=3] [protein_id=AAL67647.1] [location=<1..>361] [gbkey=CDS]
+129010 359 0
+0 lcl|AY065815.1_cds_AAL67646.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit] [frame=3] [protein_id=AAL67646.1] [location=<1..>361] [gbkey=CDS]
+129369 359 0
+0 lcl|AY065814.1_cds_AAL67645.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit] [frame=3] [protein_id=AAL67645.1] [location=<1..>361] [gbkey=CDS]
+129728 359 0
+0 lcl|AY065813.1_cds_AAL67644.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit] [frame=3] [protein_id=AAL67644.1] [location=<1..>361] [gbkey=CDS]
+130087 359 0
+0 lcl|AY065812.1_cds_AAL67643.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit] [frame=3] [protein_id=AAL67643.1] [location=<1..>361] [gbkey=CDS]
+130446 359 0
+0 lcl|AY065811.1_cds_AAL67642.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit] [frame=3] [protein_id=AAL67642.1] [location=<1..>361] [gbkey=CDS]
+130805 359 0
+0 lcl|AY065810.1_cds_AAL67641.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit] [frame=3] [protein_id=AAL67641.1] [location=<1..>361] [gbkey=CDS]
+131164 359 0
+0 lcl|AY065809.1_cds_AAL67640.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit] [frame=3] [protein_id=AAL67640.1] [location=<1..>361] [gbkey=CDS]
+131523 359 0
+0 lcl|AY065799.1_cds_AAL67630.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AAL67630.1] [location=<1..>274] [gbkey=CDS]
+131882 272 0
+0 lcl|AY065798.1_cds_AAL67629.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AAL67629.1] [location=<1..>274] [gbkey=CDS]
+132154 272 0
+0 lcl|AY065797.1_cds_AAL67628.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AAL67628.1] [location=<1..>274] [gbkey=CDS]
+132426 272 0
+0 lcl|AY065796.1_cds_AAL67627.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AAL67627.1] [location=<1..>274] [gbkey=CDS]
+132698 272 0
+0 lcl|AY065795.1_cds_AAL67626.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AAL67626.1] [location=<1..>274] [gbkey=CDS]
+132970 272 0
+0 lcl|AY065794.1_cds_AAL67625.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AAL67625.1] [location=<1..>274] [gbkey=CDS]
+133242 272 0
+0 lcl|AY065793.1_cds_AAL67624.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AAL67624.1] [location=<1..>274] [gbkey=CDS]
+133514 272 0
+0 lcl|AY065792.1_cds_AAL67623.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AAL67623.1] [location=<1..>274] [gbkey=CDS]
+133786 272 0
+0 lcl|AY065791.1_cds_AAL67622.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AAL67622.1] [location=<1..>274] [gbkey=CDS]
+134058 272 0
+0 lcl|KU880542.1_cds_AOV18908.1_1 [gene=parC] [protein=DNA topoisomerase subunit A] [protein_id=AOV18908.1] [location=<1..>420] [gbkey=CDS]
+134330 420 0
+0 lcl|KU880541.1_cds_AOV18907.1_1 [gene=parC] [protein=DNA topoisomerase subunit A] [protein_id=AOV18907.1] [location=<1..>420] [gbkey=CDS]
+134750 420 0
+0 lcl|KU880540.1_cds_AOV18906.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AOV18906.1] [location=<1..>487] [gbkey=CDS]
+135170 487 0
+0 lcl|KU880539.1_cds_AOV18905.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AOV18905.1] [location=<1..>487] [gbkey=CDS]
+135657 487 0
+0 lcl|KU880538.1_cds_AOV18904.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AOV18904.1] [location=<1..>487] [gbkey=CDS]
+136144 487 0
+0 lcl|KX587467.1_cds_ANW09945.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=ANW09945.1] [location=complement(<1..>582)] [gbkey=CDS]
+136631 582 0
+0 lcl|JF313472.1_cds_AEN75345.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AEN75345.1] [location=<1..>348] [gbkey=CDS]
+137213 348 0
+0 lcl|JF339986.1_cds_AEN75336.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=3] [protein_id=AEN75336.1] [location=<1..>606] [gbkey=CDS]
+137561 604 0
+0 lcl|DQ447148.1_cds_ABE11593.1_1 [gene=parC] [protein=ParC] [protein_id=ABE11593.1] [location=<1..>324] [gbkey=CDS]
+138165 324 0
+0 lcl|DQ447147.1_cds_ABE11592.1_1 [gene=parC] [protein=ParC] [protein_id=ABE11592.1] [location=<1..>324] [gbkey=CDS]
+138489 324 0
+0 lcl|DQ447146.1_cds_ABE11591.1_1 [gene=parC] [protein=ParC] [protein_id=ABE11591.1] [location=<1..>324] [gbkey=CDS]
+138813 324 0
+0 lcl|DQ447145.1_cds_ABE11590.1_1 [gene=parC] [protein=ParC] [protein_id=ABE11590.1] [location=<1..>324] [gbkey=CDS]
+139137 324 0
+0 lcl|DQ447144.1_cds_ABE11589.1_1 [gene=parC] [protein=ParC] [protein_id=ABE11589.1] [location=<1..>315] [gbkey=CDS]
+139461 315 0
+0 lcl|DQ447143.1_cds_ABE11588.1_1 [gene=parC] [protein=ParC] [protein_id=ABE11588.1] [location=<1..>204] [gbkey=CDS]
+139776 204 0
+0 lcl|DQ447142.1_cds_ABE11587.1_1 [gene=parC] [protein=ParC] [protein_id=ABE11587.1] [location=<1..>324] [gbkey=CDS]
+139980 324 0
+0 lcl|DQ447141.1_cds_ABE11586.1_1 [gene=parC] [protein=ParC] [protein_id=ABE11586.1] [location=<1..>321] [gbkey=CDS]
+140304 321 0
+0 lcl|DQ447140.1_cds_ABE11585.1_1 [gene=parC] [protein=ParC] [protein_id=ABE11585.1] [location=<1..>324] [gbkey=CDS]
+140625 324 0
+0 lcl|DQ447139.1_cds_ABE11584.1_1 [gene=parC] [protein=ParC] [protein_id=ABE11584.1] [location=<1..>315] [gbkey=CDS]
+140949 315 0
+0 lcl|DQ447138.1_cds_ABE11583.1_1 [gene=parC] [protein=ParC] [protein_id=ABE11583.1] [location=<1..>324] [gbkey=CDS]
+141264 324 0
+0 lcl|DQ447137.1_cds_ABE11582.1_1 [gene=parC] [protein=ParC] [protein_id=ABE11582.1] [location=<1..>324] [gbkey=CDS]
+141588 324 0
+0 lcl|DQ447136.1_cds_ABE11581.1_1 [gene=parC] [protein=ParC] [protein_id=ABE11581.1] [location=<1..>324] [gbkey=CDS]
+141912 324 0
+0 lcl|DQ447135.1_cds_ABE11580.1_1 [gene=parC] [protein=ParC] [protein_id=ABE11580.1] [location=<1..>324] [gbkey=CDS]
+142236 324 0
+0 lcl|DQ447134.1_cds_ABE11579.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ABE11579.1] [location=1..>633] [gbkey=CDS]
+142560 633 0
+0 lcl|DQ447133.1_cds_ABE11578.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ABE11578.1] [location=1..>633] [gbkey=CDS]
+143193 633 0
+0 lcl|DQ447132.1_cds_ABE11577.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ABE11577.1] [location=1..>633] [gbkey=CDS]
+143826 633 0
+0 lcl|DQ447131.1_cds_ABE11576.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ABE11576.1] [location=1..>633] [gbkey=CDS]
+144459 633 0
+0 lcl|DQ447130.1_cds_ABE11575.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ABE11575.1] [location=1..>633] [gbkey=CDS]
+145092 633 0
+0 lcl|DQ447129.1_cds_ABE11574.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ABE11574.1] [location=1..>633] [gbkey=CDS]
+145725 633 0
+0 lcl|DQ447128.1_cds_ABE11573.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ABE11573.1] [location=1..>633] [gbkey=CDS]
+146358 633 0
+0 lcl|DQ447127.1_cds_ABE11572.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ABE11572.1] [location=1..>633] [gbkey=CDS]
+146991 633 0
+0 lcl|DQ447126.1_cds_ABE11571.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ABE11571.1] [location=1..>633] [gbkey=CDS]
+147624 633 0
+0 lcl|DQ447125.1_cds_ABE11570.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ABE11570.1] [location=1..>633] [gbkey=CDS]
+148257 633 0
+0 lcl|DQ447124.1_cds_ABE11569.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ABE11569.1] [location=1..>633] [gbkey=CDS]
+148890 633 0
+0 lcl|DQ447123.1_cds_ABE11568.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ABE11568.1] [location=1..>633] [gbkey=CDS]
+149523 633 0
+0 lcl|DQ447122.1_cds_ABE11567.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ABE11567.1] [location=1..>633] [gbkey=CDS]
+150156 633 0
+0 lcl|DQ447121.1_cds_ABE11566.1_1 [gene=gyrA] [protein=GyrA] [protein_id=ABE11566.1] [location=1..>633] [gbkey=CDS]
+150789 633 0
+0 lcl|AY776325.1_cds_AAX48948.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=AAX48948.1] [location=<1..>362] [gbkey=CDS]
+151422 362 0
+0 lcl|AY776324.1_cds_AAX48947.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=AAX48947.1] [location=<1..>362] [gbkey=CDS]
+151784 362 0
+0 lcl|AY776323.1_cds_AAX48946.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=AAX48946.1] [location=<1..>362] [gbkey=CDS]
+152146 362 0
+0 lcl|AY776322.1_cds_AAX48945.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=AAX48945.1] [location=<1..>362] [gbkey=CDS]
+152508 362 0
+0 lcl|AY776321.1_cds_AAX48944.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=AAX48944.1] [location=<1..>362] [gbkey=CDS]
+152870 362 0
+0 lcl|AY776320.1_cds_AAX48943.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=AAX48943.1] [location=<1..>362] [gbkey=CDS]
+153232 362 0
+0 lcl|AY776319.1_cds_AAX48942.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=AAX48942.1] [location=<1..>362] [gbkey=CDS]
+153594 362 0
+0 lcl|AY695832.1_cds_AAU88061.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=AAU88061.1] [location=<1..>594] [gbkey=CDS]
+153956 594 0
+0 lcl|AY695831.1_cds_AAU88060.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=AAU88060.1] [location=<1..>594] [gbkey=CDS]
+154550 594 0
+0 lcl|AY695830.1_cds_AAU88059.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=AAU88059.1] [location=<1..>594] [gbkey=CDS]
+155144 594 0
+0 lcl|AY695829.1_cds_AAU88058.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=AAU88058.1] [location=<1..>594] [gbkey=CDS]
+155738 594 0
+0 lcl|AY692484.1_cds_AAU88057.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=AAU88057.1] [location=<1..>594] [gbkey=CDS]
+156332 594 0
+0 lcl|AY692483.1_cds_AAU88056.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=AAU88056.1] [location=<1..>594] [gbkey=CDS]
+156926 594 0
+0 lcl|AY692482.1_cds_AAU88055.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=AAU88055.1] [location=<1..>594] [gbkey=CDS]
+157520 594 0
+0 lcl|AY692481.1_cds_AAU88054.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=AAU88054.1] [location=<1..>594] [gbkey=CDS]
+158114 594 0
+0 lcl|AY692480.1_cds_AAU88053.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=AAU88053.1] [location=<1..>594] [gbkey=CDS]
+158708 594 0
+0 lcl|AY648053.1_cds_AAT66071.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [frame=3] [protein_id=AAT66071.1] [location=<1..>209] [gbkey=CDS]
+159302 207 0
+0 lcl|AY648051.1_cds_AAT66069.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=3] [protein_id=AAT66069.1] [location=<1..>581] [gbkey=CDS]
+159509 579 0
+0 lcl|AY301148.1_cds_AAQ96042.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AAQ96042.1] [location=<1..>738] [gbkey=CDS]
+160088 738 0
+0 lcl|AY301147.1_cds_AAQ96041.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AAQ96041.1] [location=<1..>738] [gbkey=CDS]
+160826 738 0
+0 lcl|AY301146.1_cds_AAQ96040.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AAQ96040.1] [location=<1..>738] [gbkey=CDS]
+161564 738 0
+0 lcl|AY301145.1_cds_AAQ96039.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AAQ96039.1] [location=<1..>738] [gbkey=CDS]
+162302 738 0
+0 lcl|AY301144.1_cds_AAQ96038.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AAQ96038.1] [location=<1..>738] [gbkey=CDS]
+163040 738 0
+0 lcl|AY301143.1_cds_AAQ96037.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AAQ96037.1] [location=<1..>738] [gbkey=CDS]
+163778 738 0
+0 lcl|AY323807.1_cds_AAQ79819.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AAQ79819.1] [location=<1..>238] [gbkey=CDS]
+164516 238 0
+0 lcl|AY323806.1_cds_AAQ79818.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AAQ79818.1] [location=<1..>238] [gbkey=CDS]
+164754 238 0
+0 lcl|AY323805.1_cds_AAQ79817.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AAQ79817.1] [location=<1..>238] [gbkey=CDS]
+164992 238 0
+0 lcl|AF038431.1_cds_AAD22382.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=AAD22382.1] [location=<1..>180] [gbkey=CDS]
+165230 180 0
+0 lcl|KX525207.1_cds_ANT84577.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=3] [protein_id=ANT84577.1] [location=<1..>557] [gbkey=CDS]
+165410 555 0
+0 lcl|KX525206.1_cds_ANT84576.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ANT84576.1] [location=<1..>596] [gbkey=CDS]
+165965 595 0
+0 lcl|KX525205.1_cds_ANT84575.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ANT84575.1] [location=<1..>563] [gbkey=CDS]
+166560 562 0
+0 lcl|KX525213.1_cds_ANT84571.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=ANT84571.1] [location=<1..>262] [gbkey=CDS]
+167122 262 0
+0 lcl|KX525212.1_cds_ANT84570.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [frame=3] [protein_id=ANT84570.1] [location=<1..>238] [gbkey=CDS]
+167384 236 0
+0 lcl|KX525211.1_cds_ANT84569.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [frame=3] [protein_id=ANT84569.1] [location=<1..>260] [gbkey=CDS]
+167620 258 0
+0 lcl|HM753589.1_cds_ADQ53543.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=ADQ53543.1] [location=<1..>340] [gbkey=CDS]
+167878 340 0
+0 lcl|HM753588.1_cds_ADQ53542.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=ADQ53542.1] [location=<1..>340] [gbkey=CDS]
+168218 340 0
+0 lcl|GQ869777.1_cds_ADN34572.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34572.1] [location=<1..>532] [gbkey=CDS]
+168558 531 0
+0 lcl|GQ869776.1_cds_ADN34571.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34571.1] [location=<1..>532] [gbkey=CDS]
+169089 531 0
+0 lcl|GQ869775.1_cds_ADN34570.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34570.1] [location=<1..>532] [gbkey=CDS]
+169620 531 0
+0 lcl|GQ869774.1_cds_ADN34569.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34569.1] [location=<1..>532] [gbkey=CDS]
+170151 531 0
+0 lcl|GQ869773.1_cds_ADN34568.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34568.1] [location=<1..>532] [gbkey=CDS]
+170682 531 0
+0 lcl|GQ869772.1_cds_ADN34567.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34567.1] [location=<1..>532] [gbkey=CDS]
+171213 531 0
+0 lcl|GQ869771.1_cds_ADN34566.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34566.1] [location=<1..>532] [gbkey=CDS]
+171744 531 0
+0 lcl|GQ869770.1_cds_ADN34565.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34565.1] [location=<1..>532] [gbkey=CDS]
+172275 531 0
+0 lcl|GQ869769.1_cds_ADN34564.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34564.1] [location=<1..>532] [gbkey=CDS]
+172806 531 0
+0 lcl|GQ869768.1_cds_ADN34563.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34563.1] [location=<1..>532] [gbkey=CDS]
+173337 531 0
+0 lcl|GQ869767.1_cds_ADN34562.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34562.1] [location=<1..>532] [gbkey=CDS]
+173868 531 0
+0 lcl|GQ869766.1_cds_ADN34561.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34561.1] [location=<1..>532] [gbkey=CDS]
+174399 531 0
+0 lcl|GQ869765.1_cds_ADN34560.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34560.1] [location=<1..>532] [gbkey=CDS]
+174930 531 0
+0 lcl|GQ869764.1_cds_ADN34559.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34559.1] [location=<1..>532] [gbkey=CDS]
+175461 531 0
+0 lcl|GQ869763.1_cds_ADN34558.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34558.1] [location=<1..>532] [gbkey=CDS]
+175992 531 0
+0 lcl|GQ869762.1_cds_ADN34557.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34557.1] [location=<1..>532] [gbkey=CDS]
+176523 531 0
+0 lcl|GQ869761.1_cds_ADN34556.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34556.1] [location=<1..>532] [gbkey=CDS]
+177054 531 0
+0 lcl|GQ869760.1_cds_ADN34555.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34555.1] [location=<1..>532] [gbkey=CDS]
+177585 531 0
+0 lcl|GQ869759.1_cds_ADN34554.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34554.1] [location=<1..>532] [gbkey=CDS]
+178116 531 0
+0 lcl|GQ869758.1_cds_ADN34553.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34553.1] [location=<1..>532] [gbkey=CDS]
+178647 531 0
+0 lcl|GQ869757.1_cds_ADN34552.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34552.1] [location=<1..>532] [gbkey=CDS]
+179178 531 0
+0 lcl|GQ869756.1_cds_ADN34551.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34551.1] [location=<1..>532] [gbkey=CDS]
+179709 531 0
+0 lcl|GQ869755.1_cds_ADN34550.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34550.1] [location=<1..>532] [gbkey=CDS]
+180240 531 0
+0 lcl|GQ869754.1_cds_ADN34549.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34549.1] [location=<1..>532] [gbkey=CDS]
+180771 531 0
+0 lcl|GQ869753.1_cds_ADN34548.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34548.1] [location=<1..>532] [gbkey=CDS]
+181302 531 0
+0 lcl|GQ869752.1_cds_ADN34547.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34547.1] [location=<1..>532] [gbkey=CDS]
+181833 531 0
+0 lcl|GQ869751.1_cds_ADN34546.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34546.1] [location=<1..>532] [gbkey=CDS]
+182364 531 0
+0 lcl|GQ869750.1_cds_ADN34545.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34545.1] [location=<1..>532] [gbkey=CDS]
+182895 531 0
+0 lcl|GQ869749.1_cds_ADN34544.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34544.1] [location=<1..>532] [gbkey=CDS]
+183426 531 0
+0 lcl|GQ869748.1_cds_ADN34543.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34543.1] [location=<1..>532] [gbkey=CDS]
+183957 531 0
+0 lcl|GQ869747.1_cds_ADN34542.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34542.1] [location=<1..>532] [gbkey=CDS]
+184488 531 0
+0 lcl|GQ869746.1_cds_ADN34541.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34541.1] [location=<1..>532] [gbkey=CDS]
+185019 531 0
+0 lcl|GQ869745.1_cds_ADN34540.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34540.1] [location=<1..>532] [gbkey=CDS]
+185550 531 0
+0 lcl|GQ869744.1_cds_ADN34539.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34539.1] [location=<1..>532] [gbkey=CDS]
+186081 531 0
+0 lcl|GQ869743.1_cds_ADN34538.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34538.1] [location=<1..>532] [gbkey=CDS]
+186612 531 0
+0 lcl|GQ869742.1_cds_ADN34537.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34537.1] [location=<1..>532] [gbkey=CDS]
+187143 531 0
+0 lcl|GQ869741.1_cds_ADN34536.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34536.1] [location=<1..>532] [gbkey=CDS]
+187674 531 0
+0 lcl|GQ869740.1_cds_ADN34535.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34535.1] [location=<1..>532] [gbkey=CDS]
+188205 531 0
+0 lcl|GQ869739.1_cds_ADN34534.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34534.1] [location=<1..>532] [gbkey=CDS]
+188736 531 0
+0 lcl|GQ869738.1_cds_ADN34533.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34533.1] [location=<1..>532] [gbkey=CDS]
+189267 531 0
+0 lcl|GQ869737.1_cds_ADN34532.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34532.1] [location=<1..>532] [gbkey=CDS]
+189798 531 0
+0 lcl|GQ869736.1_cds_ADN34531.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34531.1] [location=<1..>532] [gbkey=CDS]
+190329 531 0
+0 lcl|GQ869735.1_cds_ADN34530.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34530.1] [location=<1..>532] [gbkey=CDS]
+190860 531 0
+0 lcl|GQ869734.1_cds_ADN34529.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34529.1] [location=<1..>532] [gbkey=CDS]
+191391 531 0
+0 lcl|GQ869733.1_cds_ADN34528.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34528.1] [location=<1..>532] [gbkey=CDS]
+191922 531 0
+0 lcl|GQ869732.1_cds_ADN34527.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34527.1] [location=<1..>532] [gbkey=CDS]
+192453 531 0
+0 lcl|GQ869731.1_cds_ADN34526.1_1 [gene=parC] [protein=DNA topoisomerase IV] [frame=2] [protein_id=ADN34526.1] [location=<1..>532] [gbkey=CDS]
+192984 531 0
+0 lcl|GQ869730.1_cds_ADN34525.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34525.1] [location=<1..>626] [gbkey=CDS]
+193515 625 0
+0 lcl|GQ869729.1_cds_ADN34524.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34524.1] [location=<1..>626] [gbkey=CDS]
+194140 625 0
+0 lcl|GQ869728.1_cds_ADN34523.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34523.1] [location=<1..>626] [gbkey=CDS]
+194765 625 0
+0 lcl|GQ869727.1_cds_ADN34522.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34522.1] [location=<1..>626] [gbkey=CDS]
+195390 625 0
+0 lcl|GQ869726.1_cds_ADN34521.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34521.1] [location=<1..>626] [gbkey=CDS]
+196015 625 0
+0 lcl|GQ869725.1_cds_ADN34520.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34520.1] [location=<1..>626] [gbkey=CDS]
+196640 625 0
+0 lcl|GQ869724.1_cds_ADN34519.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34519.1] [location=<1..>626] [gbkey=CDS]
+197265 625 0
+0 lcl|GQ869723.1_cds_ADN34518.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34518.1] [location=<1..>626] [gbkey=CDS]
+197890 625 0
+0 lcl|GQ869722.1_cds_ADN34517.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34517.1] [location=<1..>626] [gbkey=CDS]
+198515 625 0
+0 lcl|GQ869721.1_cds_ADN34516.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34516.1] [location=<1..>626] [gbkey=CDS]
+199140 625 0
+0 lcl|GQ869720.1_cds_ADN34515.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34515.1] [location=<1..>626] [gbkey=CDS]
+199765 625 0
+0 lcl|GQ869719.1_cds_ADN34514.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34514.1] [location=<1..>626] [gbkey=CDS]
+200390 625 0
+0 lcl|GQ869718.1_cds_ADN34513.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34513.1] [location=<1..>626] [gbkey=CDS]
+201015 625 0
+0 lcl|GQ869717.1_cds_ADN34512.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34512.1] [location=<1..>626] [gbkey=CDS]
+201640 625 0
+0 lcl|GQ869716.1_cds_ADN34511.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34511.1] [location=<1..>626] [gbkey=CDS]
+202265 625 0
+0 lcl|GQ869715.1_cds_ADN34510.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34510.1] [location=<1..>626] [gbkey=CDS]
+202890 625 0
+0 lcl|GQ869714.1_cds_ADN34509.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34509.1] [location=<1..>626] [gbkey=CDS]
+203515 625 0
+0 lcl|GQ869713.1_cds_ADN34508.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34508.1] [location=<1..>626] [gbkey=CDS]
+204140 625 0
+0 lcl|GQ869712.1_cds_ADN34507.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34507.1] [location=<1..>626] [gbkey=CDS]
+204765 625 0
+0 lcl|GQ869711.1_cds_ADN34506.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34506.1] [location=<1..>626] [gbkey=CDS]
+205390 625 0
+0 lcl|GQ869710.1_cds_ADN34505.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34505.1] [location=<1..>626] [gbkey=CDS]
+206015 625 0
+0 lcl|GQ869709.1_cds_ADN34504.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34504.1] [location=<1..>626] [gbkey=CDS]
+206640 625 0
+0 lcl|GQ869708.1_cds_ADN34503.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34503.1] [location=<1..>626] [gbkey=CDS]
+207265 625 0
+0 lcl|GQ869707.1_cds_ADN34502.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34502.1] [location=<1..>626] [gbkey=CDS]
+207890 625 0
+0 lcl|GQ869706.1_cds_ADN34501.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34501.1] [location=<1..>626] [gbkey=CDS]
+208515 625 0
+0 lcl|GQ869705.1_cds_ADN34500.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34500.1] [location=<1..>626] [gbkey=CDS]
+209140 625 0
+0 lcl|GQ869704.1_cds_ADN34499.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34499.1] [location=<1..>626] [gbkey=CDS]
+209765 625 0
+0 lcl|GQ869703.1_cds_ADN34498.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34498.1] [location=<1..>626] [gbkey=CDS]
+210390 625 0
+0 lcl|GQ869702.1_cds_ADN34497.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34497.1] [location=<1..>626] [gbkey=CDS]
+211015 625 0
+0 lcl|GQ869701.1_cds_ADN34496.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34496.1] [location=<1..>626] [gbkey=CDS]
+211640 625 0
+0 lcl|GQ869700.1_cds_ADN34495.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34495.1] [location=<1..>626] [gbkey=CDS]
+212265 625 0
+0 lcl|GQ869699.1_cds_ADN34494.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34494.1] [location=<1..>626] [gbkey=CDS]
+212890 625 0
+0 lcl|GQ869698.1_cds_ADN34493.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34493.1] [location=<1..>626] [gbkey=CDS]
+213515 625 0
+0 lcl|GQ869697.1_cds_ADN34492.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34492.1] [location=<1..>626] [gbkey=CDS]
+214140 625 0
+0 lcl|GQ869696.1_cds_ADN34491.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34491.1] [location=<1..>626] [gbkey=CDS]
+214765 625 0
+0 lcl|GQ869695.1_cds_ADN34490.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34490.1] [location=<1..>626] [gbkey=CDS]
+215390 625 0
+0 lcl|GQ869694.1_cds_ADN34489.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34489.1] [location=<1..>626] [gbkey=CDS]
+216015 625 0
+0 lcl|GQ869693.1_cds_ADN34488.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34488.1] [location=<1..>626] [gbkey=CDS]
+216640 625 0
+0 lcl|GQ869692.1_cds_ADN34487.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34487.1] [location=<1..>626] [gbkey=CDS]
+217265 625 0
+0 lcl|GQ869691.1_cds_ADN34486.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34486.1] [location=<1..>626] [gbkey=CDS]
+217890 625 0
+0 lcl|GQ869690.1_cds_ADN34485.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34485.1] [location=<1..>626] [gbkey=CDS]
+218515 625 0
+0 lcl|GQ869689.1_cds_ADN34484.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34484.1] [location=<1..>626] [gbkey=CDS]
+219140 625 0
+0 lcl|GQ869688.1_cds_ADN34483.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34483.1] [location=<1..>626] [gbkey=CDS]
+219765 625 0
+0 lcl|GQ869687.1_cds_ADN34482.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34482.1] [location=<1..>626] [gbkey=CDS]
+220390 625 0
+0 lcl|GQ869686.1_cds_ADN34481.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34481.1] [location=<1..>626] [gbkey=CDS]
+221015 625 0
+0 lcl|GQ869685.1_cds_ADN34480.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34480.1] [location=<1..>626] [gbkey=CDS]
+221640 625 0
+0 lcl|GQ869684.1_cds_ADN34479.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=ADN34479.1] [location=<1..>626] [gbkey=CDS]
+222265 625 0
+0 lcl|HM068910.1_cds_ADH16507.1_1 [gene=parC] [protein=topoisomerase IV subunit A] [frame=2] [protein_id=ADH16507.1] [location=<1..>249] [gbkey=CDS]
+222890 248 0
+0 lcl|GQ461608.1_cds_ACX48754.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=ACX48754.1] [location=<1..>595] [gbkey=CDS]
+223138 594 0
+0 lcl|GQ461607.1_cds_ACX48753.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=ACX48753.1] [location=<1..>595] [gbkey=CDS]
+223732 594 0
+0 lcl|GQ461606.1_cds_ACX48752.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=ACX48752.1] [location=<1..>595] [gbkey=CDS]
+224326 594 0
+0 lcl|GQ892875.1_cds_ACX47925.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=ACX47925.1] [location=<1..>294] [gbkey=CDS]
+224920 294 0
+0 lcl|GQ892874.1_cds_ACX47924.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=ACX47924.1] [location=<1..>294] [gbkey=CDS]
+225214 294 0
+0 lcl|GQ286174.1_cds_ACT63871.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=ACT63871.1] [location=<1..>300] [gbkey=CDS]
+225508 300 0
+0 lcl|AF052254.1_cds_AAC68570.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=AAC68570.1] [location=<1..>589] [gbkey=CDS]
+225808 589 0
+0 lcl|AF065132.1_cds_AAC17115.1_1 [gene=parC] [protein=topoisomerase IV subunit A] [protein_id=AAC17115.1] [location=<1..>237] [gbkey=CDS]
+226397 237 0
+0 lcl|AF065131.1_cds_AAC17114.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AAC17114.1] [location=<1..>245] [gbkey=CDS]
+226634 245 0
+0 lcl|EF113073.1_cds_ABM65605.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=ABM65605.1] [location=<1..>564] [gbkey=CDS]
+226879 564 0
+0 lcl|DQ898180.1_cds_ABI58275.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=ABI58275.1] [location=<1..>347] [gbkey=CDS]
+227443 347 0
+0 lcl|DQ898179.1_cds_ABI58274.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=ABI58274.1] [location=<1..>231] [gbkey=CDS]
+227790 231 0
+0 lcl|DQ898178.1_cds_ABI58273.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=ABI58273.1] [location=<1..>216] [gbkey=CDS]
+228021 216 0
+0 lcl|DQ898305.1_cds_ABI55205.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=ABI55205.1] [location=<1..>602] [gbkey=CDS]
+228237 602 0
+0 lcl|DQ898304.1_cds_ABI55204.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=ABI55204.1] [location=<1..>589] [gbkey=CDS]
+228839 589 0
+0 lcl|EF113074.1_cds_ABM65606.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=ABM65606.1] [location=<1..>564] [gbkey=CDS]
+229428 564 0
+0 lcl|KU201433.1_cds_AND74640.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AND74640.1] [location=<1..>264] [gbkey=CDS]
+229992 264 0
+0 lcl|KU201432.1_cds_AND74639.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AND74639.1] [location=<1..>282] [gbkey=CDS]
+230256 282 0
+0 lcl|KU201431.1_cds_AND74638.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AND74638.1] [location=<1..>288] [gbkey=CDS]
+230538 288 0
+0 lcl|KU201430.1_cds_AND74637.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AND74637.1] [location=<1..>294] [gbkey=CDS]
+230826 294 0
+0 lcl|KU201429.1_cds_AND74636.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AND74636.1] [location=<1..>276] [gbkey=CDS]
+231120 276 0
+0 lcl|KU199298.1_cds_ANA95977.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=ANA95977.1] [location=<1..>152] [gbkey=CDS]
+231396 152 0
+0 lcl|KU199297.1_cds_ANA95976.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=ANA95976.1] [location=<1..>152] [gbkey=CDS]
+231548 152 0
+0 lcl|KT454384.1_cds_AMC30571.1_1 [gene=parC] [protein=ParC] [protein_id=AMC30571.1] [location=1..>402] [gbkey=CDS]
+231700 402 0
+0 lcl|KR002806.1_cds_ALB35139.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [frame=2] [protein_id=ALB35139.1] [location=<1..>221] [gbkey=CDS]
+232102 220 0
+0 lcl|KJ920438.1_cds_AIR75156.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [frame=3] [protein_id=AIR75156.1] [location=complement(<1..>384)] [gbkey=CDS]
+232322 382 0
+0 lcl|KJ920437.1_cds_AIR75155.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [frame=3] [protein_id=AIR75155.1] [location=complement(<1..>372)] [gbkey=CDS]
+232704 370 0
+0 lcl|KJ920436.1_cds_AIR75154.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [frame=3] [protein_id=AIR75154.1] [location=complement(<1..>372)] [gbkey=CDS]
+233074 370 0
+0 lcl|KF909373.1_cds_AHI87809.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87809.1] [location=<1..>277] [gbkey=CDS]
+233444 276 0
+0 lcl|KF909372.1_cds_AHI87808.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87808.1] [location=<1..>277] [gbkey=CDS]
+233720 276 0
+0 lcl|KF909371.1_cds_AHI87807.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87807.1] [location=<1..>277] [gbkey=CDS]
+233996 276 0
+0 lcl|KF909370.1_cds_AHI87806.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87806.1] [location=<1..>277] [gbkey=CDS]
+234272 276 0
+0 lcl|KF909369.1_cds_AHI87805.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87805.1] [location=<1..>277] [gbkey=CDS]
+234548 276 0
+0 lcl|KF909368.1_cds_AHI87804.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87804.1] [location=<1..>277] [gbkey=CDS]
+234824 276 0
+0 lcl|KF909367.1_cds_AHI87803.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87803.1] [location=<1..>277] [gbkey=CDS]
+235100 276 0
+0 lcl|KF909366.1_cds_AHI87802.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87802.1] [location=<1..>277] [gbkey=CDS]
+235376 276 0
+0 lcl|KF909365.1_cds_AHI87801.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87801.1] [location=<1..>277] [gbkey=CDS]
+235652 276 0
+0 lcl|KF909364.1_cds_AHI87800.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87800.1] [location=<1..>277] [gbkey=CDS]
+235928 276 0
+0 lcl|KF909363.1_cds_AHI87799.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87799.1] [location=<1..>277] [gbkey=CDS]
+236204 276 0
+0 lcl|KF909362.1_cds_AHI87798.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87798.1] [location=<1..>277] [gbkey=CDS]
+236480 276 0
+0 lcl|KF909361.1_cds_AHI87797.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87797.1] [location=<1..>277] [gbkey=CDS]
+236756 276 0
+0 lcl|KF909360.1_cds_AHI87796.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87796.1] [location=<1..>277] [gbkey=CDS]
+237032 276 0
+0 lcl|KF909359.1_cds_AHI87795.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87795.1] [location=<1..>277] [gbkey=CDS]
+237308 276 0
+0 lcl|KF909358.1_cds_AHI87794.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87794.1] [location=<1..>277] [gbkey=CDS]
+237584 276 0
+0 lcl|KF909357.1_cds_AHI87793.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87793.1] [location=<1..>277] [gbkey=CDS]
+237860 276 0
+0 lcl|KF909356.1_cds_AHI87792.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87792.1] [location=<1..>277] [gbkey=CDS]
+238136 276 0
+0 lcl|KF909355.1_cds_AHI87791.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87791.1] [location=<1..>277] [gbkey=CDS]
+238412 276 0
+0 lcl|KF909354.1_cds_AHI87790.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87790.1] [location=<1..>277] [gbkey=CDS]
+238688 276 0
+0 lcl|KF909353.1_cds_AHI87789.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87789.1] [location=<1..>277] [gbkey=CDS]
+238964 276 0
+0 lcl|KF909352.1_cds_AHI87788.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87788.1] [location=<1..>277] [gbkey=CDS]
+239240 276 0
+0 lcl|KF909351.1_cds_AHI87787.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87787.1] [location=<1..>277] [gbkey=CDS]
+239516 276 0
+0 lcl|KF909350.1_cds_AHI87786.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87786.1] [location=<1..>277] [gbkey=CDS]
+239792 276 0
+0 lcl|KF909349.1_cds_AHI87785.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87785.1] [location=<1..>277] [gbkey=CDS]
+240068 276 0
+0 lcl|KF909348.1_cds_AHI87784.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87784.1] [location=<1..>277] [gbkey=CDS]
+240344 276 0
+0 lcl|KF909347.1_cds_AHI87783.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87783.1] [location=<1..>277] [gbkey=CDS]
+240620 276 0
+0 lcl|KF909346.1_cds_AHI87782.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87782.1] [location=<1..>277] [gbkey=CDS]
+240896 276 0
+0 lcl|KF909345.1_cds_AHI87781.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87781.1] [location=<1..>277] [gbkey=CDS]
+241172 276 0
+0 lcl|KF909344.1_cds_AHI87780.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87780.1] [location=<1..>277] [gbkey=CDS]
+241448 276 0
+0 lcl|KF909343.1_cds_AHI87779.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHI87779.1] [location=<1..>277] [gbkey=CDS]
+241724 276 0
+0 lcl|JX504049.1_cds_AGN72692.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AGN72692.1] [location=<1..>388] [gbkey=CDS]
+242000 388 0
+0 lcl|JX504048.1_cds_AGN72691.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72691.1] [location=<1..>257] [gbkey=CDS]
+242388 256 0
+0 lcl|JX504047.1_cds_AGN72690.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72690.1] [location=<1..>257] [gbkey=CDS]
+242644 256 0
+0 lcl|JX504046.1_cds_AGN72689.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72689.1] [location=<1..>257] [gbkey=CDS]
+242900 256 0
+0 lcl|JX504045.1_cds_AGN72688.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72688.1] [location=<1..>257] [gbkey=CDS]
+243156 256 0
+0 lcl|JX504044.1_cds_AGN72687.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72687.1] [location=<1..>257] [gbkey=CDS]
+243412 256 0
+0 lcl|JX504043.1_cds_AGN72686.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72686.1] [location=<1..>257] [gbkey=CDS]
+243668 256 0
+0 lcl|JX504042.1_cds_AGN72685.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72685.1] [location=<1..>257] [gbkey=CDS]
+243924 256 0
+0 lcl|JX504041.1_cds_AGN72684.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72684.1] [location=<1..>257] [gbkey=CDS]
+244180 256 0
+0 lcl|JX504040.1_cds_AGN72683.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72683.1] [location=<1..>257] [gbkey=CDS]
+244436 256 0
+0 lcl|JX504039.1_cds_AGN72682.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72682.1] [location=<1..>257] [gbkey=CDS]
+244692 256 0
+0 lcl|JX504038.1_cds_AGN72681.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72681.1] [location=<1..>257] [gbkey=CDS]
+244948 256 0
+0 lcl|JX504037.1_cds_AGN72680.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72680.1] [location=<1..>257] [gbkey=CDS]
+245204 256 0
+0 lcl|JX504036.1_cds_AGN72679.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72679.1] [location=<1..>257] [gbkey=CDS]
+245460 256 0
+0 lcl|JX504035.1_cds_AGN72678.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72678.1] [location=<1..>257] [gbkey=CDS]
+245716 256 0
+0 lcl|JX504034.1_cds_AGN72677.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72677.1] [location=<1..>257] [gbkey=CDS]
+245972 256 0
+0 lcl|JX504033.1_cds_AGN72676.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72676.1] [location=<1..>257] [gbkey=CDS]
+246228 256 0
+0 lcl|JX504032.1_cds_AGN72675.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72675.1] [location=<1..>257] [gbkey=CDS]
+246484 256 0
+0 lcl|JX504031.1_cds_AGN72674.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72674.1] [location=<1..>257] [gbkey=CDS]
+246740 256 0
+0 lcl|JX504030.1_cds_AGN72673.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72673.1] [location=<1..>257] [gbkey=CDS]
+246996 256 0
+0 lcl|JX504029.1_cds_AGN72672.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72672.1] [location=<1..>257] [gbkey=CDS]
+247252 256 0
+0 lcl|JX504028.1_cds_AGN72671.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72671.1] [location=<1..>257] [gbkey=CDS]
+247508 256 0
+0 lcl|JX504027.1_cds_AGN72670.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72670.1] [location=<1..>257] [gbkey=CDS]
+247764 256 0
+0 lcl|JX504026.1_cds_AGN72669.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72669.1] [location=<1..>257] [gbkey=CDS]
+248020 256 0
+0 lcl|JX504025.1_cds_AGN72668.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72668.1] [location=<1..>257] [gbkey=CDS]
+248276 256 0
+0 lcl|JX504024.1_cds_AGN72667.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72667.1] [location=<1..>257] [gbkey=CDS]
+248532 256 0
+0 lcl|JX504023.1_cds_AGN72666.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72666.1] [location=<1..>257] [gbkey=CDS]
+248788 256 0
+0 lcl|JX504022.1_cds_AGN72665.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72665.1] [location=<1..>257] [gbkey=CDS]
+249044 256 0
+0 lcl|JX504021.1_cds_AGN72664.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72664.1] [location=<1..>257] [gbkey=CDS]
+249300 256 0
+0 lcl|JX504020.1_cds_AGN72663.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72663.1] [location=<1..>257] [gbkey=CDS]
+249556 256 0
+0 lcl|JX504019.1_cds_AGN72662.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72662.1] [location=<1..>257] [gbkey=CDS]
+249812 256 0
+0 lcl|JX504018.1_cds_AGN72661.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72661.1] [location=<1..>257] [gbkey=CDS]
+250068 256 0
+0 lcl|JX504017.1_cds_AGN72660.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AGN72660.1] [location=<1..>421] [gbkey=CDS]
+250324 421 0
+0 lcl|JX504016.1_cds_AGN72659.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AGN72659.1] [location=<1..>431] [gbkey=CDS]
+250745 430 0
+0 lcl|KC585025.1_cds_AHC53921.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit C] [protein_id=AHC53921.1] [location=<1..>816] [gbkey=CDS]
+251175 816 0
+0 lcl|KC585023.1_cds_AHC53919.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AHC53919.1] [location=<1..>617] [gbkey=CDS]
+251991 617 0
+0 lcl|JX997971.1_cds_AGT02110.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit C] [protein_id=AGT02110.1] [location=<1..>528] [gbkey=CDS]
+252608 528 0
+0 lcl|JX997969.1_cds_AGT02108.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AGT02108.1] [location=<1..>617] [gbkey=CDS]
+253136 617 0
+0 lcl|JX997967.1_cds_AGT02106.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit C] [protein_id=AGT02106.1] [location=<1..>816] [gbkey=CDS]
+253753 816 0
+0 lcl|JX997965.1_cds_AGT02104.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AGT02104.1] [location=<1..>617] [gbkey=CDS]
+254569 617 0
+0 lcl|DQ681122.1_cds_ABG77453.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=ABG77453.1] [location=<1..>361] [gbkey=CDS]
+255186 361 0
+0 lcl|DQ681121.1_cds_ABG77452.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=ABG77452.1] [location=<1..>361] [gbkey=CDS]
+255547 361 0
+0 lcl|DQ681120.1_cds_ABG77451.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=ABG77451.1] [location=<1..>361] [gbkey=CDS]
+255908 361 0
+0 lcl|DQ681119.1_cds_ABG77450.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=ABG77450.1] [location=<1..>361] [gbkey=CDS]
+256269 361 0
+0 lcl|DQ681118.1_cds_ABG77449.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=ABG77449.1] [location=<1..>361] [gbkey=CDS]
+256630 361 0
+0 lcl|DQ681117.1_cds_ABG77448.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=ABG77448.1] [location=<1..>361] [gbkey=CDS]
+256991 361 0
+0 lcl|DQ681116.1_cds_ABG77447.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=ABG77447.1] [location=<1..>361] [gbkey=CDS]
+257352 361 0
+0 lcl|DQ681115.1_cds_ABG77446.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=ABG77446.1] [location=<1..>361] [gbkey=CDS]
+257713 361 0
+0 lcl|DQ681114.1_cds_ABG77445.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=ABG77445.1] [location=<1..>361] [gbkey=CDS]
+258074 361 0
+0 lcl|DQ681130.1_cds_ABG77435.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=ABG77435.1] [location=<1..>582] [gbkey=CDS]
+258435 582 0
+0 lcl|DQ681129.1_cds_ABG77434.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=ABG77434.1] [location=<1..>582] [gbkey=CDS]
+259017 582 0
+0 lcl|DQ681128.1_cds_ABG77433.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=ABG77433.1] [location=<1..>582] [gbkey=CDS]
+259599 582 0
+0 lcl|DQ681127.1_cds_ABG77432.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=ABG77432.1] [location=<1..>582] [gbkey=CDS]
+260181 582 0
+0 lcl|DQ681126.1_cds_ABG77431.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=ABG77431.1] [location=<1..>582] [gbkey=CDS]
+260763 582 0
+0 lcl|DQ681125.1_cds_ABG77430.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=ABG77430.1] [location=<1..>582] [gbkey=CDS]
+261345 582 0
+0 lcl|DQ681124.1_cds_ABG77429.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=ABG77429.1] [location=<1..>582] [gbkey=CDS]
+261927 582 0
+0 lcl|DQ681123.1_cds_ABG77428.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=ABG77428.1] [location=<1..>582] [gbkey=CDS]
+262509 582 0
+0 lcl|KJ136366.1_cds_AHW46354.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [frame=3] [protein_id=AHW46354.1] [location=<1..>491] [gbkey=CDS]
+263091 489 0
+0 lcl|KJ136365.1_cds_AHW46353.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46353.1] [location=<1..>493] [gbkey=CDS]
+263580 493 0
+0 lcl|KJ136364.1_cds_AHW46352.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46352.1] [location=<1..>493] [gbkey=CDS]
+264073 493 0
+0 lcl|KJ136363.1_cds_AHW46351.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46351.1] [location=<1..>493] [gbkey=CDS]
+264566 493 0
+0 lcl|KJ136362.1_cds_AHW46350.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46350.1] [location=<1..>493] [gbkey=CDS]
+265059 493 0
+0 lcl|KJ136361.1_cds_AHW46349.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46349.1] [location=<1..>493] [gbkey=CDS]
+265552 493 0
+0 lcl|KJ136360.1_cds_AHW46348.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46348.1] [location=<1..>493] [gbkey=CDS]
+266045 493 0
+0 lcl|KJ136359.1_cds_AHW46347.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [frame=2] [protein_id=AHW46347.1] [location=<1..>497] [gbkey=CDS]
+266538 496 0
+0 lcl|KJ136358.1_cds_AHW46346.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46346.1] [location=<1..>493] [gbkey=CDS]
+267034 493 0
+0 lcl|KJ136357.1_cds_AHW46345.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46345.1] [location=<1..>493] [gbkey=CDS]
+267527 493 0
+0 lcl|KJ136356.1_cds_AHW46344.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46344.1] [location=<1..>492] [gbkey=CDS]
+268020 492 0
+0 lcl|KJ136355.1_cds_AHW46343.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46343.1] [location=<1..>492] [gbkey=CDS]
+268512 492 0
+0 lcl|KJ136354.1_cds_AHW46342.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46342.1] [location=<1..>493] [gbkey=CDS]
+269004 493 0
+0 lcl|KJ136353.1_cds_AHW46341.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46341.1] [location=<1..>493] [gbkey=CDS]
+269497 493 0
+0 lcl|KJ136352.1_cds_AHW46340.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46340.1] [location=<1..>493] [gbkey=CDS]
+269990 493 0
+0 lcl|KJ136351.1_cds_AHW46339.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46339.1] [location=<1..>493] [gbkey=CDS]
+270483 493 0
+0 lcl|KJ136350.1_cds_AHW46338.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [frame=3] [protein_id=AHW46338.1] [location=<1..>315] [gbkey=CDS]
+270976 313 0
+0 lcl|KJ136349.1_cds_AHW46337.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46337.1] [location=<1..>493] [gbkey=CDS]
+271289 493 0
+0 lcl|KJ136348.1_cds_AHW46336.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46336.1] [location=<1..>493] [gbkey=CDS]
+271782 493 0
+0 lcl|KJ136347.1_cds_AHW46335.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46335.1] [location=<1..>493] [gbkey=CDS]
+272275 493 0
+0 lcl|KJ136346.1_cds_AHW46334.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [frame=2] [protein_id=AHW46334.1] [location=<1..>494] [gbkey=CDS]
+272768 493 0
+0 lcl|KJ136345.1_cds_AHW46333.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46333.1] [location=<1..>493] [gbkey=CDS]
+273261 493 0
+0 lcl|KJ136344.1_cds_AHW46332.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46332.1] [location=<1..>493] [gbkey=CDS]
+273754 493 0
+0 lcl|KJ136343.1_cds_AHW46331.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46331.1] [location=<1..>493] [gbkey=CDS]
+274247 493 0
+0 lcl|KJ136342.1_cds_AHW46330.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46330.1] [location=<1..>493] [gbkey=CDS]
+274740 493 0
+0 lcl|KJ136341.1_cds_AHW46329.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46329.1] [location=<1..>493] [gbkey=CDS]
+275233 493 0
+0 lcl|KJ136340.1_cds_AHW46328.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46328.1] [location=<1..>493] [gbkey=CDS]
+275726 493 0
+0 lcl|KJ136339.1_cds_AHW46327.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46327.1] [location=<1..>493] [gbkey=CDS]
+276219 493 0
+0 lcl|KJ136338.1_cds_AHW46326.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46326.1] [location=<1..>493] [gbkey=CDS]
+276712 493 0
+0 lcl|KJ136337.1_cds_AHW46325.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46325.1] [location=<1..>493] [gbkey=CDS]
+277205 493 0
+0 lcl|KJ136336.1_cds_AHW46324.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46324.1] [location=<1..>492] [gbkey=CDS]
+277698 492 0
+0 lcl|KJ136335.1_cds_AHW46323.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [frame=3] [protein_id=AHW46323.1] [location=<1..>492] [gbkey=CDS]
+278190 490 0
+0 lcl|KJ136334.1_cds_AHW46322.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46322.1] [location=<1..>493] [gbkey=CDS]
+278680 493 0
+0 lcl|KJ136333.1_cds_AHW46321.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46321.1] [location=<1..>492] [gbkey=CDS]
+279173 492 0
+0 lcl|KJ136332.1_cds_AHW46320.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46320.1] [location=<1..>493] [gbkey=CDS]
+279665 493 0
+0 lcl|KJ136331.1_cds_AHW46319.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [frame=3] [protein_id=AHW46319.1] [location=<1..>492] [gbkey=CDS]
+280158 490 0
+0 lcl|KJ136330.1_cds_AHW46318.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46318.1] [location=<1..>493] [gbkey=CDS]
+280648 493 0
+0 lcl|KJ136329.1_cds_AHW46317.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46317.1] [location=<1..>493] [gbkey=CDS]
+281141 493 0
+0 lcl|KJ136328.1_cds_AHW46316.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [frame=2] [protein_id=AHW46316.1] [location=<1..>494] [gbkey=CDS]
+281634 493 0
+0 lcl|KJ136327.1_cds_AHW46315.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46315.1] [location=<1..>493] [gbkey=CDS]
+282127 493 0
+0 lcl|KJ136326.1_cds_AHW46314.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46314.1] [location=<1..>493] [gbkey=CDS]
+282620 493 0
+0 lcl|KJ136325.1_cds_AHW46313.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46313.1] [location=<1..>493] [gbkey=CDS]
+283113 493 0
+0 lcl|KJ136324.1_cds_AHW46312.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [frame=3] [protein_id=AHW46312.1] [location=<1..>492] [gbkey=CDS]
+283606 490 0
+0 lcl|KJ136323.1_cds_AHW46311.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [frame=2] [protein_id=AHW46311.1] [location=<1..>494] [gbkey=CDS]
+284096 493 0
+0 lcl|KJ136322.1_cds_AHW46310.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46310.1] [location=<1..>493] [gbkey=CDS]
+284589 493 0
+0 lcl|KJ136321.1_cds_AHW46309.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46309.1] [location=<1..>493] [gbkey=CDS]
+285082 493 0
+0 lcl|KJ136320.1_cds_AHW46308.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [frame=3] [protein_id=AHW46308.1] [location=<1..>492] [gbkey=CDS]
+285575 490 0
+0 lcl|KJ136319.1_cds_AHW46307.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46307.1] [location=<1..>493] [gbkey=CDS]
+286065 493 0
+0 lcl|KJ136318.1_cds_AHW46306.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46306.1] [location=<1..>493] [gbkey=CDS]
+286558 493 0
+0 lcl|KJ136317.1_cds_AHW46305.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46305.1] [location=<1..>493] [gbkey=CDS]
+287051 493 0
+0 lcl|KJ136316.1_cds_AHW46304.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [frame=2] [protein_id=AHW46304.1] [location=<1..>493] [gbkey=CDS]
+287544 492 0
+0 lcl|KJ136315.1_cds_AHW46303.1_1 [gene=parC] [protein=topoisomerase IV subunit C] [protein_id=AHW46303.1] [location=<1..>493] [gbkey=CDS]
+288036 493 0
+0 lcl|KF864659.1_cds_AHV78463.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78463.1] [location=<1..>201] [gbkey=CDS]
+288529 201 0
+0 lcl|KF864658.1_cds_AHV78462.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78462.1] [location=<1..>201] [gbkey=CDS]
+288730 201 0
+0 lcl|KF864657.1_cds_AHV78461.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78461.1] [location=<1..>201] [gbkey=CDS]
+288931 201 0
+0 lcl|KF864656.1_cds_AHV78460.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78460.1] [location=<1..>201] [gbkey=CDS]
+289132 201 0
+0 lcl|KF864655.1_cds_AHV78459.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78459.1] [location=<1..>201] [gbkey=CDS]
+289333 201 0
+0 lcl|KF864654.1_cds_AHV78458.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78458.1] [location=<1..>201] [gbkey=CDS]
+289534 201 0
+0 lcl|KF864653.1_cds_AHV78457.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78457.1] [location=<1..>201] [gbkey=CDS]
+289735 201 0
+0 lcl|KF864652.1_cds_AHV78456.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78456.1] [location=<1..>201] [gbkey=CDS]
+289936 201 0
+0 lcl|KF864651.1_cds_AHV78455.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78455.1] [location=<1..>201] [gbkey=CDS]
+290137 201 0
+0 lcl|KF864650.1_cds_AHV78454.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78454.1] [location=<1..>201] [gbkey=CDS]
+290338 201 0
+0 lcl|KF864649.1_cds_AHV78453.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78453.1] [location=<1..>201] [gbkey=CDS]
+290539 201 0
+0 lcl|KF864648.1_cds_AHV78452.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78452.1] [location=<1..>201] [gbkey=CDS]
+290740 201 0
+0 lcl|KF864647.1_cds_AHV78451.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78451.1] [location=<1..>201] [gbkey=CDS]
+290941 201 0
+0 lcl|KF864646.1_cds_AHV78450.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78450.1] [location=<1..>201] [gbkey=CDS]
+291142 201 0
+0 lcl|KF864645.1_cds_AHV78449.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78449.1] [location=<1..>201] [gbkey=CDS]
+291343 201 0
+0 lcl|KF864644.1_cds_AHV78448.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78448.1] [location=<1..>201] [gbkey=CDS]
+291544 201 0
+0 lcl|KF864643.1_cds_AHV78447.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78447.1] [location=<1..>201] [gbkey=CDS]
+291745 201 0
+0 lcl|KF864642.1_cds_AHV78446.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78446.1] [location=<1..>201] [gbkey=CDS]
+291946 201 0
+0 lcl|KF864641.1_cds_AHV78445.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78445.1] [location=<1..>201] [gbkey=CDS]
+292147 201 0
+0 lcl|KF864640.1_cds_AHV78444.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78444.1] [location=<1..>201] [gbkey=CDS]
+292348 201 0
+0 lcl|KF864639.1_cds_AHV78443.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78443.1] [location=<1..>201] [gbkey=CDS]
+292549 201 0
+0 lcl|KF864638.1_cds_AHV78442.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78442.1] [location=<1..>201] [gbkey=CDS]
+292750 201 0
+0 lcl|KF864637.1_cds_AHV78441.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78441.1] [location=<1..>201] [gbkey=CDS]
+292951 201 0
+0 lcl|KF864636.1_cds_AHV78440.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78440.1] [location=<1..>201] [gbkey=CDS]
+293152 201 0
+0 lcl|KF864635.1_cds_AHV78439.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78439.1] [location=<1..>201] [gbkey=CDS]
+293353 201 0
+0 lcl|KF864634.1_cds_AHV78438.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78438.1] [location=<1..>201] [gbkey=CDS]
+293554 201 0
+0 lcl|KF864633.1_cds_AHV78437.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78437.1] [location=<1..>201] [gbkey=CDS]
+293755 201 0
+0 lcl|KF864632.1_cds_AHV78436.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78436.1] [location=<1..>201] [gbkey=CDS]
+293956 201 0
+0 lcl|KF864631.1_cds_AHV78435.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78435.1] [location=<1..>201] [gbkey=CDS]
+294157 201 0
+0 lcl|KF864630.1_cds_AHV78434.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78434.1] [location=<1..>201] [gbkey=CDS]
+294358 201 0
+0 lcl|KF864629.1_cds_AHV78433.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78433.1] [location=<1..>201] [gbkey=CDS]
+294559 201 0
+0 lcl|KF864628.1_cds_AHV78432.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78432.1] [location=<1..>201] [gbkey=CDS]
+294760 201 0
+0 lcl|KF864627.1_cds_AHV78431.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78431.1] [location=<1..>201] [gbkey=CDS]
+294961 201 0
+0 lcl|KF864626.1_cds_AHV78430.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78430.1] [location=<1..>201] [gbkey=CDS]
+295162 201 0
+0 lcl|KF864625.1_cds_AHV78429.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78429.1] [location=<1..>201] [gbkey=CDS]
+295363 201 0
+0 lcl|KF864624.1_cds_AHV78428.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78428.1] [location=<1..>201] [gbkey=CDS]
+295564 201 0
+0 lcl|KF864623.1_cds_AHV78427.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78427.1] [location=<1..>201] [gbkey=CDS]
+295765 201 0
+0 lcl|KF864622.1_cds_AHV78426.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78426.1] [location=<1..>201] [gbkey=CDS]
+295966 201 0
+0 lcl|KF864621.1_cds_AHV78425.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78425.1] [location=<1..>201] [gbkey=CDS]
+296167 201 0
+0 lcl|KF864620.1_cds_AHV78424.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78424.1] [location=<1..>201] [gbkey=CDS]
+296368 201 0
+0 lcl|KF864619.1_cds_AHV78423.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78423.1] [location=<1..>201] [gbkey=CDS]
+296569 201 0
+0 lcl|KF864618.1_cds_AHV78422.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78422.1] [location=<1..>201] [gbkey=CDS]
+296770 201 0
+0 lcl|KF864617.1_cds_AHV78421.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78421.1] [location=<1..>201] [gbkey=CDS]
+296971 201 0
+0 lcl|KF864616.1_cds_AHV78420.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78420.1] [location=<1..>201] [gbkey=CDS]
+297172 201 0
+0 lcl|KF864615.1_cds_AHV78419.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78419.1] [location=<1..>201] [gbkey=CDS]
+297373 201 0
+0 lcl|KF864614.1_cds_AHV78418.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78418.1] [location=<1..>201] [gbkey=CDS]
+297574 201 0
+0 lcl|KF864613.1_cds_AHV78417.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78417.1] [location=<1..>201] [gbkey=CDS]
+297775 201 0
+0 lcl|KF864612.1_cds_AHV78416.1_1 [gene=parC] [protein=ParC] [protein_id=AHV78416.1] [location=<1..>201] [gbkey=CDS]
+297976 201 0
+0 lcl|KF864611.1_cds_AHV78415.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78415.1] [location=<1..>249] [gbkey=CDS]
+298177 249 0
+0 lcl|KF864610.1_cds_AHV78414.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78414.1] [location=<1..>249] [gbkey=CDS]
+298426 249 0
+0 lcl|KF864609.1_cds_AHV78413.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78413.1] [location=<1..>249] [gbkey=CDS]
+298675 249 0
+0 lcl|KF864608.1_cds_AHV78412.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78412.1] [location=<1..>249] [gbkey=CDS]
+298924 249 0
+0 lcl|KF864607.1_cds_AHV78411.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78411.1] [location=<1..>249] [gbkey=CDS]
+299173 249 0
+0 lcl|KF864606.1_cds_AHV78410.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78410.1] [location=<1..>249] [gbkey=CDS]
+299422 249 0
+0 lcl|KF864605.1_cds_AHV78409.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78409.1] [location=<1..>249] [gbkey=CDS]
+299671 249 0
+0 lcl|KF864604.1_cds_AHV78408.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78408.1] [location=<1..>249] [gbkey=CDS]
+299920 249 0
+0 lcl|KF864603.1_cds_AHV78407.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78407.1] [location=<1..>249] [gbkey=CDS]
+300169 249 0
+0 lcl|KF864602.1_cds_AHV78406.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78406.1] [location=<1..>249] [gbkey=CDS]
+300418 249 0
+0 lcl|KF864601.1_cds_AHV78405.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78405.1] [location=<1..>249] [gbkey=CDS]
+300667 249 0
+0 lcl|KF864600.1_cds_AHV78404.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78404.1] [location=<1..>249] [gbkey=CDS]
+300916 249 0
+0 lcl|KF864599.1_cds_AHV78403.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78403.1] [location=<1..>249] [gbkey=CDS]
+301165 249 0
+0 lcl|KF864598.1_cds_AHV78402.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78402.1] [location=<1..>249] [gbkey=CDS]
+301414 249 0
+0 lcl|KF864597.1_cds_AHV78401.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78401.1] [location=<1..>249] [gbkey=CDS]
+301663 249 0
+0 lcl|KF864596.1_cds_AHV78400.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78400.1] [location=<1..>249] [gbkey=CDS]
+301912 249 0
+0 lcl|KF864595.1_cds_AHV78399.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78399.1] [location=<1..>249] [gbkey=CDS]
+302161 249 0
+0 lcl|KF864594.1_cds_AHV78398.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78398.1] [location=<1..>249] [gbkey=CDS]
+302410 249 0
+0 lcl|KF864593.1_cds_AHV78397.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78397.1] [location=<1..>249] [gbkey=CDS]
+302659 249 0
+0 lcl|KF864592.1_cds_AHV78396.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78396.1] [location=<1..>249] [gbkey=CDS]
+302908 249 0
+0 lcl|KF864591.1_cds_AHV78395.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78395.1] [location=<1..>249] [gbkey=CDS]
+303157 249 0
+0 lcl|KF864590.1_cds_AHV78394.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78394.1] [location=<1..>249] [gbkey=CDS]
+303406 249 0
+0 lcl|KF864589.1_cds_AHV78393.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78393.1] [location=<1..>249] [gbkey=CDS]
+303655 249 0
+0 lcl|KF864588.1_cds_AHV78392.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78392.1] [location=<1..>249] [gbkey=CDS]
+303904 249 0
+0 lcl|KF864587.1_cds_AHV78391.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78391.1] [location=<1..>249] [gbkey=CDS]
+304153 249 0
+0 lcl|KF864586.1_cds_AHV78390.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78390.1] [location=<1..>249] [gbkey=CDS]
+304402 249 0
+0 lcl|KF864585.1_cds_AHV78389.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78389.1] [location=<1..>249] [gbkey=CDS]
+304651 249 0
+0 lcl|KF864584.1_cds_AHV78388.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78388.1] [location=<1..>249] [gbkey=CDS]
+304900 249 0
+0 lcl|KF864583.1_cds_AHV78387.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78387.1] [location=<1..>249] [gbkey=CDS]
+305149 249 0
+0 lcl|KF864582.1_cds_AHV78386.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78386.1] [location=<1..>249] [gbkey=CDS]
+305398 249 0
+0 lcl|KF864581.1_cds_AHV78385.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78385.1] [location=<1..>249] [gbkey=CDS]
+305647 249 0
+0 lcl|KF864580.1_cds_AHV78384.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78384.1] [location=<1..>249] [gbkey=CDS]
+305896 249 0
+0 lcl|KF864579.1_cds_AHV78383.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78383.1] [location=<1..>249] [gbkey=CDS]
+306145 249 0
+0 lcl|KF864578.1_cds_AHV78382.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78382.1] [location=<1..>249] [gbkey=CDS]
+306394 249 0
+0 lcl|KF864577.1_cds_AHV78381.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78381.1] [location=<1..>249] [gbkey=CDS]
+306643 249 0
+0 lcl|KF864576.1_cds_AHV78380.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78380.1] [location=<1..>249] [gbkey=CDS]
+306892 249 0
+0 lcl|KF864575.1_cds_AHV78379.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78379.1] [location=<1..>249] [gbkey=CDS]
+307141 249 0
+0 lcl|KF864574.1_cds_AHV78378.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78378.1] [location=<1..>249] [gbkey=CDS]
+307390 249 0
+0 lcl|KF864573.1_cds_AHV78377.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78377.1] [location=<1..>249] [gbkey=CDS]
+307639 249 0
+0 lcl|KF864572.1_cds_AHV78376.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78376.1] [location=<1..>249] [gbkey=CDS]
+307888 249 0
+0 lcl|KF864571.1_cds_AHV78375.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78375.1] [location=<1..>249] [gbkey=CDS]
+308137 249 0
+0 lcl|KF864570.1_cds_AHV78374.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78374.1] [location=<1..>249] [gbkey=CDS]
+308386 249 0
+0 lcl|KF864569.1_cds_AHV78373.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78373.1] [location=<1..>249] [gbkey=CDS]
+308635 249 0
+0 lcl|KF864568.1_cds_AHV78372.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78372.1] [location=<1..>249] [gbkey=CDS]
+308884 249 0
+0 lcl|KF864567.1_cds_AHV78371.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78371.1] [location=<1..>249] [gbkey=CDS]
+309133 249 0
+0 lcl|KF864566.1_cds_AHV78370.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78370.1] [location=<1..>249] [gbkey=CDS]
+309382 249 0
+0 lcl|KF864565.1_cds_AHV78369.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78369.1] [location=<1..>249] [gbkey=CDS]
+309631 249 0
+0 lcl|KF864564.1_cds_AHV78368.1_1 [gene=gyrA] [protein=GyrA] [protein_id=AHV78368.1] [location=<1..>249] [gbkey=CDS]
+309880 249 0
+0 lcl|KJ136314.1_cds_AHN82655.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82655.1] [location=<1..>314] [gbkey=CDS]
+310129 314 0
+0 lcl|KJ136313.1_cds_AHN82654.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82654.1] [location=<1..>316] [gbkey=CDS]
+310443 316 0
+0 lcl|KJ136312.1_cds_AHN82653.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82653.1] [location=<1..>316] [gbkey=CDS]
+310759 316 0
+0 lcl|KJ136311.1_cds_AHN82652.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82652.1] [location=<1..>317] [gbkey=CDS]
+311075 317 0
+0 lcl|KJ136310.1_cds_AHN82651.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82651.1] [location=<1..>316] [gbkey=CDS]
+311392 316 0
+0 lcl|KJ136309.1_cds_AHN82650.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=3] [protein_id=AHN82650.1] [location=<1..>314] [gbkey=CDS]
+311708 312 0
+0 lcl|KJ136308.1_cds_AHN82649.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82649.1] [location=<1..>315] [gbkey=CDS]
+312020 315 0
+0 lcl|KJ136307.1_cds_AHN82648.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82648.1] [location=<1..>315] [gbkey=CDS]
+312335 315 0
+0 lcl|KJ136306.1_cds_AHN82647.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82647.1] [location=<1..>315] [gbkey=CDS]
+312650 315 0
+0 lcl|KJ136305.1_cds_AHN82646.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82646.1] [location=<1..>315] [gbkey=CDS]
+312965 315 0
+0 lcl|KJ136304.1_cds_AHN82645.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82645.1] [location=<1..>316] [gbkey=CDS]
+313280 315 0
+0 lcl|KJ136303.1_cds_AHN82644.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82644.1] [location=<1..>313] [gbkey=CDS]
+313595 312 0
+0 lcl|KJ136302.1_cds_AHN82643.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82643.1] [location=<1..>316] [gbkey=CDS]
+313907 316 0
+0 lcl|KJ136301.1_cds_AHN82642.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82642.1] [location=<1..>317] [gbkey=CDS]
+314223 317 0
+0 lcl|KJ136300.1_cds_AHN82641.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82641.1] [location=<1..>313] [gbkey=CDS]
+314540 313 0
+0 lcl|KJ136299.1_cds_AHN82640.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82640.1] [location=<1..>319] [gbkey=CDS]
+314853 318 0
+0 lcl|KJ136298.1_cds_AHN82639.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82639.1] [location=<1..>317] [gbkey=CDS]
+315171 317 0
+0 lcl|KJ136297.1_cds_AHN82638.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82638.1] [location=<1..>313] [gbkey=CDS]
+315488 313 0
+0 lcl|KJ136296.1_cds_AHN82637.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82637.1] [location=<1..>316] [gbkey=CDS]
+315801 316 0
+0 lcl|KJ136295.1_cds_AHN82636.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=3] [protein_id=AHN82636.1] [location=<1..>316] [gbkey=CDS]
+316117 314 0
+0 lcl|KJ136294.1_cds_AHN82635.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82635.1] [location=<1..>312] [gbkey=CDS]
+316431 312 0
+0 lcl|KJ136293.1_cds_AHN82634.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=3] [protein_id=AHN82634.1] [location=<1..>313] [gbkey=CDS]
+316743 311 0
+0 lcl|KJ136292.1_cds_AHN82633.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82633.1] [location=<1..>316] [gbkey=CDS]
+317054 316 0
+0 lcl|KJ136291.1_cds_AHN82632.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=3] [protein_id=AHN82632.1] [location=<1..>316] [gbkey=CDS]
+317370 314 0
+0 lcl|KJ136290.1_cds_AHN82631.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82631.1] [location=<1..>317] [gbkey=CDS]
+317684 316 0
+0 lcl|KJ136289.1_cds_AHN82630.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82630.1] [location=<1..>313] [gbkey=CDS]
+318000 312 0
+0 lcl|KJ136288.1_cds_AHN82629.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82629.1] [location=<1..>316] [gbkey=CDS]
+318312 315 0
+0 lcl|KJ136287.1_cds_AHN82628.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82628.1] [location=<1..>313] [gbkey=CDS]
+318627 312 0
+0 lcl|KJ136286.1_cds_AHN82627.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82627.1] [location=<1..>318] [gbkey=CDS]
+318939 317 0
+0 lcl|KJ136285.1_cds_AHN82626.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82626.1] [location=<1..>315] [gbkey=CDS]
+319256 315 0
+0 lcl|KJ136284.1_cds_AHN82625.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=3] [protein_id=AHN82625.1] [location=<1..>313] [gbkey=CDS]
+319571 311 0
+0 lcl|KJ136283.1_cds_AHN82624.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82624.1] [location=<1..>314] [gbkey=CDS]
+319882 313 0
+0 lcl|KJ136282.1_cds_AHN82623.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82623.1] [location=<1..>318] [gbkey=CDS]
+320195 317 0
+0 lcl|KJ136281.1_cds_AHN82622.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=3] [protein_id=AHN82622.1] [location=<1..>318] [gbkey=CDS]
+320512 316 0
+0 lcl|KJ136280.1_cds_AHN82621.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=3] [protein_id=AHN82621.1] [location=<1..>311] [gbkey=CDS]
+320828 309 0
+0 lcl|KJ136279.1_cds_AHN82620.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82620.1] [location=<1..>315] [gbkey=CDS]
+321137 314 0
+0 lcl|KJ136278.1_cds_AHN82619.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82619.1] [location=<1..>315] [gbkey=CDS]
+321451 314 0
+0 lcl|KJ136277.1_cds_AHN82618.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=3] [protein_id=AHN82618.1] [location=<1..>312] [gbkey=CDS]
+321765 310 0
+0 lcl|KJ136276.1_cds_AHN82617.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82617.1] [location=<1..>318] [gbkey=CDS]
+322075 317 0
+0 lcl|KJ136275.1_cds_AHN82616.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82616.1] [location=<1..>317] [gbkey=CDS]
+322392 316 0
+0 lcl|KJ136274.1_cds_AHN82615.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82615.1] [location=<1..>318] [gbkey=CDS]
+322708 317 0
+0 lcl|KJ136273.1_cds_AHN82614.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82614.1] [location=<1..>319] [gbkey=CDS]
+323025 318 0
+0 lcl|KJ136272.1_cds_AHN82613.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=3] [protein_id=AHN82613.1] [location=<1..>311] [gbkey=CDS]
+323343 309 0
+0 lcl|KJ136271.1_cds_AHN82612.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82612.1] [location=<1..>316] [gbkey=CDS]
+323652 316 0
+0 lcl|KJ136270.1_cds_AHN82611.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=2] [protein_id=AHN82611.1] [location=<1..>313] [gbkey=CDS]
+323968 312 0
+0 lcl|KJ136269.1_cds_AHN82610.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=3] [protein_id=AHN82610.1] [location=<1..>315] [gbkey=CDS]
+324280 313 0
+0 lcl|KJ136268.1_cds_AHN82609.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=3] [protein_id=AHN82609.1] [location=<1..>316] [gbkey=CDS]
+324593 314 0
+0 lcl|KJ136267.1_cds_AHN82608.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=3] [protein_id=AHN82608.1] [location=<1..>314] [gbkey=CDS]
+324907 312 0
+0 lcl|KJ136266.1_cds_AHN82607.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82607.1] [location=<1..>315] [gbkey=CDS]
+325219 315 0
+0 lcl|KJ136265.1_cds_AHN82606.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=AHN82606.1] [location=<1..>319] [gbkey=CDS]
+325534 319 0
+0 lcl|KJ136264.1_cds_AHN82605.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=3] [protein_id=AHN82605.1] [location=<1..>314] [gbkey=CDS]
+325853 312 0
+0 lcl|KJ136263.1_cds_AHN82604.1_1 [gene=gyrA] [protein=gyrase subunit A] [frame=3] [protein_id=AHN82604.1] [location=<1..>313] [gbkey=CDS]
+326165 311 0
+0 lcl|KF994646.1_cds_AHL83541.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83541.1] [location=1..>347] [gbkey=CDS]
+326476 347 0
+0 lcl|KF994645.1_cds_AHL83540.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83540.1] [location=1..>347] [gbkey=CDS]
+326823 347 0
+0 lcl|KF994644.1_cds_AHL83539.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83539.1] [location=1..>347] [gbkey=CDS]
+327170 347 0
+0 lcl|KF994643.1_cds_AHL83538.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83538.1] [location=1..>347] [gbkey=CDS]
+327517 347 0
+0 lcl|KF994642.1_cds_AHL83537.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83537.1] [location=1..>347] [gbkey=CDS]
+327864 347 0
+0 lcl|KF994641.1_cds_AHL83536.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83536.1] [location=1..>347] [gbkey=CDS]
+328211 347 0
+0 lcl|KF994640.1_cds_AHL83535.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83535.1] [location=1..>347] [gbkey=CDS]
+328558 347 0
+0 lcl|KF994639.1_cds_AHL83534.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83534.1] [location=1..>347] [gbkey=CDS]
+328905 347 0
+0 lcl|KF994638.1_cds_AHL83533.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83533.1] [location=1..>347] [gbkey=CDS]
+329252 347 0
+0 lcl|KF994637.1_cds_AHL83532.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83532.1] [location=1..>347] [gbkey=CDS]
+329599 347 0
+0 lcl|KF994636.1_cds_AHL83531.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83531.1] [location=1..>347] [gbkey=CDS]
+329946 347 0
+0 lcl|KF994635.1_cds_AHL83530.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83530.1] [location=1..>347] [gbkey=CDS]
+330293 347 0
+0 lcl|KF994634.1_cds_AHL83529.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83529.1] [location=1..>347] [gbkey=CDS]
+330640 347 0
+0 lcl|KF994633.1_cds_AHL83528.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83528.1] [location=1..>347] [gbkey=CDS]
+330987 347 0
+0 lcl|KF994632.1_cds_AHL83527.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83527.1] [location=1..>347] [gbkey=CDS]
+331334 347 0
+0 lcl|KF994631.1_cds_AHL83526.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83526.1] [location=1..>347] [gbkey=CDS]
+331681 347 0
+0 lcl|KF994630.1_cds_AHL83525.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83525.1] [location=1..>347] [gbkey=CDS]
+332028 347 0
+0 lcl|KF994629.1_cds_AHL83524.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AHL83524.1] [location=1..>347] [gbkey=CDS]
+332375 347 0
+0 lcl|KF994628.1_cds_AHL83523.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83523.1] [location=1..>368] [gbkey=CDS]
+332722 368 0
+0 lcl|KF994627.1_cds_AHL83522.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83522.1] [location=1..>368] [gbkey=CDS]
+333090 368 0
+0 lcl|KF994626.1_cds_AHL83521.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83521.1] [location=1..>368] [gbkey=CDS]
+333458 368 0
+0 lcl|KF994625.1_cds_AHL83520.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83520.1] [location=1..>368] [gbkey=CDS]
+333826 368 0
+0 lcl|KF994624.1_cds_AHL83519.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83519.1] [location=1..>368] [gbkey=CDS]
+334194 368 0
+0 lcl|KF994623.1_cds_AHL83518.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83518.1] [location=1..>368] [gbkey=CDS]
+334562 368 0
+0 lcl|KF994622.1_cds_AHL83517.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83517.1] [location=1..>368] [gbkey=CDS]
+334930 368 0
+0 lcl|KF994621.1_cds_AHL83516.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83516.1] [location=1..>368] [gbkey=CDS]
+335298 368 0
+0 lcl|KF994620.1_cds_AHL83515.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83515.1] [location=1..>368] [gbkey=CDS]
+335666 368 0
+0 lcl|KF994619.1_cds_AHL83514.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83514.1] [location=1..>368] [gbkey=CDS]
+336034 368 0
+0 lcl|KF994618.1_cds_AHL83513.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83513.1] [location=1..>368] [gbkey=CDS]
+336402 368 0
+0 lcl|KF994617.1_cds_AHL83512.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83512.1] [location=1..>368] [gbkey=CDS]
+336770 368 0
+0 lcl|KF994616.1_cds_AHL83511.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83511.1] [location=1..>368] [gbkey=CDS]
+337138 368 0
+0 lcl|KF994615.1_cds_AHL83510.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83510.1] [location=1..>368] [gbkey=CDS]
+337506 368 0
+0 lcl|KF994614.1_cds_AHL83509.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83509.1] [location=1..>368] [gbkey=CDS]
+337874 368 0
+0 lcl|KF994613.1_cds_AHL83508.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83508.1] [location=1..>368] [gbkey=CDS]
+338242 368 0
+0 lcl|KF994612.1_cds_AHL83507.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AHL83507.1] [location=1..>368] [gbkey=CDS]
+338610 368 0
+0 lcl|KF991396.1_cds_AHH91627.1_1 [gene=gyrA] [protein=DNA gyrase] [protein_id=AHH91627.1] [location=complement(<1..>303)] [gbkey=CDS]
+338978 303 0
+0 lcl|KF991395.1_cds_AHH91626.1_1 [gene=gyrA] [protein=DNA gyrase] [frame=2] [protein_id=AHH91626.1] [location=complement(<1..>306)] [gbkey=CDS]
+339281 305 0
+0 lcl|KF479379.1_cds_AHA42528.1_1 [gene=parC] [protein=DNA topoisomerase IV] [protein_id=AHA42528.1] [location=<1..>215] [gbkey=CDS]
+339586 215 0
+0 lcl|KF479378.1_cds_AHA42527.1_1 [gene=parC] [protein=DNA topoisomerase IV] [protein_id=AHA42527.1] [location=<1..>215] [gbkey=CDS]
+339801 215 0
+0 lcl|KF550122.1_cds_AGV55761.1_1 [gene=parC] [protein=topoisomerase IV subunit A] [protein_id=AGV55761.1] [location=<1..>262] [gbkey=CDS]
+340016 262 0
+0 lcl|KF546211.1_cds_AGV55760.1_1 [gene=parC] [protein=topoisomerase IV subunit A] [protein_id=AGV55760.1] [location=<1..>251] [gbkey=CDS]
+340278 251 0
+0 lcl|KF546210.1_cds_AGV55759.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AGV55759.1] [location=<1..>189] [gbkey=CDS]
+340529 189 0
+0 lcl|KF531631.1_cds_AGU17006.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AGU17006.1] [location=<1..>189] [gbkey=CDS]
+340718 189 0
+0 lcl|KC570462.1_cds_AGN90593.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AGN90593.1] [location=<1..>290] [gbkey=CDS]
+340907 290 0
+0 lcl|KC570461.1_cds_AGN90592.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AGN90592.1] [location=<1..>290] [gbkey=CDS]
+341197 290 0
+0 lcl|KC570459.1_cds_AGN90590.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AGN90590.1] [location=<1..>290] [gbkey=CDS]
+341487 290 0
+0 lcl|AB823545.1_cds_BAN33786.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=BAN33786.1] [location=<1..>620] [gbkey=CDS]
+341777 620 2
+0 lcl|KC567242.1_cds_AGL04105.1_1 [gene=parC] [protein=DNA topoisomerase IV] [protein_id=AGL04105.1] [location=<1..>215] [gbkey=CDS]
+342397 215 0
+0 lcl|KC567241.1_cds_AGL04104.1_1 [gene=parC] [protein=DNA topoisomerase IV] [protein_id=AGL04104.1] [location=<1..>215] [gbkey=CDS]
+342612 215 0
+0 lcl|KC567240.1_cds_AGL04103.1_1 [gene=parC] [protein=DNA topoisomerase IV] [protein_id=AGL04103.1] [location=<1..>215] [gbkey=CDS]
+342827 215 0
+0 lcl|JQ694722.1_cds_AFK13215.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AFK13215.1] [location=<1..>482] [gbkey=CDS]
+343042 480 0
+0 lcl|JQ694721.1_cds_AFK13214.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AFK13214.1] [location=<1..>482] [gbkey=CDS]
+343522 480 0
+0 lcl|JQ694720.1_cds_AFK13213.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AFK13213.1] [location=<1..>482] [gbkey=CDS]
+344002 480 0
+0 lcl|JQ694719.1_cds_AFK13212.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AFK13212.1] [location=<1..>482] [gbkey=CDS]
+344482 480 0
+0 lcl|JQ694718.1_cds_AFK13211.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AFK13211.1] [location=<1..>482] [gbkey=CDS]
+344962 480 0
+0 lcl|JQ694717.1_cds_AFK13210.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AFK13210.1] [location=<1..>482] [gbkey=CDS]
+345442 480 0
+0 lcl|KC493129.1_cds_AGC95092.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=AGC95092.1] [location=<1..>626] [gbkey=CDS]
+345922 625 0
+0 lcl|KC493128.1_cds_AGC95091.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=AGC95091.1] [location=<1..>626] [gbkey=CDS]
+346547 625 0
+0 lcl|KC493127.1_cds_AGC95090.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=AGC95090.1] [location=<1..>626] [gbkey=CDS]
+347172 625 0
+0 lcl|KC493126.1_cds_AGC95089.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=AGC95089.1] [location=<1..>626] [gbkey=CDS]
+347797 625 0
+0 lcl|KC493125.1_cds_AGC95088.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=AGC95088.1] [location=<1..>625] [gbkey=CDS]
+348422 624 0
+0 lcl|KC493124.1_cds_AGC95087.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=AGC95087.1] [location=<1..>626] [gbkey=CDS]
+349046 625 0
+0 lcl|KC493123.1_cds_AGC95086.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=AGC95086.1] [location=<1..>626] [gbkey=CDS]
+349671 625 0
+0 lcl|KC493122.1_cds_AGC95085.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=AGC95085.1] [location=<1..>626] [gbkey=CDS]
+350296 625 0
+0 lcl|KC493121.1_cds_AGC95084.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=AGC95084.1] [location=<1..>626] [gbkey=CDS]
+350921 625 0
+0 lcl|KC493120.1_cds_AGC95083.1_1 [gene=gyrA] [protein=DNA gyrase A] [frame=2] [protein_id=AGC95083.1] [location=<1..>626] [gbkey=CDS]
+351546 625 0
+0 lcl|JX908764.1_cds_AGC02901.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AGC02901.1] [location=<1..>647] [gbkey=CDS]
+352171 647 0
+0 lcl|JX908763.1_cds_AGC02900.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AGC02900.1] [location=<1..>548] [gbkey=CDS]
+352818 546 0
+0 lcl|JX908762.1_cds_AGC02899.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AGC02899.1] [location=<1..>596] [gbkey=CDS]
+353364 596 0
+0 lcl|JX559862.1_cds_AFV50600.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AFV50600.1] [location=<1..>594] [gbkey=CDS]
+353960 594 0
+0 lcl|JX446605.1_cds_AFS69158.1_1 [gene=parC] [protein=DNA topoisomerase 4 subunit A] [frame=3] [protein_id=AFS69158.1] [location=<1..>253] [gbkey=CDS]
+354554 251 0
+0 lcl|JX446604.1_cds_AFS69157.1_1 [gene=parC] [protein=DNA topoisomerase 4 subunit A] [frame=2] [protein_id=AFS69157.1] [location=<1..>230] [gbkey=CDS]
+354805 229 0
+0 lcl|JX446603.1_cds_AFS69156.1_1 [gene=parC] [protein=DNA topoisomerase 4 subunit A] [frame=3] [protein_id=AFS69156.1] [location=<1..>265] [gbkey=CDS]
+355034 263 0
+0 lcl|JX446602.1_cds_AFS69155.1_1 [gene=parC] [protein=DNA topoisomerase 4 subunit A] [frame=3] [protein_id=AFS69155.1] [location=<1..>249] [gbkey=CDS]
+355297 247 0
+0 lcl|JX446601.1_cds_AFS69154.1_1 [gene=parC] [protein=DNA topoisomerase 4 subunit A] [frame=3] [protein_id=AFS69154.1] [location=<1..>247] [gbkey=CDS]
+355544 245 0
+0 lcl|JX446600.1_cds_AFS69153.1_1 [gene=parC] [protein=DNA topoisomerase 4 subunit A] [frame=3] [protein_id=AFS69153.1] [location=<1..>265] [gbkey=CDS]
+355789 263 0
+0 lcl|JX446599.1_cds_AFS69152.1_1 [gene=parC] [protein=DNA topoisomerase 4 subunit A] [frame=3] [protein_id=AFS69152.1] [location=<1..>234] [gbkey=CDS]
+356052 232 0
+0 lcl|JX446598.1_cds_AFS69151.1_1 [gene=parC] [protein=DNA topoisomerase 4 subunit A] [frame=2] [protein_id=AFS69151.1] [location=<1..>264] [gbkey=CDS]
+356284 263 0
+0 lcl|JX446597.1_cds_AFS69150.1_1 [gene=parC] [protein=DNA topoisomerase 4 subunit A] [protein_id=AFS69150.1] [location=<1..>227] [gbkey=CDS]
+356547 227 0
+0 lcl|JX446596.1_cds_AFS69149.1_1 [gene=parC] [protein=DNA topoisomerase 4 subunit A] [protein_id=AFS69149.1] [location=<1..>229] [gbkey=CDS]
+356774 229 0
+0 lcl|JX446595.1_cds_AFS69148.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=AFS69148.1] [location=<1..>165] [gbkey=CDS]
+357003 164 0
+0 lcl|JX446594.1_cds_AFS69147.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AFS69147.1] [location=<1..>185] [gbkey=CDS]
+357167 183 0
+0 lcl|JX446593.1_cds_AFS69146.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=AFS69146.1] [location=<1..>184] [gbkey=CDS]
+357350 183 0
+0 lcl|JX446592.1_cds_AFS69145.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AFS69145.1] [location=<1..>159] [gbkey=CDS]
+357533 157 0
+0 lcl|JX446591.1_cds_AFS69144.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=AFS69144.1] [location=<1..>182] [gbkey=CDS]
+357690 181 0
+0 lcl|JX446590.1_cds_AFS69143.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=AFS69143.1] [location=<1..>184] [gbkey=CDS]
+357871 183 0
+0 lcl|JX446589.1_cds_AFS69142.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=AFS69142.1] [location=<1..>184] [gbkey=CDS]
+358054 183 0
+0 lcl|JX446588.1_cds_AFS69141.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AFS69141.1] [location=<1..>185] [gbkey=CDS]
+358237 183 0
+0 lcl|JX446587.1_cds_AFS69140.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AFS69140.1] [location=<1..>185] [gbkey=CDS]
+358420 183 0
+0 lcl|JX446586.1_cds_AFS69139.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=AFS69139.1] [location=<1..>184] [gbkey=CDS]
+358603 183 0
+0 lcl|JQ978759.1_cds_AFP47044.1_1 [gene=parC] [protein=topoisomerase IV] [protein_id=AFP47044.1] [location=<1..>272] [gbkey=CDS]
+358786 272 0
+0 lcl|JQ978758.1_cds_AFP47043.1_1 [gene=parC] [protein=topoisomerase IV] [frame=3] [protein_id=AFP47043.1] [location=<1..>241] [gbkey=CDS]
+359058 239 0
+0 lcl|JQ978757.1_cds_AFP47042.1_1 [gene=parC] [protein=topoisomerase IV] [frame=3] [protein_id=AFP47042.1] [location=<1..>277] [gbkey=CDS]
+359297 275 0
+0 lcl|JN657516.1_cds_AFP33451.1_1 [gene=parC] [protein=ParC] [protein_id=AFP33451.1] [location=<1..>284] [gbkey=CDS]
+359572 284 0
+0 lcl|JN657515.1_cds_AFP33450.1_1 [gene=parC] [protein=ParC] [protein_id=AFP33450.1] [location=<1..>284] [gbkey=CDS]
+359856 284 0
+0 lcl|JN657514.1_cds_AFP33449.1_1 [gene=parC] [protein=ParC] [protein_id=AFP33449.1] [location=<1..>284] [gbkey=CDS]
+360140 284 0
+0 lcl|JN657513.1_cds_AFP33448.1_1 [gene=parC] [protein=ParC] [protein_id=AFP33448.1] [location=<1..>284] [gbkey=CDS]
+360424 284 0
+0 lcl|JN657512.1_cds_AFP33447.1_1 [gene=parC] [protein=ParC] [protein_id=AFP33447.1] [location=<1..>284] [gbkey=CDS]
+360708 284 0
+0 lcl|JN565713.1_cds_AFP33438.1_1 [gene=parC] [protein=ParC] [frame=2] [protein_id=AFP33438.1] [location=<1..>337] [gbkey=CDS]
+360992 336 0
+0 lcl|JN565712.1_cds_AFP33437.1_1 [gene=parC] [protein=ParC] [frame=2] [protein_id=AFP33437.1] [location=<1..>337] [gbkey=CDS]
+361328 336 0
+0 lcl|JN565711.1_cds_AFP33436.1_1 [gene=parC] [protein=ParC] [frame=2] [protein_id=AFP33436.1] [location=<1..>337] [gbkey=CDS]
+361664 336 0
+0 lcl|JN565702.1_cds_AFP33427.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AFP33427.1] [location=<1..>410] [gbkey=CDS]
+362000 409 0
+0 lcl|JN565701.1_cds_AFP33426.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AFP33426.1] [location=<1..>410] [gbkey=CDS]
+362409 409 0
+0 lcl|JN565700.1_cds_AFP33425.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AFP33425.1] [location=<1..>410] [gbkey=CDS]
+362818 409 0
+0 lcl|JN565699.1_cds_AFP33424.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AFP33424.1] [location=<1..>410] [gbkey=CDS]
+363227 409 0
+0 lcl|JN565698.1_cds_AFP33423.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AFP33423.1] [location=<1..>410] [gbkey=CDS]
+363636 409 0
+0 lcl|JN415089.1_cds_AEL88282.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AEL88282.1] [location=<1..>438] [gbkey=CDS]
+364045 438 0
+0 lcl|JN415088.1_cds_AEL88281.1_1 [gene=gyrA] [protein=gyrase A] [protein_id=AEL88281.1] [location=<1..>438] [gbkey=CDS]
+364483 438 0
+0 lcl|JN415087.1_cds_AEL88280.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AEL88280.1] [location=<1..>413] [gbkey=CDS]
+364921 412 0
+0 lcl|JQ978763.1_cds_AFN69564.1_1 [gene=gyrA] [protein=gyrase A] [frame=2] [protein_id=AFN69564.1] [location=<1..>581] [gbkey=CDS]
+365333 580 0
+0 lcl|JQ978762.1_cds_AFN69563.1_1 [gene=gyrA] [protein=gyrase] [frame=3] [protein_id=AFN69563.1] [location=<1..>593] [gbkey=CDS]
+365913 591 0
+0 lcl|JQ978761.1_cds_AFN69562.1_1 [gene=parC] [protein=topoisomerase IV] [frame=2] [protein_id=AFN69562.1] [location=<1..>311] [gbkey=CDS]
+366504 310 0
+0 lcl|JQ978760.1_cds_AFN69561.1_1 [gene=parC] [protein=topoisomerase IV] [frame=3] [protein_id=AFN69561.1] [location=<1..>310] [gbkey=CDS]
+366814 308 0
+0 lcl|AB733019.1_cds_BAM28633.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=BAM28633.1] [location=364..567] [gbkey=CDS]
+367122 204 0
+0 lcl|AB731565.1_cds_BAM28613.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=BAM28613.1] [location=105..620] [gbkey=CDS]
+367326 516 0
+0 lcl|AB731564.1_cds_BAM28612.1_1 [gene=gyrA] [protein=gyrase subunit A] [protein_id=BAM28612.1] [location=252..485] [gbkey=CDS]
+367842 234 0
+0 lcl|GU166751.1_cds_ACY68195.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=ACY68195.1] [location=<1..>513] [gbkey=CDS]
+368076 513 0
+0 lcl|GU166750.1_cds_ACY68194.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=ACY68194.1] [location=<1..>599] [gbkey=CDS]
+368589 599 0
+0 lcl|JN972437.1_cds_AFC75724.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=AFC75724.1] [location=<1..>648] [gbkey=CDS]
+369188 647 0
+0 lcl|JN972436.1_cds_AFC75723.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=AFC75723.1] [location=<1..>648] [gbkey=CDS]
+369835 647 0
+0 lcl|JN972435.1_cds_AFC75722.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=AFC75722.1] [location=<1..>648] [gbkey=CDS]
+370482 647 0
+0 lcl|JN972434.1_cds_AFC75721.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=AFC75721.1] [location=<1..>648] [gbkey=CDS]
+371129 647 0
+0 lcl|JN972433.1_cds_AFC75720.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=2] [protein_id=AFC75720.1] [location=<1..>648] [gbkey=CDS]
+371776 647 0
+0 lcl|EF113077.1_cds_ABM65609.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit] [protein_id=ABM65609.1] [location=<1..>357] [gbkey=CDS]
+372423 357 0
+0 lcl|EF113076.1_cds_ABM65608.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit] [protein_id=ABM65608.1] [location=<1..>357] [gbkey=CDS]
+372780 357 0
+0 lcl|EF113075.1_cds_ABM65607.1_1 [gene=gyrA] [protein=DNA gyrase A] [protein_id=ABM65607.1] [location=<1..>564] [gbkey=CDS]
+373137 564 0
+0 lcl|L22025.1_cds_AAC36840.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=AAC36840.1] [location=108..>191] [gbkey=CDS]
+373701 84 0
+0 lcl|M63491.1_cds_AAA24396.1_1 [gene=parC] [protein=peripheral membrane protein] [frame=2] [protein_id=AAA24396.1] [location=<1..91] [gbkey=CDS]
+373785 90 0
+0 lcl|M63491.1_cds_AAA24397.1_2 [gene=plsC] [protein=1-acyl-glycerol-3-phosphate acyltransferase] [protein_id=AAA24397.1] [location=325..1062] [gbkey=CDS]
+373875 738 0
+0 lcl|M63491.1_cds_AAA24398.1_3 [gene=16aoh-c] [protein=periplasmic protein] [protein_id=AAA24398.1] [location=1137..>1403] [gbkey=CDS]
+374613 267 0
+0 lcl|HQ613401.1_cds_AEG89516.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AEG89516.1] [location=<1..>330] [gbkey=CDS]
+374880 330 0
+0 lcl|HQ613400.1_cds_AEG89515.1_1 [gene=parC] [protein=DNA topoisomerase IV subunit A] [protein_id=AEG89515.1] [location=<1..>330] [gbkey=CDS]
+375210 330 0
+0 lcl|HQ613399.1_cds_AEG89514.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=AEG89514.1] [location=<1..>591] [gbkey=CDS]
+375540 591 0
+0 lcl|HQ613398.1_cds_AEG89513.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AEG89513.1] [location=<1..>596] [gbkey=CDS]
+376131 594 0
+0 lcl|HQ613397.1_cds_AEG89512.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [frame=3] [protein_id=AEG89512.1] [location=<1..>596] [gbkey=CDS]
+376725 594 0
+0 lcl|M58408.1_cds_AAA24297.1_1 [gene=parC] [protein=topoisomerase IV subunit] [protein_id=AAA24297.1] [location=92..2284] [gbkey=CDS]
+377319 2193 0
+0 lcl|Y00544.1_cds_CAA68610.1_1 [gene=pufX] [db_xref=GOA:P17993,InterPro:IPR010233,InterPro:IPR013216,UniProtKB/Swiss-Prot:P17993] [protein=PufX protein] [protein_id=CAA68610.1] [location=complement(345..1067)] [gbkey=CDS]
+379512 723 0
+0 lcl|Y00544.1_cds_CAA68611.1_2 [gene=gyrA] [db_xref=GOA:P0AES4,InterPro:IPR002205,InterPro:IPR005743,InterPro:IPR006691,InterPro:IPR013757,InterPro:IPR013758,InterPro:IPR013760,InterPro:IPR020899,PDB:1AB4,PDB:1X75,PDB:1ZI0,PDB:2WL2,PDB:3NUH,UniProtKB/Swiss-Prot:P0AES4] [protein=gyrase alpha subunit] [protein_id=CAA68611.1] [location=1214..3850] [gbkey=CDS]
+380235 2637 0
+0 lcl|Y00544.1_cds_CAA68612.1_3 [gene=pufy'] [db_xref=InterPro:IPR018671,UniProtKB/Swiss-Prot:P17994] [protein=PufY' protein] [protein_id=CAA68612.1] [location=4000..>4729] [gbkey=CDS]
+382872 730 0
+0 lcl|X57174.1_cds_CAA40461.1_1 [gene=gyrA] [db_xref=GOA:Q47245,HSSP:1AB4,InterPro:IPR002205,InterPro:IPR005743,InterPro:IPR006691,InterPro:IPR013757,InterPro:IPR013758,InterPro:IPR013760,InterPro:IPR020899,UniProtKB/TrEMBL:Q47245] [protein=DNA gyrase subunit A] [protein_id=CAA40461.1] [location=268..2895] [gbkey=CDS]
+383602 2628 0
+0 lcl|AB040098.1_cds_BAA92800.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=BAA92800.1] [location=<1..>420] [gbkey=CDS]
+386230 420 0
+0 lcl|AB040097.1_cds_BAA92799.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=BAA92799.1] [location=<1..>420] [gbkey=CDS]
+386650 420 0
+0 lcl|AB040096.1_cds_BAA92798.1_1 [gene=gyrA] [protein=DNA gyrase subunit A] [protein_id=BAA92798.1] [location=<1..>420] [gbkey=CDS]
+387070 420 0

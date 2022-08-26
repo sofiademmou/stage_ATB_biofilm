@@ -1,0 +1,203 @@
+################ Paramètres à modifier #####################
+samples="61 62 63 109 110 111 112"
+genes="gyrA"
+seq_ref="Ecoli_amplicon_sequencage_aa"
+db_ref="Ecoli_shigelle_gyrA_parC_gene"
+#"db/{seq_ref}_ref.fasta"
+#"db/db_{db_ref}.fasta"
+
+
+
+
+################ Début script #####################
+rule all:
+    input:
+        expand("aln_{gene}_{sample}.sam", sample=samples.split(' '), gene=genes.split(' ')),
+        expand("filter_{gene}_{sample}.sam", sample=samples.split(' '), gene=genes.split(' ')),
+        expand("{gene}_{sample}.bam", sample=samples.split(' '), gene=genes.split(' ')),
+        expand(["{gene}_{sample}_singleton.fq","{gene}_{sample}_R1.fq","{gene}_{sample}_R2.fq"], sample=samples.split(' '), gene=genes.split(' ')),
+        expand("{gene}_{sample}_merged.fasta", sample=samples.split(' '), gene=genes.split(' ')),
+        expand("{gene}_{sample}_uniques.fasta", sample=samples.split(' '), gene=genes.split(' ')),
+        expand(["{gene}_{sample}_out.txt","{gene}_{sample}_ch.fa","{gene}_{sample}_nonch.fa"], sample=samples.split(' '), gene=genes.split(' ')),
+        expand("{gene}_{sample}_aa_all_ORF.fa", sample=samples.split(' '), gene=genes.split(' ')),
+        expand("{gene}_{sample}_aa.fa", sample=samples.split(' '), gene=genes.split(' ')),
+        expand("{gene}_{sample}_mafft.fasta", sample=samples.split(' '), gene=genes.split(' ')),
+        expand("{gene}_{sample}_aa_all_ORF.fa", sample=samples.split(' '), gene=genes.split(' ')),
+        expand("{gene}_{sample}_aa.fa", sample=samples.split(' '), gene=genes.split(' ')),
+        expand("{gene}_{sample}_mafft.fasta", sample=samples.split(' '), gene=genes.split(' ')),
+        expand(["mutations_{gene}_{sample}.xlsx",
+                "mutations_prio_S8_{gene}_{sample}.xlsx",
+                "mutations_second_{gene}_{sample}.xlsx",
+                "co_occurence_random_{gene}_{sample}.xlsx"], sample=samples.split(' '), gene=genes.split(' '))
+
+
+
+rule bwa_map:
+    input:
+        "/work/vdupouy/db/db_"+db_ref+".fasta",
+        "/work/vdupouy/data/{gene}/{gene}_{sample}_R1_val_1.fq",
+        "/work/vdupouy/data/{gene}/{gene}_{sample}_R2_val_2.fq"
+    output:
+        "aln_{gene}_{sample}.sam"
+    envmodules:
+        "bioinfo/bwa-0.7.15"
+    shell:
+        "bwa mem {input} > {output}"
+
+
+rule samtools_filter_enterobaster:
+    input:
+        "aln_{gene}_{sample}.sam"
+    output:
+        "filter_{gene}_{sample}.sam"
+    envmodules:
+        "bioinfo/samtools-1.14"
+    shell:
+        "samtools view -h -q 1 -U {output} {input}"
+
+
+rule samtools_select_bam:
+    input:
+        "filter_{gene}_{sample}.sam"
+        #"aln_{gene}_{sample}.sam"
+    output:
+        "{gene}_{sample}.bam"
+    envmodules:
+        "bioinfo/samtools-1.14"
+    shell:
+        "samtools view -S -b -e '[NM]<10' {input} > {output}"
+
+
+rule samtools_fastq:
+    input:
+        "{gene}_{sample}.bam"
+    output:
+        ["{gene}_{sample}_singleton.fq","{gene}_{sample}_R1.fq","{gene}_{sample}_R2.fq"]
+    envmodules:
+        "bioinfo/samtools-1.14"
+    shell:
+        "samtools fastq -N -s {output[0]} -1 {output[1]} -2 {output[2]} {input}"
+
+
+rule merge_reads:
+    input:
+        "{gene}_{sample}_R1.fq","{gene}_{sample}_R2.fq"
+    output:
+        "{gene}_{sample}_merged.fasta"
+    envmodules:
+        "bioinfo/vsearch-2.6.2"
+    shell:
+        "vsearch -fastq_mergepairs {input[0]} -reverse {input[1]} -fastaout {output}"
+
+
+rule dereplicate_reads:
+    input:
+        "{gene}_{sample}_merged.fasta"
+    output:
+        "{gene}_{sample}_uniques.fasta"
+    envmodules:
+        "bioinfo/usearch11.0.667"
+    shell:
+        "usearch -fastx_uniques {input} -sizeout -fastaout {output}"
+
+
+rule remove_chimeras:
+    input:
+        "{gene}_{sample}_uniques.fasta"
+    output:
+        ["{gene}_{sample}_out.txt","{gene}_{sample}_ch.fa","{gene}_{sample}_nonch.fa"]
+    envmodules:
+        "bioinfo/usearch11.0.667"
+    shell:
+        "usearch -uchime3_denovo {input} -uchimeout {output[0]} -chimeras {output[1]} -nonchimeras {output[2]}"
+
+
+rule translate_orf:
+    input:
+        "{gene}_{sample}_nonch.fa"
+    output:
+        "{gene}_{sample}_aa_all_ORF.fa"
+    envmodules:
+        "bioinfo/EMBOSS-6.6.0"
+    shell:
+        "getorf {input} {output}"
+
+
+rule translate_longest:
+    input:
+        "{gene}_{sample}_aa_all_ORF.fa"
+    output:
+        "{gene}_{sample}_aa.fa"
+    envmodules:
+        "system/Python-3.6.3"
+    shell:
+        "python /work/vdupouy/script/longest_orf.py {input} {output}"
+
+
+rule mafft_aa:
+    input:
+        "{gene}_{sample}_aa.fa",
+        "/work/vdupouy/db/Ecoli_{gene}_amplicon_sequencage_aa_ref.fasta"
+    output:
+        "{gene}_{sample}_mafft.fasta"
+    envmodules:
+        "bioinfo/mafft-7.487"
+    shell:
+        "mafft --keeplength --addfragments {input} > {output}"
+
+
+rule variant_detection:
+    input:
+        ["/work/vdupouy/db/Ecoli_{gene}_amplicon_sequencage_aa_ref.fasta",
+        "{gene}_{sample}_mafft.fasta"]
+    output:
+        "mutations_{gene}_{sample}.xlsx"
+    envmodules:
+        "system/Python-3.6.3"
+    shell:
+        "python /work/vdupouy/script/pourcentage_mutation.py {input[0]} {input[1]} {output}"
+
+
+rule variant_detection_S83_D87:
+    input:
+        ["/work/vdupouy/db/Ecoli_{gene}_amplicon_sequencage_aa_ref.fasta",
+        "{gene}_{sample}_mafft.fasta"]
+    output:
+        ["mutations_prio_S8_{gene}_{sample}.xlsx",
+        "mutations_second_{gene}_{sample}.xlsx"]
+    envmodules:
+        "system/Python-3.6.3"
+    shell:
+        "python /work/vdupouy/script/pourcentage_mutation_codon_{wildcards.gene}.py {input[0]} {input[1]} {output[0]} {output[1]}"
+
+
+rule variant_detection_co_occurrence:
+    input:
+        ["/work/vdupouy/db/Ecoli_{gene}_amplicon_sequencage_aa_ref.fasta",
+        "{gene}_{sample}_mafft.fasta"]
+    output:
+        "co_occurence_random_{gene}_{sample}.xlsx"
+    envmodules:
+        "system/Python-3.6.3"
+    shell:
+        "python /work/vdupouy/script/co_occurence_muta_random_{wildcards.gene}.py {input[0]} {input[1]} {output}"
+
+
+
+
+
+#rule variant_detection:
+#    input:
+#        ["/work/vdupouy/db/Ecoli_amplicon_sequencage_aa_ref.fasta",
+#        "{gene}_{sample}_mafft.fasta"]
+#    output:
+#        ["mutations_{gene}_{sample}.xlsx",
+#        "mutations_S83_{gene}_{sample}.xlsx",
+#        "mutations_D87_{gene}_{sample}.xlsx",
+#        "co_occurence_random_{gene}_{sample}.xlsx"]
+#    envmodules:
+#        "system/Python-3.6.3"
+#    shell:
+#        "python /work/vdupouy/script/pourcentage_mutation.py {input[0]} {input[1]} {output[0]}"
+#        "python /work/vdupouy/script/pourcentage_mutation_codon_gyrA.py {input[0]} {input[1]} {output[1]} {output[2]}"
+#        "python /work/vdupouy/script/co_occurence_muta_random.py {input[0]} {input[1]} {output[3]}"

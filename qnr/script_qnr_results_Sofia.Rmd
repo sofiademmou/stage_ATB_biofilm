@@ -1,0 +1,706 @@
+---
+title: "Analyse statistique des données de qPCR du projet ATB biofilm"
+author: "Sofia DEMMOU"
+date: "01/04/2022"
+output: 
+  pdf_document: 
+    toc: yes
+    df_print: paged
+header-includes: \renewcommand{\contentsname}{Table des matières}
+encoding: UTF-8
+---
+
+
+```{r library, include=FALSE}
+####Library à importer au début####
+library(stringr) #fonction "sub_str" pour renommer les échantillons
+library(ggplot2) #affichage des graphiques
+library(ggrepel) #affichage des graphiques
+library(readxl) #pour importer les fichiers excel dans R
+
+library(car) #pour l'Anova
+
+library(writexl) #pour exporter les tableaux R en tableau excel
+
+library(cowplot) #pour option plot_grid de ggplot
+
+library(multcomp) #pour Dunnett
+library(DescTools) #pour Dunnett
+library(FSA) #pour Dunn
+
+library(printr) #pour les sorties en gras avec print
+
+#setwd("C:/Users/sdemmou/Desktop/stage/envt")
+# setwd("C:/Users/Marie Claire Demmou/Dropbox/Stockage/stage/ENVT/qPCR")
+```
+
+# Fonctions
+
+### Fonction pour importer les données et ajouter les colonnes "ID", "[ADN]ng/µL" et "Dilution".
+
+```{r import, include=FALSE}
+f = function(file){
+  tab <- read_excel(file, range = "A20:K104")
+  #on crée des colonnes ID, ADN et Dilution remplies de 0 pour pouvoir les remplir après
+  tab$ID=0
+  tab$ADN=0
+  tab$Dilution=0
+  for (i in 1:84){
+    tab$ID[i]=str_sub(tab$Sample[i],end=3) #on récupère les 2 premiers caractères du sample
+    tab$ID[i]=gsub("x","",tab$ID[i])
+    tab$Dilution[i]=str_sub(tab$Sample[i],start=4) #on récupère les 2 dernier caractères correspondant à la dilution
+    tab$Dilution[i]=gsub("x","",tab$Dilution[i])
+    tab$Dilution[i]=gsub("1/","",tab$Dilution[i]) #on enlève la division pour la dilution
+  }
+  
+  tab$ID[is.na(tab$ID)]="STD" 
+  
+  return(tab)
+}
+```
+
+<br/>
+
+### Fonction de remplacement des données.
+```{r tri}
+tri_qPCR = function(tab,Y.intercept,slope,gammeNTC=FALSE,LOQ,moyLOQ,target=FALSE,range=FALSE,ref){ 
+  #paramètre target pour sélectionner un gène en particulier pour la suite
+  if (target!=FALSE){
+    tab=subset(tab, Target==target)
+  }
+
+  #On calcule la moyenne et le range des Tm STD
+  m.Tm.STD=mean(as.numeric(tab$`Melt Temperature`[which(tab$ID=="STD" & tab$`Melt Temperature`!="None")])) #on elève les None pour éviter les NA
+  #on attribue la même valeur au m.Tm.STD min et max pour 
+  m.Tm.STD.min=m.Tm.STD 
+  m.Tm.STD.max=m.Tm.STD
+  
+  #si on choisit l'option range
+  if (range==TRUE){
+    r.Tm.STD=range(as.numeric(tab$`Melt Temperature`[which(tab$ID=="STD" & tab$`Melt Temperature`!="None")]))
+    m.Tm.STD.min=r.Tm.STD[1]
+    m.Tm.STD.max=r.Tm.STD[2]
+  }
+
+  
+  #On calcule le range des Cq STD
+  r.Cq.STD=range(as.numeric(tab$Cq[which(tab$ID=="STD" & tab$Cq!="None")]))
+  
+
+  #Si on a des Tm différents des Tm Ok 
+  tab$Cq_modif=tab$Cq #création d'une colonne pour les Cq modifiés (copie de la colonne Cq)
+  tab$Cq_modif[which(tab$Content!="NTC" & tab$`Melt Temperature`!="None" & (tab$`Melt Temperature`<=m.Tm.STD.min-1 | tab$`Melt Temperature`>=m.Tm.STD.max+1))]=35 #on remplace les valeurs de Cq modifiés par 35 pour les valeurs de Tm différents des Tm STD 
+
+  #si on a des None pour les Tm
+  tab$Cq_modif[which(tab$`Melt Temperature`=="None")]=40
+  
+  tab$Tm_QC="PASS" #création d'une colonne indiquant si le Cq de la ligne (l'échantillon) a été modifié
+  tab$Tm_QC[which(tab$Content!="NTC" & (tab$`Melt Temperature`<=m.Tm.STD.min-1 | tab$`Melt Temperature`>=m.Tm.STD.max+1))]=FALSE #changement de la valeur pour les ech non détectables (en dehors des Tm STD ou des Cq STD)
+  
+
+  #Si on a des NTC avec des Cq (pas NA), et des pics au même endroit que les Tm STD => on crée une liste avec les numeros de ligne qui vérifient cette condition
+  if (gammeNTC=="NTC"){  
+    li=which(tab$Content=="NTC" & is.na(tab$Cq)==FALSE & tab$`Melt Temperature`>=m.Tm.STD.min-1 & tab$`Melt Temperature`<=m.Tm.STD.max+1)
+    tab$Tm_QC[li]=FALSE
+    if (length(li)!=0){ #si cette liste existe bien (non vide)
+      µ.Cq.NTC=mean(as.numeric(tab$Cq[li]))
+      r.Cq.NTC=range(as.numeric(tab$Cq[li]))
+      #On visualise le range et la moyenne des Cq NTC 
+      print(µ.Cq.NTC) 
+      print(r.Cq.NTC)
+      #Pour les échantillons avec Tm +/- moy des Tm STD (Tm OK)
+      ech=which(tab$`Melt Temperature`>=m.Tm.STD.min-1 & tab$`Melt Temperature`<=m.Tm.STD.max+1)
+      #Si Cq(ech) >= LOQ (Cqmean NTC - 1)
+      ech2=which(tab$Cq[ech]>=(µ.Cq.NTC-1)) 
+      if (length(ech2)!=0){ #si on vérifie bien cette condition
+        tab$Tm_QC[ech]=FALSE
+        #Si CqmeanNTC < 35
+        if (µ.Cq.NTC<35){
+          tab$Cq_modif[ech]=µ.Cq.NTC
+          }
+        #Si CqmeanNTC > 35
+        else{
+          tab$Cq_modif[ech]=35-2
+          }
+        }
+      }
+  }
+  
+  if (gammeNTC=="gamme"){
+    #parametre gammme => oui => Cq le moins concentré range max +2 pour non quanti 
+    ech.out = which(tab$Cq > max(tab$Cq[which(tab$ID=="STD")])) #si Cq > à Cq le moins concentré 
+    tab$Cq_modif[ech.out]=moyLOQ+2
+    tab$Tm_QC[ech.out]=FALSE
+  }
+  
+  #On calcule SQ avec les nouveaux Cq
+  # tab$SQ_final=10^((as.numeric(tab$Cq_modif)-Y.intercept)/slope)
+  tab$SQ_final=10^((as.numeric(tab$Cq_modif)-tab$"Y-Intercept")/tab$Slope)
+  #on garde la valeur de départ pour les STD
+  tab$SQ_final[which(tab$ID=="STD")]=tab$`Starting Quantity (SQ)`[which(tab$ID=="STD")]
+  
+  #on rajoute col SQ/dil
+  tab$SQ_dil=tab$SQ_final #on copie la colonne SQ_final pour la modifier par rapport aux dilution des échantillons
+  dil_ech=which(tab$Dilution!="NA" & tab$Dilution!="ND" & tab$Dilution!="24.02.20") #on sélectionne les échantillons dilués
+  tab$SQ_dil[dil_ech]=tab$SQ_final[dil_ech]*as.numeric(tab$Dilution[dil_ech])
+  
+  tab$rapport=tab$SQ_dil/ref #ou SQ_final
+  
+  #on rajoute une colonne pour les log des rapports 
+  tab$log_rapport=log(tab$rapport,10) #attention bien mettre la base 10 (sinon base exp(1))
+  
+  tab$absolu=tab$SQ_dil*42
+  tab$absolu[which(tab$ID=="55")]=tab$SQ_dil[which(tab$ID=="55")]*325
+  tab$absolu[which(tab$ID=="54" | tab$ID=="56"| tab$ID=="57"| tab$ID=="58"| tab$ID=="119"| tab$ID=="120"| tab$ID=="121"| tab$ID=="122")]=tab$SQ_dil[which(tab$ID=="54" | tab$ID=="56"| tab$ID=="57"| tab$ID=="58"| tab$ID=="119"| tab$ID=="120"| tab$ID=="121"| tab$ID=="122")]*2.5
+  
+  tab$log_absolu=log(tab$absolu,10)
+  
+  return(tab)
+}
+```
+
+
+
+<br/>
+<br/>
+
+# Test sur les données
+
+### Tri des données de qPCR
+```{r donnees, warning=FALSE, include=FALSE}
+PCR_18 = f("data_qPCR/20220314_111512_CT023447_ATBBiof16S_PCRn°18.xlsx")
+PCR_18_16S_tri = tri_qPCR(PCR_18, ref=PCR_18$`Starting Quantity (SQ)`) 
+write_xlsx(PCR_18_16S_tri, "sorted_files/PCR_18_16S_tri.xlsx")
+
+# PCR_19 = f("data_qPCR/20220314_125919_CT023447_ATBBiof_qnrA_PCRn°19.xlsx")
+PCR_19 = f("data_qPCR/qnrA_final.xlsx")
+PCR_19_qnrA_tri = tri_qPCR(PCR_19, ref=PCR_18_16S_tri$SQ_dil) #SQ dil pour la ref
+write_xlsx(PCR_19_qnrA_tri, "sorted_files/PCR_19_qnrA_tri.xlsx")
+
+# PCR_20 = f("data_qPCR/20220314_160003_CT023447_ATBBiof_qnrB_PCRn°20.xlsx")
+# PCR_20_qnrB_tri = tri_qPCR(PCR_20,33.8038064022842,-3.43531958022342, ref=PCR_18_16S_tri$SQ_dil)
+PCR_20 = f("data_qPCR/qnrB_final.xlsx")
+PCR_20_qnrB_tri = tri_qPCR(PCR_20, ref=PCR_18_16S_tri$SQ_dil)
+write_xlsx(PCR_20_qnrB_tri, "sorted_files/PCR_20_qnrB_tri.xlsx")
+
+# PCR_21 = f("data_qPCR/20220314_173421_CT023447_ATBBiof_qnrS_PCRn°21.xlsx")
+# PCR_21 = f("data_qPCR/20220519_ATBBiofilm_PCRn°21 PCRn°26_qnrS.xlsx")
+PCR_21 = f("data_qPCR/qnrS_final.xlsx")
+PCR_21_qnrS_tri = tri_qPCR(PCR_21, ref=PCR_18_16S_tri$SQ_dil)
+write_xlsx(PCR_21_qnrS_tri, "sorted_files/PCR_21_qnrS_tri.xlsx")
+
+# PCR_22 = f("data_qPCR/20220315_132252_CT023447_ATBBiof_qnrD_PCRn°22.xlsx")
+# PCR_22 = f("data_qPCR/20220519_ATBBiof_from PCRn°22 N°25_qnrD.xlsx")
+PCR_22 = f("data_qPCR/qnrD_final.xlsx")
+PCR_22_qnrD_tri = tri_qPCR(PCR_22,range=TRUE, ref=PCR_18_16S_tri$SQ_dil)
+write_xlsx(PCR_22_qnrD_tri, "sorted_files/PCR_22_qnrD_tri.xlsx")
+
+PCR_23 = f("data_qPCR/20220315_151005_CT023447_ATBBiof_qepA_PCRn°23.xlsx")
+PCR_23_qepA_tri = tri_qPCR(PCR_23, ref=PCR_18_16S_tri$SQ_dil)
+write_xlsx(PCR_23_qepA_tri, "sorted_files/PCR_23_qepA_tri.xlsx")
+
+PCR_24 = f("data_qPCR/20220315_162521_CT023447_ATBBiof_qnrC_PCRn°24.xlsx")
+PCR_24_qnrC_tri = tri_qPCR(PCR_24, ref=PCR_18_16S_tri$SQ_dil)
+write_xlsx(PCR_24_qnrC_tri, "sorted_files/PCR_24_qnrC_tri.xlsx")
+```
+
+### Plots
+
+Graphique des Cq en fonction des Tm pour chaque gène qnr, permettant de vérifier les résultats obtenus avec la fonction de tri des données de qPCR.
+
+```{r plots, warning=FALSE, include=FALSE}
+ggplot(PCR_19_qnrA_tri, aes(x=`Melt Temperature`, y=as.numeric(`Peak Height`),label=ID)) + geom_point(size=0.5) + ggtitle("qnrA") + theme(plot.title = element_text(hjust = 0.5)) +
+  geom_text(size=2.5) + ylim(0,450) #=> 95 passe pas car Tm trop élevé
+                                    #=> 100, 60, 99, 55 passent pas car Tm = None
+
+ggplot(PCR_20_qnrB_tri, aes(x=`Melt Temperature`, y=as.numeric(`Peak Height`),label=ID)) + geom_point(size=0.5) + ggtitle("qnrB") + theme(plot.title = element_text(hjust = 0.5)) +
+  geom_text(size=2.5) + ylim(0,450) #=> 58, 57, 55, 71, 99 et 62 passent pas car Tm trop élevé
+
+ggplot(PCR_21_qnrS_tri, aes(x=`Melt Temperature`, y=as.numeric(`Peak Height`),label=ID)) + geom_point(size=0.5) + ggtitle("qnrS") + theme(plot.title = element_text(hjust = 0.5)) +
+  geom_text(size=2.5) + ylim(0,450) #=> 55 et 105 passent pas car Tm trop élevé et peak height trop faible
+ggplot(PCR_21_qnrS_tri, aes(x=log(`Starting Quantity (SQ)`), y=as.numeric(Cq),label=ID)) + geom_point(size=0.5) + ggtitle("qnrS") + theme(plot.title = element_text(hjust = 0.5)) +
+  geom_text(size=2.5) #gamme => 92, 69, 105 passent pas car Cq différent des Cq STD
+
+ggplot(PCR_22_qnrD_tri, aes(x=`Melt Temperature`, y=as.numeric(`Peak Height`),label=ID)) + geom_point(size=0.5) + ggtitle("qnrD") + theme(plot.title = element_text(hjust = 0.5)) +
+  geom_text(size=2.5) + ylim(0,450) #=> 69, 104 et 103 passent pas car Cq=NA et Tm=None
+                                    #=> 92 et 55 ne passent car Tm différent des Tm STD
+                                    #3 STD avec Tm différents de la moyenne des Tm STD
+
+ggplot(PCR_23_qepA_tri, aes(x=`Melt Temperature`, y=as.numeric(`Peak Height`),label=ID)) + geom_point(size=0.5) + ggtitle("qepA") + theme(plot.title = element_text(hjust = 0.5)) +
+  geom_text(size=2.5) + ylim(0,450) #=> Tm STD complètement décalés
+
+ggplot(PCR_24_qnrC_tri, aes(x=`Melt Temperature`, y=as.numeric(`Peak Height`),label=ID)) + geom_point(size=0.5) + ggtitle("qnrC") + theme(plot.title = element_text(hjust = 0.5)) +
+  geom_text(size=2.5) + ylim(0,450) #=> Tm None pour tous les echantillons
+```
+
+
+
+
+<br/>
+<br/>
+
+# Analyse statistique
+### Normalité des rapports SQgene/SQref (dilués)
+
+
+**Rapport SQgene/SQref**    
+Vérification, pour chaque gène qnr, de la normalité des rapports SQ(gène)/SQ(ref) avec le test de Shapiro.
+Visualisation graphique de la répartition des données.
+
+```{r normalite, warning=FALSE, include=FALSE}
+p1=ggplot(PCR_19_qnrA_tri[which(PCR_19_qnrA_tri$Content=="Unkn"),], aes(x=ID,y=rapport,label=ID)) + geom_point(size=0.5) + geom_text(size=2.5) ; p2= ggplot(PCR_19_qnrA_tri[which(PCR_19_qnrA_tri$ID!="STD"),], aes(x=rapport,label=ID)) + geom_histogram() ; plot_grid(p1, p2)
+shapiro.test(PCR_19_qnrA_tri$rapport[which(PCR_19_qnrA_tri$Content=="Unkn")]) #p-value = 1.788e-15
+
+p1=ggplot(PCR_20_qnrB_tri[which(PCR_20_qnrB_tri$Content=="Unkn" & PCR_20_qnrB_tri$ID!="74" & PCR_20_qnrB_tri$ID!="116"),], aes(x=ID,y=rapport,label=ID)) + geom_point(size=0.5) + geom_text(size=2.5) ; p2= ggplot(PCR_20_qnrB_tri[which(PCR_20_qnrB_tri$Content=="Unkn" & PCR_20_qnrB_tri$ID!="74" & PCR_20_qnrB_tri$ID!="116"),], aes(x=rapport,label=ID)) + geom_histogram() ; plot_grid(p1, p2)
+shapiro.test(PCR_20_qnrB_tri$rapport[which(PCR_20_qnrB_tri$Content=="Unkn")]) #p-value < 2.2e-16
+
+p1=ggplot(PCR_21_qnrS_tri[which(PCR_21_qnrS_tri$Content=="Unkn"),], aes(x=ID,y=rapport,label=ID)) + geom_point(size=0.5) + geom_text(size=2.5) ; p2= ggplot(PCR_21_qnrS_tri[which(PCR_21_qnrS_tri$Content=="Unkn"),], aes(x=rapport,label=ID)) + geom_histogram() ; plot_grid(p1, p2)
+shapiro.test(PCR_21_qnrS_tri$rapport[which(PCR_21_qnrS_tri$Content=="Unkn")]) #p-value = 1.341e-11
+
+p1=ggplot(PCR_22_qnrD_tri[which(PCR_22_qnrD_tri$Content=="Unkn"),], aes(x=ID,y=rapport,label=ID)) + geom_point(size=0.5) + geom_text(size=2.5) ; p2= ggplot(PCR_19_qnrA_tri[which(PCR_22_qnrD_tri$Content=="Unkn"),], aes(x=rapport,label=ID)) + geom_histogram() ; plot_grid(p1, p2)
+shapiro.test(PCR_22_qnrD_tri$rapport[which(PCR_22_qnrD_tri$Content=="Unkn")]) #p-value = 4.216e-12
+
+par(mfrow=c(1,2));plot(PCR_23_qepA_tri$rapport[which(PCR_23_qepA_tri$Content=="Unkn")]) ; hist(PCR_23_qepA_tri$rapport[which(PCR_23_qepA_tri$Content=="Unkn")]) ; par(mfrow=c(1,1))
+shapiro.test(PCR_23_qepA_tri$rapport[which(PCR_23_qepA_tri$Content=="Unkn")]) #p-value = 1.069e-13
+
+par(mfrow=c(1,2));plot(PCR_24_qnrC_tri$rapport[which(PCR_24_qnrC_tri$Content=="Unkn")]) ; hist(PCR_24_qnrC_tri$rapport[which(PCR_24_qnrC_tri$Content=="Unkn")]) ; par(mfrow=c(1,1))
+shapiro.test(PCR_24_qnrC_tri$rapport[which(PCR_24_qnrC_tri$Content=="Unkn")]) #p-value = 1.069e-13
+```
+
+
+<br/>
+
+*Log des rapports SQgene/SQref*   
+```{r normaliteLog, warning=FALSE, include=FALSE}
+p1=ggplot(PCR_19_qnrA_tri[which(PCR_19_qnrA_tri$Content=="Unkn"),], aes(x=ID,y=log_rapport,label=ID)) + geom_point(size=0.5) + geom_text(size=2.5) ; p2= ggplot(PCR_19_qnrA_tri[which(PCR_19_qnrA_tri$ID!="STD"),], aes(x=log_rapport,label=ID)) + geom_histogram() ; plot_grid(p1, p2)
+shapiro.test(PCR_19_qnrA_tri$log_rapport[which(PCR_19_qnrA_tri$Content=="Unkn")]) #p-value = 2.019e-05
+
+p1=ggplot(PCR_20_qnrB_tri[which(PCR_20_qnrB_tri$Content=="Unkn" & PCR_20_qnrB_tri$ID!="74" & PCR_20_qnrB_tri$ID!="116"),], aes(x=ID,y=log_rapport,label=ID)) + geom_point(size=0.5) + geom_text(size=2.5) ; p2= ggplot(PCR_20_qnrB_tri[which(PCR_20_qnrB_tri$Content=="Unkn" & PCR_20_qnrB_tri$ID!="74" & PCR_20_qnrB_tri$ID!="116"),], aes(x=log_rapport,label=ID)) + geom_histogram() ; plot_grid(p1, p2)
+shapiro.test(PCR_20_qnrB_tri$log_rapport[which(PCR_20_qnrB_tri$Content=="Unkn")]) #p-value = 1.082e-06
+
+p1=ggplot(PCR_21_qnrS_tri[which(PCR_21_qnrS_tri$Content=="Unkn"),], aes(x=ID,y=log_rapport,label=ID)) + geom_point(size=0.5) + geom_text(size=2.5) ; p2= ggplot(PCR_21_qnrS_tri[which(PCR_21_qnrS_tri$Content=="Unkn"),], aes(x=log_rapport,label=ID)) + geom_histogram() ; plot_grid(p1, p2)
+shapiro.test(PCR_21_qnrS_tri$log_rapport[which(PCR_21_qnrS_tri$Content=="Unkn")]) #p-value = 5.237e-05
+
+p1=ggplot(PCR_22_qnrD_tri[which(PCR_22_qnrD_tri$Content=="Unkn"),], aes(x=ID,y=log_rapport,label=ID)) + geom_point(size=0.5) + geom_text(size=2.5) ; p2= ggplot(PCR_19_qnrA_tri[which(PCR_22_qnrD_tri$Content=="Unkn"),], aes(x=log_rapport,label=ID)) + geom_histogram() ; plot_grid(p1, p2)
+shapiro.test(PCR_22_qnrD_tri$log_rapport[which(PCR_22_qnrD_tri$Content=="Unkn")]) #p-value = 5.696e-06
+
+par(mfrow=c(1,2));plot(PCR_23_qepA_tri$log_rapport[which(PCR_23_qepA_tri$Content=="Unkn")]) ; hist(PCR_23_qepA_tri$log_rapport[which(PCR_23_qepA_tri$Content=="Unkn")]) ; par(mfrow=c(1,1))
+shapiro.test(PCR_23_qepA_tri$log_rapport[which(PCR_23_qepA_tri$Content=="Unkn")]) #p-value = 0.04546
+
+par(mfrow=c(1,2));plot(PCR_24_qnrC_tri$log_rapport[which(PCR_24_qnrC_tri$Content=="Unkn")]) ; hist(PCR_24_qnrC_tri$log_rapport[which(PCR_24_qnrC_tri$Content=="Unkn")]) ; par(mfrow=c(1,1))
+shapiro.test(PCR_24_qnrC_tri$log_rapport[which(PCR_24_qnrC_tri$Content=="Unkn")]) #p-value = 0.04546
+```
+
+<br/>
+
+### Fusion des tableaux qPCR et metadata (pour avoir les facteurs dans le même tableau)
+```{r fusion tableau, include=FALSE}
+metadata = read.csv("metadata_qPCR.csv", row.names=1, sep=";")
+for (i in 1:20){
+  metadata$ID_ech[i]=str_sub(row.names(metadata)[i],11,end=-19)
+}
+for (i in 21:58){
+  metadata$ID_ech[i]=str_sub(row.names(metadata)[i],18,end=-19)
+}
+
+
+# tab_lm = merge(PCR_19_qnrA_tri,metadata, by.x = "ID",by.y = "ID_ech", all.x=TRUE)
+# tab_lm = merge(PCR_20_qnrB_tri,metadata, by.x = "ID",by.y = "ID_ech", all.x=TRUE)
+# tab_lm = merge(PCR_21_qnrS_tri,metadata, by.x = "ID",by.y = "ID_ech", all.x=TRUE)
+tab_lm = merge(PCR_22_qnrD_tri,metadata, by.x = "ID",by.y = "ID_ech", all.x=TRUE)
+
+
+#séparation du tableau complet en sous tableaux pour les camapagnes AB et EF (on enlève les échantillons de terrain)
+tab_lm_AB = subset(tab_lm, Content=="Unkn" & (Campain=="A" | Campain=="B"))
+tab_lm_EF = subset(tab_lm, Content=="Unkn" & (Campain=="E" | Campain=="F"))
+nrow(tab_lm_AB)
+nrow(tab_lm_EF)
+```
+
+
+<br/>
+
+### Modèle pour les campagnes AB
+
+Analyse de la significativité des facteurs bioréacteur, matériel, inoculum, campagne et jour sur le rapport SQ(gène)/SQ(ref).  
+Il y a 32 échantillons pour la campagnes A et B, mais que 2 échantillons à comparer entre 2 conditions (que Inoculum sans prendre en compte les autres facteurs par exemple)
+
+```{r AB, include=FALSE}
+B=as.factor(tab_lm_AB$Bioreacteur)
+M=as.factor(tab_lm_AB$Material)
+I=as.factor(tab_lm_AB$Inoculum)
+C=as.factor(tab_lm_AB$Campain)
+Jour=as.factor(tab_lm_AB$Day)
+AB= tab_lm_AB$rapport #rapport gene/ref
+p1=ggplot(tab_lm_AB, aes(x=ID,y=rapport,label=ID)) + geom_point(size=0.5) + geom_text(size=2.5) ; p2= ggplot(tab_lm_AB, aes(x=rapport,label=ID)) + geom_histogram() ; plot_grid(p1, p2)
+shapiro.test(AB) #p-value = 0.07119 (qnrA); 9.862e-08 (qnrB); 0.0009526 (qnrS); 0.07227 (qnrC); 0.0002402 (qepA) 
+#AB=µAB+B+M+I+M*I+C+J+I*J+J*M+J*M*I+e
+model.AB=lm(AB~1+B+M+I+M:I+C+Jour+I:Jour+Jour:M)
+par(mfrow=c(2,2)) ; plot(model.AB) ; par(mfrow=c(1,1))
+#pour Anova : Normalité des résidus ou Normalité de chacun des groupes
+shapiro.test(model.AB$residuals) #p-value = 0.7034
+
+anova(model.AB)
+summary(model.AB)
+TukeyHSD(aov(AB~1+B+M+I+M:I+C+Jour+I:Jour+Jour:M), ordered=TRUE)
+
+``` 
+  
+**Pb avec modele AB qui n'affiche pas I ???????????**    
+
+<br/>
+La normalité n'étant pas toujours respectée, une transformation des rapports en log est nécessaire :   
+
+```{r ABlog, include=FALSE}
+B=as.factor(tab_lm_AB$Bioreacteur)
+M=as.factor(tab_lm_AB$Material)
+I=as.factor(tab_lm_AB$Inoculum)
+C=as.factor(tab_lm_AB$Campain)
+Jour=as.factor(tab_lm_AB$Day)
+AB.log= tab_lm_AB$log_rapport
+p1=ggplot(tab_lm_AB, aes(x=ID,y=log_rapport,label=ID)) + geom_point(size=0.5) + geom_text(size=2.5) ; p2= ggplot(tab_lm_AB, aes(x=log_rapport,label=ID)) + geom_histogram() ; plot_grid(p1, p2)
+shapiro.test(AB.log) #p-value = 0.07119 (qnrA); 9.862e-08 (qnrB); 0.0009526 (qnrS); 0.07227 (qnrC); 0.0002402 (qepA) 
+#AB=µAB+B+M+I+M*I+C+J+I*J+J*M+J*M*I+e
+model.AB.log=lm(AB.log~1+B+M+I+M:I+C+Jour+I:Jour+Jour:M)
+par(mfrow=c(2,2)) ; plot(model.AB.log) ; par(mfrow=c(1,1))
+#pour Anova : Normalité des résidus ou Normalité de chacun des groupes
+shapiro.test(model.AB.log$residuals) #p-value = 0.7034
+
+anova(model.AB.log)
+summary(model.AB.log)
+TukeyHSD(aov(AB.log~1+B+M+I+M:I+C+Jour+I:Jour+Jour:M), ordered=TRUE)
+```
+<br/>
+
+### Modèle pour les campagnes EF  
+
+Analyse de la significativité des facteurs dosage (forte concentration ou faible concentration) et traitement en FQ sur le rapport SQ(gène)/SQ(ref).  
+
+```{r EF, include=FALSE}
+D=as.factor(tab_lm_EF$Dosage) #Dosage confondu avec la campagne
+FQ1=as.factor(tab_lm_EF$FQ1) #présence absence
+FQ2=as.factor(tab_lm_EF$FQ2) #présence absence
+#J=as.factor(tab_lm_EF$Day) #J14 pour tous les échantillons donc on peut supprimer ce facteur
+EF=tab_lm_EF$rapport
+p1=ggplot(tab_lm_EF, aes(x=ID,y=rapport,label=ID)) + geom_point(size=0.5) + geom_text(size=2.5) ; p2= ggplot(tab_lm_EF, aes(x=rapport,label=ID)) + geom_histogram() ; plot_grid(p1, p2)
+shapiro.test(EF)
+#EF=µEF+D+FQ1+FQ2+FQ1*FQ2+J+J*FQ1+J*FQ2+J*FQ1*FQ2+e #D*FQ1+D*FQ2+D*FQ1*FQ2 => effet dosage sur traitement ??
+model.EF=lm(EF~1+D+FQ1+FQ2+FQ1:FQ2)
+par(mfrow=c(2,2)) ; plot(model.EF) ; par(mfrow=c(1,1))
+shapiro.test(model.EF$residuals)
+
+anova(model.EF) # on regarde la significativité des prédicteurs pour savoir lesquels garder
+summary(model.EF) #si significatif => montre différences significatives entre les moyennes de gene/ref basé sur le param testé
+TukeyHSD(aov(EF~1+D+FQ1+FQ2+FQ1:FQ2), ordered=TRUE)
+
+```
+<br/>
+La normalité n'étant pas toujours respectée, une transformation des rapports en log est nécessaire :  
+
+```{r EFlog, include=FALSE}
+D=as.factor(tab_lm_EF$Dosage) #Dosage confondu avec la campagne
+FQ1=as.factor(tab_lm_EF$FQ1) #présence absence
+FQ2=as.factor(tab_lm_EF$FQ2) #présence absence
+#J=as.factor(tab_lm_EF$Day) #J14 pour tous les échantillons donc on peut supprier ce facteur
+EF.log=tab_lm_EF$log_rapport
+p1=ggplot(tab_lm_EF, aes(x=ID,y=log_rapport,label=ID)) + geom_point(size=0.5) + geom_text(size=2.5) ; p2= ggplot(tab_lm_EF, aes(x=log_rapport,label=ID)) + geom_histogram() ; plot_grid(p1, p2)
+shapiro.test(EF.log)
+#EF=µEF+D+FQ1+FQ2+FQ1*FQ2+J+J*FQ1+J*FQ2+J*FQ1*FQ2+e #D*FQ1+D*FQ2+D*FQ1*FQ2 => effet dosage sur traitement ??
+model.EF.log=lm(EF.log~1+D+FQ1+FQ2+FQ1:FQ2)
+par(mfrow=c(2,2)) ; plot(model.EF.log) ; par(mfrow=c(1,1))
+shapiro.test(model.EF.log$residuals)
+
+anova(model.EF.log) # on regarde la significativité des prédicteurs pour savoir lesquels garder
+summary(model.EF.log) #si significatif => montre différences significatives entre les moyennes de gene/ref basé sur le param testé
+TukeyHSD(aov(EF.log~1+D+FQ1+FQ2+FQ1:FQ2), ordered=TRUE)
+```
+<br />
+
+### Comparaison des moyennes au témoin
+**Campagnes AB**  
+```{r DunnettAB, include=FALSE}
+#Dunnett pour comparaison au témoin?
+
+#####campagne AB#####
+tab_lm_AB_dunnett = subset(tab_lm, Content=="Unkn" & Campain!="E" & Campain!="F") #on prend tous les ech sauf ceux des campagnes E et F (on prend quand meme les ech envtaux pour les témoins)
+tab_lm_AB_dunnett$Inoculum[which(tab_lm_AB_dunnett$Material==0)]="WW_envt"
+tab_lm_AB_dunnett$Inoculum[which(tab_lm_AB_dunnett$ID==55)]="BF_envt"
+# tab_lm_AB_dunnett$Inoculum <- relevel(factor(tab_lm_AB_dunnett$Inoculum), ref="BF_envt") #1 seul échantillon pour la comparaison au témoin quand biofilm environnemental
+# tab_lm_AB_dunnett$Inoculum <- relevel(factor(tab_lm_AB_dunnett$Inoculum), ref="WW_envt") 
+
+model.AB.dunnett <- aov(log_rapport~Inoculum, data = tab_lm_AB_dunnett)
+shapiro.test(model.AB.dunnett$residuals) #si non normalité des résidus on fait Dunn test ?
+summary(model.AB.dunnett)
+kruskal.test(log_rapport~Inoculum, data = tab_lm_AB_dunnett)
+#boxplot(log_rapport~Inoculum, data = tab_lm_AB_dunnett)
+ggplot(tab_lm_AB_dunnett, aes(x=Inoculum, y=log_rapport,color=Inoculum)) +
+  geom_boxplot(outlier.colour="black", outlier.shape=16,outlier.size=2, notch=FALSE) + 
+  scale_color_manual(values=c("#196f3d", "#1abc9c", "#56B4E9", "#2471a3")) + 
+  geom_dotplot(binaxis='y', stackdir='center',
+                 position=position_dodge(1))
+
+# library(DescTools)
+# DunnettTest(x=tab_lm_AB_dunnett$log_rapport, g=tab_lm_AB_dunnett$Inoculum)
+
+#Dunn test non paramétrique
+dunnTest(log_rapport ~ Inoculum,
+         data=tab_lm_AB_dunnett,
+         method="bonferroni")
+```
+</br>
+
+**Campagnes EF**   
+Comparaison au témoin (None) en fonction du type d'ATB (FQ1, FQ2 ou FQ1+FQ2) :   
+```{r DunnettEF, include=FALSE}
+#Dunnett pour comparaison au témoin?
+
+## ATB_type
+tab_lm_EF_Dunnett=tab_lm_EF
+tab_lm_EF_Dunnett$ATB_type[which(tab_lm_EF_Dunnett$ATB_type==0)]="None"
+tab_lm_EF_Dunnett$ATB_type <- relevel(factor(tab_lm_EF_Dunnett$ATB_type), ref="None")
+
+model.EF.ATB_type <- aov(log_rapport~ATB_type, data = tab_lm_EF_Dunnett)
+shapiro.test(model.EF.ATB_type$residuals)
+summary(model.EF.ATB_type)
+#boxplot(log_rapport~ATB_type, data = tab_lm_EF_Dunnett)
+ggplot(tab_lm_EF_Dunnett, aes(x=ATB_type, y=log_rapport,color=ATB_type)) +
+  geom_boxplot(outlier.colour="black", outlier.shape=16,outlier.size=2, notch=FALSE) + 
+  scale_color_manual(values=c("#c0392b", "#E69F00", "#56B4E9", "#999999")) + 
+  geom_dotplot(binaxis='y', stackdir='center',
+                 position=position_dodge(1))
+
+
+DunnettTest(x=tab_lm_EF_Dunnett$log_rapport, g=tab_lm_EF_Dunnett$ATB_type)
+
+```
+</br>
+Comparaison au témoin (None)  en fonction du dosage (High ou Low) :  
+```{r DunnettEF_Dosage, include=FALSE}
+#Dunnett pour comparaison au témoin?
+
+tab_lm_EF_Dunnett=tab_lm_EF
+tab_lm_EF_Dunnett$ATB_type[which(tab_lm_EF_Dunnett$ATB_type==0)]="None"
+tab_lm_EF_Dunnett$Dosage[which(tab_lm_EF_Dunnett$ATB_type=="None")]="None"
+tab_lm_EF_Dunnett$Dosage <- relevel(factor(tab_lm_EF_Dunnett$Dosage), ref="None")
+
+model.EF.Dosage <- aov(log_rapport~Dosage, data = tab_lm_EF_Dunnett)
+shapiro.test(model.EF.Dosage$residuals)
+summary(model.EF.Dosage)
+#boxplot(log_rapport~Dosage, data = tab_lm_EF_Dunnett)
+ggplot(tab_lm_EF_Dunnett, aes(x=Dosage, y=log_rapport,color=Dosage)) + geom_boxplot(outlier.colour="black", outlier.shape=16,outlier.size=2, notch=FALSE) + scale_color_grey() + theme_classic() +geom_dotplot(binaxis='y', stackdir='center',
+                 position=position_dodge(1))
+
+library(DescTools)
+DunnettTest(x=tab_lm_EF_Dunnett$log_rapport, g=tab_lm_EF_Dunnett$Dosage)
+```
+
+## Fonction finale résultats
+```{r fonction_results, include=FALSE}
+results_log = function(tab,metadata,testNormalite=FALSE,extendedResults=FALSE){
+
+  for (i in 1:20){
+    metadata$ID_ech[i]=str_sub(row.names(metadata)[i],11,end=-19)
+  }
+  for (i in 21:58){
+    metadata$ID_ech[i]=str_sub(row.names(metadata)[i],18,end=-19)
+  }
+  
+  tab_lm = merge(tab,metadata, by.x = "ID",by.y = "ID_ech", all.x=TRUE)
+  
+  #séparation du tableau complet en sous tableaux pour les camapagnes AB et EF (on enlève les échantillons de terrain)
+  tab_lm_AB = subset(tab_lm, Content=="Unkn" & (Campain=="A" | Campain=="B"))
+  tab_lm_EF = subset(tab_lm, Content=="Unkn" & (Campain=="E" | Campain=="F"))
+  nrow(tab_lm_AB)
+  nrow(tab_lm_EF)
+  
+  cat("\n")
+  cat(paste("\t\t","****************","Campagnes A et B","****************",sep=""),'\n\n')
+  cat('\n')
+
+  B=as.factor(tab_lm_AB$Bioreacteur)
+  M=as.factor(tab_lm_AB$Material)
+  I=as.factor(tab_lm_AB$Inoculum)
+  C=as.factor(tab_lm_AB$Campain)
+  Jour=as.factor(tab_lm_AB$Day)
+  AB.log= tab_lm_AB$log_rapport
+  if (testNormalite==TRUE){
+     p1=ggplot(tab_lm_AB, aes(x=ID,y=log_rapport,label=ID)) + geom_point(size=0.5) + geom_text(size=2.5) ; p2= ggplot(tab_lm_AB, aes(x=log_rapport,label=ID)) + geom_histogram() ; plot_grid(p1, p2)
+  }
+
+  shapiro.test(AB.log) #p-value = 0.07119 (qnrA); 9.862e-08 (qnrB); 0.0009526 (qnrS); 0.07227 (qnrC); 0.0002402 (qepA)
+  #AB=µAB+B+M+I+M*I+C+J+I*J+J*M+J*M*I+e
+  model.AB.log=lm(AB.log~1+B+M+I+M:I+C+Jour+I:Jour+Jour:M)
+  # if (extendedResults==TRUE){
+  #   par(mfrow=c(2,2)) ; plot(model.AB.log) ; par(mfrow=c(1,1))
+  # }
+  #pour Anova : Normalité des résidus ou Normalité de chacun des groupes
+  if (testNormalite==TRUE){
+     print(shapiro.test(model.AB.log$residuals))
+  }
+  #p-value = 0.7034
+  if (extendedResults==TRUE){
+    print("####ANOVA")
+    print(anova(model.AB.log))
+  }
+  cat('\n\n')
+  print("####Summary model")
+  print(summary(model.AB.log))
+  cat('\n')
+  if (extendedResults==TRUE){
+    print("####Tukey")
+    print(TukeyHSD(aov(AB.log~1+B+M+I+M:I+C+Jour+I:Jour+Jour:M), ordered=TRUE))
+  }
+  
+  cat("\n\n")
+  cat(paste("\t","******","Comparaison au témoin","******",sep=""),'\n\n')
+  cat('\n')
+
+  tab_lm_AB_dunnett = subset(tab_lm, Content=="Unkn" & Campain!="E" & Campain!="F") #on prend tous les ech sauf ceux des campagnes E et F (on prend quand meme les ech envtaux pour les témoins)
+  tab_lm_AB_dunnett$Inoculum[which(tab_lm_AB_dunnett$Material==0 | tab_lm_AB_dunnett$ID==55)]="envt"
+  # tab_lm_AB_dunnett$Inoculum[which(tab_lm_AB_dunnett$ID==0)]="WW_envt"
+  # tab_lm_AB_dunnett$Inoculum[which(tab_lm_AB_dunnett$ID==55)]="BF_envt"
+
+  if (extendedResults==TRUE){
+    model.AB.dunnett <- aov(log_rapport~Inoculum, data = tab_lm_AB_dunnett)
+    shapiro.test(model.AB.dunnett$residuals) #si non normalité des résidus on fait Dunn test ?
+    print(summary(model.AB.dunnett))
+    print(kruskal.test(log_rapport~Inoculum, data = tab_lm_AB_dunnett))
+  }
+  
+  means=aggregate(log_rapport~Inoculum, data = tab_lm_AB_dunnett, FUN = function(x) {round(mean(x), digits=2)})
+  std=aggregate(log_rapport~Inoculum, data = tab_lm_AB_dunnett, FUN = function(x) {round(sd(x), digits=2)})
+  # round(means, digits = 2)
+  
+  print(ggplot(tab_lm_AB_dunnett, aes(x=Inoculum, y=log_rapport,color=Inoculum)) +
+    geom_boxplot(outlier.colour="black", outlier.shape=16,outlier.size=2, notch=FALSE) +
+    scale_color_manual(values=c("#196f3d", "#1abc9c", "#56B4E9", "#2471a3")) +
+    # geom_text(data = means, aes(label = log_rapport, y = log_rapport + 1.5)) +
+    # geom_text(data = std, aes(label = log_rapport, y = log_rapport + 1.4)) +
+    geom_dotplot(binaxis='y', stackdir='center',
+                   position=position_dodge(1)))
+
+  #Dunn test non paramétrique
+  print(dunnTest(log_rapport ~ Inoculum,
+           data=tab_lm_AB_dunnett,
+           method="bonferroni"))
+
+  
+  cat("\n\n\n")
+  cat(paste("\t\t","****************","Campagnes E et F","****************",sep=""),'\n\n')
+  cat('\n')
+  
+  D=as.factor(tab_lm_EF$Dosage) #Dosage confondu avec la campagne
+  FQ1=as.factor(tab_lm_EF$FQ1) #présence absence
+  FQ2=as.factor(tab_lm_EF$FQ2) #présence absence
+  #J=as.factor(tab_lm_EF$Day) #J14 pour tous les échantillons donc on peut supprier ce facteur
+  EF.log=tab_lm_EF$log_rapport
+  if (testNormalite==TRUE){
+     p1=ggplot(tab_lm_EF, aes(x=ID,y=log_rapport,label=ID)) + geom_point(size=0.5) + geom_text(size=2.5) ; p2= ggplot(tab_lm_EF, aes(x=log_rapport,label=ID)) + geom_histogram() ; plot_grid(p1, p2)
+  }
+  shapiro.test(EF.log)
+  #EF=µEF+D+FQ1+FQ2+FQ1*FQ2+J+J*FQ1+J*FQ2+J*FQ1*FQ2+e #D*FQ1+D*FQ2+D*FQ1*FQ2 => effet dosage sur traitement ??
+  model.EF.log=lm(EF.log~1+FQ1+FQ2+FQ1:FQ2)
+  if (extendedResults==TRUE){
+    par(mfrow=c(2,2)) ; plot(model.EF.log) ; par(mfrow=c(1,1))
+  }
+  if (testNormalite==TRUE){
+    print(shapiro.test(model.EF.log$residuals))
+  }
+  if (extendedResults==TRUE){
+    print("####ANOVA")
+    print(anova(model.EF.log))
+  }
+  cat('\n\n')
+  print("####Summary model")# on regarde la significativité des prédicteurs pour savoir lesquels garder
+  print(summary(model.EF.log)) #si significatif => montre différences significatives entre les moyennes de gene/ref basé sur le param testé
+  cat('\n')
+  if (extendedResults==TRUE){
+    print("####Tukey")
+    print(TukeyHSD(aov(EF.log~1+FQ1+FQ2+FQ1:FQ2), ordered=TRUE))
+  }
+  
+  cat("\n")
+  cat(paste("\t","******","Comparaison au témoin","******",sep=""),'\n\n')
+  cat('\n')
+  
+  cat("\n")
+  cat(paste("***","ATB_type","***",sep=""),'\n\n')
+  cat('\n')
+  
+  tab_lm_EF_Dunnett=tab_lm_EF
+  tab_lm_EF_Dunnett$ATB_type[which(tab_lm_EF_Dunnett$ATB_type==0)]="None"
+  tab_lm_EF_Dunnett$ATB_type <- relevel(factor(tab_lm_EF_Dunnett$ATB_type), ref="None")
+  
+  if (extendedResults==TRUE){
+    model.EF.ATB_type <- aov(log_rapport~ATB_type, data = tab_lm_EF_Dunnett)
+    shapiro.test(model.EF.ATB_type$residuals)
+    summary(model.EF.ATB_type)
+  }
+  #boxplot(log_rapport~ATB_type, data = tab_lm_EF_Dunnett)
+  print(ggplot(tab_lm_EF_Dunnett, aes(x=ATB_type, y=log_rapport,color=ATB_type)) +
+    geom_boxplot(outlier.colour="black", outlier.shape=16,outlier.size=2, notch=FALSE) + 
+    scale_color_manual(values=c("#c0392b", "#E69F00", "#56B4E9", "#999999")) + 
+    geom_dotplot(binaxis='y', stackdir='center',
+                   position=position_dodge(1)))
+  
+  
+  print(DunnettTest(x=tab_lm_EF_Dunnett$log_rapport, g=tab_lm_EF_Dunnett$ATB_type))
+  
+  cat('\n')
+  cat("\n")
+  cat(paste("***","Dosage","***",sep=""),'\n\n')
+  cat('\n')
+
+  tab_lm_EF_Dunnett=tab_lm_EF
+  tab_lm_EF_Dunnett$ATB_type[which(tab_lm_EF_Dunnett$ATB_type==0)]="None"
+  tab_lm_EF_Dunnett$Dosage[which(tab_lm_EF_Dunnett$ATB_type=="None")]="None"
+  tab_lm_EF_Dunnett$Dosage <- relevel(factor(tab_lm_EF_Dunnett$Dosage), ref="None")
+
+  if (extendedResults==TRUE){
+    model.EF.Dosage <- aov(log_rapport~Dosage, data = tab_lm_EF_Dunnett)
+    shapiro.test(model.EF.Dosage$residuals)
+    print(summary(model.EF.Dosage))
+  }
+  #boxplot(log_rapport~Dosage, data = tab_lm_EF_Dunnett)
+  print(ggplot(tab_lm_EF_Dunnett, aes(x=Dosage, y=log_rapport,color=Dosage)) + geom_boxplot(outlier.colour="black", outlier.shape=16,outlier.size=2, notch=FALSE) + scale_color_grey() + theme_classic() +geom_dotplot(binaxis='y', stackdir='center',
+                   position=position_dodge(1)))
+
+  library(DescTools)
+  print(DunnettTest(x=tab_lm_EF_Dunnett$log_rapport, g=tab_lm_EF_Dunnett$Dosage))
+}
+```
+
+
+# Résultats   
+</br>
+
+## qnrA  
+</br>
+```{r qnrA}
+# results_log(PCR_19_qnrA_tri,metadata)
+results_log(PCR_19_qnrA_tri,metadata,extendedResults=TRUE)
+```
+</br>
+
+## qnrB  
+</br>
+```{r qnrB}
+# results_log(PCR_20_qnrB_tri,metadata)
+results_log(PCR_20_qnrB_tri,metadata,extendedResults=TRUE)
+```
+</br>
+
+## qnrS  
+</br>
+```{r qnrS}
+# results_log(PCR_21_qnrS_tri,metadata)
+results_log(PCR_21_qnrS_tri,metadata,extendedResults=TRUE)
+```
+</br>
+
+## qnrD  
+</br>
+```{r qnrD}
+# results_log(PCR_22_qnrD_tri,metadata)
+results_log(PCR_22_qnrD_tri,metadata,extendedResults=TRUE)
+```
