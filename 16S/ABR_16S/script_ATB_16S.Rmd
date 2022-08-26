@@ -1,0 +1,2388 @@
+---
+title: "ATB 16S"
+author: "Sofia Demmou"
+date: "04/04/2022"
+output: html_document
+---
+```{r library, include=FALSE}
+####library####
+library(phyloseq)
+library(phyloseq.extended)
+library(biomformat)
+library(phytools)
+library(microbiome) #plot_composition
+
+library(vegan) #fonction "rarecurve" + autres méthodes d'ordination et calculs de distances
+library(ade4) #
+library(ggplot2) #visualisation graphique
+library(gplots) #visualisation graphique et heatmap.2
+library(RColorBrewer) #color palette
+library(stringr) #fonction "sub_str" pour renommer les échantillons
+
+
+library(plyr) #llply ordinate
+library(gridExtra)
+
+library(DESeq2)
+library(readxl)
+library(writexl)
+library(pheatmap) #heatmap DESeq2
+library(dplyr) #fonction "select" pour DESeq2 (annot_col) + "relocate" pour modifier ordre des colonnes dans un tableau
+library(tibble) #fonction "column_to_rownames" pour DESeq2 (annot_col)
+
+library(MicrobiotaProcess) #fonction "get_vennlist" pour construire le diagramme de Venn
+library(VennDiagram) #diagramme de Venn
+library("ggVennDiagram") #autre library diagramme de Venn
+
+
+library(ape) #tree (newik format) + as.phylo
+
+library(genefilter) #filterfun pour filtrer les OTUs
+
+library(ggpubr) #comparaison richesse shannon
+
+```
+</br>
+</br>
+
+Import FROGS
+```{r import, echo=FALSE}
+setwd("C:/Users/Marie Claire Demmou/OneDrive/stage/R_16S")
+
+biomfile = "d1_FROGS_Affiliation_postprocess_abundance_biom.biom1"
+std.biom="Galaxy45-[d_1___FROGS_BIOM_to_std_BIOM__abundance.standard.biom].biom1"
+
+# frogs.all=import_frogs(biomfile, taxMethod = "blast", treefilename="data_asCount/asCount_pintail100_d1_FROGS_tree.nwk")
+
+frogs.all=import_biom(std.biom)
+colnames(frogs.all@tax_table) <- c("Kingdom","Phylum","Class","Order","Family","Genus","Species")
+
+metadata = read.csv("metadata_16S.csv", row.names=1, sep=";")
+
+#on renome les échantillons
+for (i in 1:20){
+  metadata$ID_ech[i]=str_sub(row.names(metadata)[i],11,end=-19)
+}
+for (i in 21:58){
+  metadata$ID_ech[i]=str_sub(row.names(metadata)[i],18,end=-19)
+}
+
+sample_data(frogs.all) = metadata
+sample_names(frogs.all) = sample_data(frogs.all)$Noms_R
+frogs.all
+
+nsamples(frogs.all) 
+
+ntaxa(frogs.all)
+length(get_taxa_unique(frogs.all, "Phylum")) #=> 11 Embranchements
+length(get_taxa_unique(frogs.all, "Family")) #=> 92 familles
+```
+
+La table importée depuis FROGS contient 57 échantillons 16S.  
+On retrouve 388 taxons, 11 embranchements (Phyllum) et 94 familles dans nos échantillons.  
+
+</br>
+</br>
+</br>
+</br>
+
+# Jeu de données complet
+##Normalisation des échantillons 
+```{r norm, eval=FALSE, warning=FALSE, include=FALSE}
+
+frogs.rare = rarefy_even_depth(frogs.all, rngseed = 1121983) #rngseed?? => nombre de reads mini pour un ech
+
+rarecurve(t(otu_table(frogs.all)), step=50, cex=0.5,label=FALSE)
+#sample depth allant de 5 000 à 120 000
+
+ggrare(physeq = frogs.all, step = 100, se = FALSE, plot = FALSE) +
+  ggtitle("Rarefaction curves") + 
+  aes(color = factor(Campaign)) + 
+  facet_wrap(~ATB, scales = "free_y")
+```
+</br>
+
+## Diversité alpha  
+</br>
+On peut observer des différences de diversité alpha en fonction de différents paramètres.  
+Les graphiques ci-dessous montrent par exemple la diversité alpha des échantillons en fonction de la campagne, du coupon et du jour pour les campagnes A et B, et en fonction de la campagne et du bioréacteur (concentration en Q) pour les campagnes E et F.
+</br>
+```{r divAlpha, eval=FALSE, warning=FALSE, include=FALSE}
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/plot_bar_OTU_phylum.png",width=10,height = 5, units='in',res=600)
+plot_bar(frogs.rare, fill="Phylum") + facet_wrap(~Camp_Day_Mat, scales= "free_x", nrow=1) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+# dev.off()
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/plot_composition_order.png",width=10,height = 5, units='in',res=600)
+plot_composition(frogs.rare, taxaRank1 = NULL, taxaSet1 = NULL, taxaRank2 = "Order", numberOfTaxa = 15) + 
+  facet_grid(~Camp_Day_Mat, scales = "free_x", space = "free_x") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+# dev.off()
+```
+
+</br>
+Diversité en fonction du traitement en ATB.  
+```{r divATB, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+frogs_ATB=subset_samples(frogs.all, ATB!='/')
+plot_composition(frogs_ATB, taxaRank1 = NULL, taxaSet1 = NULL, taxaRank2 = "Family", numberOfTaxa = 10) + 
+  scale_fill_brewer(palette = "Paired") +
+  facet_grid(~ATB, scales = "free_x", space = "free_x")
+
+frogs_merge_ATB = merge_samples(frogs_ATB, "ATB", fun="mean") #regroupement des ech en faisant une moyenne
+plot_composition(frogs_merge_ATB, taxaRank1 = NULL, taxaSet1 = NULL, taxaRank2 = "Family", numberOfTaxa = 12) + 
+  scale_fill_brewer(palette = "Paired") +
+  facet_grid(~ATB, scales = "free_x", space = "free_x")
+```
+
+</br>
+On peut également s'intéresser à la richesse de nos échantillons, en fonction de la concentration en ATB par exemple, notamment avec l'indice de Shannon.   
+```{r richesseATB, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+frogs_ATB=subset_samples(frogs.rare, ATB!='/') #on supprime les échantillons non comparable
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/ATB_richesse_obs_shannon.png",width=8,height = 4, units='in',res=600)
+plot_richness(frogs_ATB, x="ATB", measures=c("Observed", "Shannon")) + geom_boxplot() #Chao1
+# dev.off()
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/ATB_richesse_chaos1_shannon.png",width=8,height = 4, units='in',res=600)
+p = plot_richness(frogs_ATB, x="ATB", color="Campaign" , measures=c("Chao1", "Shannon"))
+p + geom_point(size=5, alpha=0.7) 
+# dev.off()
+```
+
+On peut ainsi voir qu'il semble y avoir une richesse plus faible pour les échantillons ayant subi un traitement en ATB.  
+
+</br>
+
+## Clustering
+
+```{r clust, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+
+dist.bc <- phyloseq::distance(frogs.rare, method = "bray",type="samples")
+par(mfcol = c(1, 3)) ## To plot the three clustering trees side-by-side
+plot(hclust(dist.bc, method = "complete"))
+plot(hclust(dist.bc, method = "ward.D2"))
+plot(hclust(dist.bc, method = "single"))
+par(mfcol = c(1, 1))
+    
+clust.bc <- as.phylo(hclust(dist.bc, method = "complete"))
+plot(clust.bc, direction = "downwards", main = "Ward linkage")
+
+```
+
+
+## Diversité beta
+
+```{r ord, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/Inoculum_NMDS.png",width=8,height = 4, units='in',res=600)
+plot_ordination(frogs.rare, label="Noms_R", ordinate(frogs.rare, "NMDS","bray"), "samples", color="Inoculum", shape="Material") +
+  geom_point(size = 3)
+# dev.off()
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/Inoculum_PcoA.png",width=8,height = 4, units='in',res=600)
+plot_ordination(frogs.rare, label="Noms_R", ordinate(frogs.rare, "PCoA","bray"), "samples", color="Inoculum", shape="Material") +
+  geom_point(size = 3) +
+  # geom_polygon(aes(fill=Inoculum)) +
+  ggtitle("samples")
+# dev.off()
+
+frogs.ATB.rare = rarefy_even_depth(frogs_ATB, rngseed = 1121983)
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/ATB_NMDS.png",width=8,height = 4, units='in',res=600)
+plot_ordination(frogs.ATB.rare, label="Noms_R", ordinate(frogs.ATB.rare, "NMDS","bray"), "samples", color="ATB_type", shape="Dosage") + 
+  geom_point(size = 5)
+# dev.off()
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/ATB_PcoA.png",width=8,height = 4, units='in',res=600)
+plot_ordination(frogs.ATB.rare, label="Noms_R", ordinate(frogs.ATB.rare, "PCoA","bray"), "samples", color="ATB_type", shape="Dosage") + 
+  geom_point(size = 5) + 
+  # geom_polygon(aes(fill=Inoculum)) + 
+  ggtitle("samples")
+# dev.off()
+```
+
+Diagramme de Venn.
+
+```{r venn, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+vennlist = get_vennlist(obj=frogs, factorNames="Inoc_Bioreac") #donne la liste des clusters par facteur (BF, BR ou SW) 
+#write.table(vennlist,file="vennlist.csv",sep=";",row.names=FALSE,quote=FALSE)
+#write.table(vennlist[3],file="vennlist_SW.txt",row.names=FALSE)
+
+upsetda = get_upset(obj=frogs, factorNames="Inoc_Bioreac") #prepare les données pour visualiser l'intersection entre tous les OTUs => présence/absence des clusters pour les 3 facteurs (BF/BR/SW)
+
+library(RColorBrewer)
+myCol = brewer.pal(3, "Pastel2")
+
+#https://www.r-graph-gallery.com/14-venn-diagramm.html => esthetique
+vennp = venn.diagram(vennlist,
+                      height=5,
+                      width=5, 
+                      filename=NULL, 
+                      output=TRUE,
+                      fill=myCol,
+                      cat.col=myCol,
+                      alpha = 0.85, 
+                      fontfamily = "serif",
+                      fontface = "bold",
+                      cex = 1.2,
+                      cat.cex = 1.3,
+                      cat.default.pos = "outer",
+                      cat.dist=0.1,
+                      margin = 0.1, 
+                      lwd = 3,
+                      lty ='dotted',
+                      imagetype = "svg")
+
+plot.new()
+title("Diagramme de Venn")
+grid::grid.draw(vennp)
+
+BF=as.list(read.csv("vennlist_species_BF.txt", sep=""))
+BR=as.list(read.csv("vennlist_species_BR.txt", sep=""))
+SW=as.list(read.csv("vennlist_species_SW.txt", sep=""))
+
+vennlist.sp=c(BF,BR,SW)
+
+ggVennDiagram(vennlist.sp, show_intersect = TRUE) #nombre d'OTUs (ou clusters) en communs
+  #chercher comment afficher les noms des espèces au lieu des clusters
+```
+
+
+
+
+# As count = 2
+
+```{r importABEF, include=FALSE}
+
+biomfile = "data_asCount/asCount_pintail100_d1_FROGS_Affiliation_postprocess_abundance_biom.biom1"
+std.biom = "data_asCount/asCount_pintail100_d1_FROGS_BIOM_to_std_BIOM_abundance.biom1"
+
+# frogs.ABEF=import_frogs(biomfile, taxMethod = "blast", treefilename="data_asCount/asCount_pintail100_d1_FROGS_tree.nwk")
+
+frogs.ABEF=import_biom(std.biom)
+colnames(frogs.ABEF@tax_table) <- c("Kingdom","Phylum","Class","Order","Family","Genus","Species")
+
+# metadata = read.csv("metadata_16S.csv", row.names=1, sep=";")
+metadata = read.csv("metadata_16S_qnr.csv", row.names=1, sep=";")
+
+
+#on renome les échantillons
+for (i in 1:20){
+  metadata$ID_ech[i]=str_sub(row.names(metadata)[i],11,end=-19)
+}
+for (i in 21:58){
+  metadata$ID_ech[i]=str_sub(row.names(metadata)[i],18,end=-19)
+}
+
+sample_data(frogs.ABEF) = metadata
+sample_names(frogs.ABEF) = sample_data(frogs.ABEF)$Noms_R
+frogs.ABEF
+
+nsamples(frogs.ABEF) 
+
+ntaxa(frogs.ABEF)
+length(get_taxa_unique(frogs.ABEF, "Phylum")) #=> 28 Embranchements
+length(get_taxa_unique(frogs.ABEF, "Family")) #=> 278 familles
+
+# clusters.all <- read.csv("C:/Users/Marie Claire Demmou/OneDrive/stage/R_16S/data_asCount/asCount_pintail100_d1_FROGS_abundance_clusters.tsv", sep="\t")
+# clusters.all=clusters.all[,-c(1,2,3,4)]
+
+# png("C:/Users/sdemmou/OneDrive/stage/RAPPORT/figures/temp/plot_composition_order_all.png",width=15,height = 6, units='in',res=600)
+plot_composition(frogs.ABEF, taxaRank1 = NULL, taxaSet1 = NULL, taxaRank2 = "Phylum", numberOfTaxa = 15) + 
+  facet_grid(~Camp_Day, scales = "free_x", space = "free_x") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+# dev.off()
+```
+Avec as count = 2, on se retrouve avec 28 embranchements (au lieu de 11 avec le OTU filters à 0.0005) et 278 familles (au lieu de 94).
+
+</br>
+
+
+```{r ABEF.constrained.ordinate}
+
+frogs.ABEF.rare = rarefy_even_depth(frogs.ABEF, rngseed = 1121983)
+frogs.ABEF.dist.bc = phyloseq::distance(frogs.ABEF.rare, method="bray")
+
+# CAP ordinate
+cap_ord <- ordinate(
+    physeq = frogs.ABEF.rare, 
+    method = "CAP",
+    distance = frogs.ABEF.dist.bc,
+    formula = ~ Inoculum + campaign + qnrA + qnrB + qnrD + qnrS
+)
+
+# CAP plot
+cap_plot <- plot_ordination(
+  physeq = frogs.ABEF.rare, 
+  ordination = cap_ord, 
+    color = "Inoculum", 
+    axes = c(1,2)
+) + 
+    aes(shape = campaign) + 
+    geom_point(aes(colour = Inoculum), alpha = 0.4, size = 4) + 
+    # geom_point(colour = "grey90", size = 1.5) + 
+    scale_color_manual(values = c("#145a32", "#1abc9c", "#154360",  "#56B4E9","#2471a3")
+    )
+
+
+# Now add the environmental variables as arrows
+arrowmat <- vegan::scores(cap_ord, display = "bp")
+
+# Add labels, make a data.frame
+arrowdf <- data.frame(labels = rownames(arrowmat), arrowmat)
+
+# Define the arrow aesthetic mapping
+arrow_map <- aes(xend = CAP1, 
+    yend = CAP2, 
+    x = 0, 
+    y = 0, 
+    shape = NULL, 
+    color = NULL, 
+    label = labels)
+
+label_map <- aes(x = 1.3 * CAP1, 
+    y = 1.3 * CAP2, 
+    shape = NULL, 
+    color = NULL, 
+    label = labels)
+
+arrowhead = arrow(length = unit(0.02, "npc"))
+
+# Make a new graphic
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/ordinate_cap_ABEF.png",width=10,height = 8, units='in',res=600)
+cap_plot + 
+  geom_segment(
+    mapping = arrow_map, 
+    size = .5, 
+    data = arrowdf, 
+    color = "gray", 
+    arrow = arrowhead
+  ) + 
+  geom_text(
+    mapping = label_map, 
+    size = 4,  
+    data = arrowdf, 
+    show.legend = FALSE
+  ) +
+  labs(title = "CAP on Inoculum and Campaign factors",
+              # subtitle = "Plot of length by dose",
+              caption = str_wrap("For the inoculum: BF_envt and WW_envt refer to biofilm and wastewater samples collected in the field, BF refers to samples from bioreactors that were inoculated with wastewater and biofilm, and WW refers to samples that were inoculated with wastewater alone. For Campaign: E corresponds to Campaign E subjected to high antibiotic concentration, and F corresponds to Campaign F subjected to low antibiotic concentration.", 150)) +
+  theme(plot.caption = element_text(hjust = 0))
+# dev.off()
+
+
+# plotoc<-plot_ordination(MTDEV, gp.pcoa, color='LifeStage') +geom_point(size=3,alpha=0.5)+scale_color_manual(values=c("#d73027","#fc8d59","#4d4d4d","#91bfdb","#4575b4"),breaks=c("Premetamorph","Prometamorph","Metamorph","Froglet","Adult"))
+# plotoc<-plotoc+ggtitle("Community composition")+theme_npgray()+ stat_ellipse(type="norm",linetype=2)+theme(legend.position="top")
+# plotoc
+```
+
+```{r ABEF.networks}
+# sparCC correlation.
+# https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5964358/
+
+# plot_net(frogs.ABEF.rare, maxdist = 0.3, color = "Camp_graph", shape="Inoculum", point_label = "Noms_R",laymeth = "circle")
+
+#plot_net(frogs.ABEF.rare, maxdist = 0.3, type = "taxa")
+
+
+# ig.bc <- make_network(frogs.ABEF.rare, dist.fun="bray", max.dist=0.6, type = "taxa")
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/network_ABEF_ATB.png",width=10,height = 8, units='in',res=600)
+# plot_network(ig.bc, frogs.ABEF.rare, line_weight=0.4) # BF_envt disparait ici ... => mettre max.dist=0.6
+# dev.off()
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/network_ABEF_Inoc.png",width=10,height = 8, units='in',res=600)
+# plot_network(ig.bc, frogs.ABEF.rare, color="Camp_graph", shape="Inoculum", line_weight=0.4, label="Noms_R")
+# dev.off()
+```
+
+</br>
+</br>
+
+## Campagne AB
+
+```{r AB.filter, warning=FALSE}
+
+frogs.campagnesAB = subset_samples(frogs.ABEF, sample_data(frogs.ABEF)$Campaign != "E" & sample_data(frogs.ABEF)$Campaign != "F")
+metadata.AB=subset(metadata,Campaign != "E" & Campaign != "F")
+
+AB.clus=as.data.frame(frogs.campagnesAB@otu_table)
+AB.clus$cluster=row.names(AB.clus)
+clusters.all.taxo=clusters.all[,c(2,3,4,5,6,7,8,9)]
+AB.clusters.all=merge(AB.clus,clusters.all.taxo, by.x="cluster", by.y="observation_name")
+AB.clusters.all = relocate(AB.clusters.all,cluster, .before = Phylum)
+
+
+frogs.AB.norm = rarefy_even_depth(frogs.campagnesAB, rngseed = 1121983)
+# 657 OTUs were removed 
+
+#somme d'un taxa>(somme de tous les taxa)*5e-5
+filter <- phyloseq::genefilter_sample(frogs.campagnesAB, filterfun_sample(function(x) x >= sum(x)*5e-5))
+frogs.AB.filt <- prune_taxa(filter, frogs.campagnesAB)
+# phyloseq-class experiment-level object
+# otu_table()   OTU Table:         [ 385 taxa and 42 samples ]
+# sample_data() Sample Data:       [ 42 samples by 14 sample variables ]
+# tax_table()   Taxonomy Table:    [ 385 taxa by 7 taxonomic ranks ]
+
+
+frogs.AB.filt.norm = rarefy_even_depth(frogs.AB.filt, rngseed = 1121983)
+frogs.AB.filt.norm
+  # 1 OTU was removed
+# phyloseq-class experiment-level object
+# otu_table()   OTU Table:         [ 384 taxa and 42 samples ]
+# sample_data() Sample Data:       [ 42 samples by 14 sample variables ]
+# tax_table()   Taxonomy Table:    [ 384 taxa by 7 taxonomic ranks ]
+
+
+```
+</br>
+On passe de 3564 OTUs pour les échantillons des campagnes AB (en enlevant juste les singletons), à 385 OTUs en filtrant à 0.00005.   
+(1285 OTUs en filtrant à 0.00001 et 505 OTUs à 0.00005)
+</br>
+
+#### Abondance relative
+
+</br>
+```{r}
+mergedGP <- merge_samples(frogs.AB.filt.norm, "Inoculum")
+phy <- mergedGP %>% tax_glom(taxrank = "Phylum") %>% transform_sample_counts(function(x) {x/sum(x)}) %>% psmelt()
+tab_BF <- subset(phy, Sample == "BF_envt")
+tab_inoc <- subset(phy, Sample == "WW_envt")
+tab_invitro <- subset(phy, Sample == "WW" | Sample == "BF")
+
+head(tab_BF)
+table(phy$Phylum)
+
+
+mean(tab_inoc$Abundance)
+tab_inoc_campy=tab_inoc[which(tab_inoc$Phylum=="Bacteroidota"),]
+head(tab_inoc_campy)
+
+
+tab_BF_campy=tab_BF[which(tab_BF$Phylum=="Actinobacteriota"),]
+head(tab_BF_campy)
+
+tab_invitro_campy=tab_invitro[which(tab_invitro$Phylum=="Proteobacteria"),]
+head(tab_invitro_campy)
+```
+
+
+```{r AB.richesse.test1, eval=FALSE, include=FALSE}
+  #####most abundant taxa (0.1)#####
+topN = 40
+most_abundant_taxa = sort(taxa_sums(frogs.AB.rel.filt), TRUE)[1:topN]
+print(most_abundant_taxa)
+frogs.AB.40 = prune_taxa(names(most_abundant_taxa), frogs.AB.rel.filt)
+plot_heatmap(frogs.AB.40, low = "yellow", high = "red", na.value = "white") 
+```
+
+</br>
+#### Diversité alpha
+</br>
+
+```{r AB.div.alpha.rich}
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/plot_bar_phylum_AB_filter.png",width=12,height = 8, units='in',res=600)
+plot_bar(frogs.AB.filt.norm, fill="Phylum") + facet_wrap(~Camp_Day_Mat, scales= "free_x", nrow=1) + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+# dev.off()
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/plot_composition_order_AB_filter.png",width=10,height = 6, units='in',res=600)
+plot_composition(frogs.AB.filt.norm, taxaRank1 = NULL, taxaSet1 = NULL, taxaRank2 = "Order", numberOfTaxa = 15) + 
+  facet_grid(~Camp_Day, scales = "free_x", space = "free_x") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+# dev.off()
+
+    #####reorder Order ??
+ # essainoo <- subset(essai, essai$Phylum!="Other")
+ #  neworder <- c(unique(essainoo$Phylum),"Other")
+ #  
+ #  essai$Phylum <- factor(essai$Phylum, levels=neworder)
+
+plot_composition(frogs.AB.filt.norm, taxaRank1 = NULL, taxaSet1 = NULL, taxaRank2 = "Class", numberOfTaxa = 15) + 
+  facet_grid(~Camp_Day, scales = "free_x", space = "free_x") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+
+plot_composition(frogs.AB.filt.norm, taxaRank1 = NULL, taxaSet1 = NULL, taxaRank2 = "Family", numberOfTaxa = 15) + 
+  facet_grid(~Camp_Day, scales = "free_x", space = "free_x") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+
+####richesse####
+# frogs_ATB=subset_samples(frogs.rare, ATB!='/') #on supprime les échantillons non comparable
+frogs.campagnesAB = subset_samples(frogs.ABEF, sample_data(frogs.ABEF)$Campaign != "E" & sample_data(frogs.ABEF)$Campaign != "F")
+metadata.AB=subset(metadata,Campaign != "E" & Campaign != "F")
+
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/temp/Camp_graph_richesse_obs_shannon.png",width=10,height = 6, units='in',res=600)
+plot_richness(frogs.AB.filt.norm, x="Camp_graph", measures=c("Observed", "Shannon")) + geom_boxplot() #Chao1
+# dev.off()
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/ATB_richesse_chaos1_shannon.png",width=8,height = 4, units='in',res=600)
+plot_richness(frogs.AB.filt.norm, x="Day", color="Camp_graph" , measures=c("Chao1", "Shannon")) + 
+  geom_point(size=5, alpha=0.7) 
+# dev.off()
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/Material_inoc_richesse_chaos1_shannon.png",width=10,height = 6, units='in',res=600)
+plot_richness(frogs.AB.filt.norm, x="Inoculum", color="Material" , measures=c("Chao1", "Shannon")) + 
+  geom_point(size=5, alpha=0.7) 
+# dev.off()
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/Camp_day_richesse_chaos1_shannon.png",width=10,height = 6, units='in',res=600)
+plot_richness(frogs.AB.filt.norm, x="Camp_graph", color="Day" , measures=c("Chao1", "Shannon")) + 
+  geom_point(size=5, alpha=0.7) +
+  xlab("Campaign (A or B) and field samples")
+# dev.off()
+
+frogs.AB.filt.norm.sans.inoc=subset_samples(frogs.AB.filt.norm, sample_data(frogs.AB.filt.norm)$Camp_Day != "Inoc")
+
+# sample_data(frogs.AB.filt.norm)$Camp_graph=relevel(sample_data(frogs.AB.filt.norm)$Camp_graph, "BF_envt")
+
+library(ggpubr)
+
+a_my_comparisons <- list( c("AJ07", "AJ14"), c("BJ07", "BJ14"))#, c("NN", "SS"))
+symnum.args = list(cutpoints = c(0, 0.0001, 0.001, 0.01, 0.05, 1), symbols = c("****", "***", "**", "*", "ns"))
+
+png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/Camp_day_richesse_shannon_diapo.png",width=10,height = 6, units='in',res=600)
+plot_richness(frogs.AB.filt.norm.sans.inoc, x="Camp_Day", color="Camp_graph", measures=c("Shannon")) + 
+  geom_boxplot(alpha=0.6) +
+  scale_color_manual(values = c("darkgreen","#900D09","#879bcd")) +
+  stat_compare_means(method = "wilcox.test", comparisons = a_my_comparisons, label = "p.signif", symnum.args = symnum.args) +
+  xlab("Campaign (A or B) and Day (J07 or J14)")
+dev.off()
+
+```
+
+</br>
+#### Richesse graphe final AB
+</br>
+
+```{r richesse_graph_ok_AB}
+####richesse####
+frogs.richesse.final = subset_samples(frogs.AB.filt.norm, sample_data(frogs.AB.filt.norm)$Noms_R != "APBJ0_bis" & sample_data(frogs.AB.filt.norm)$Day != "J14_envt" & sample_data(frogs.AB.filt.norm)$Day != "J21")
+metadata.richesse.final=subset(metadata, Noms_R != "APBJ0_bis" & Day != "J14_envt" & Day != "J21")
+
+metadata.richesse.final$Camp_graphique = factor(metadata.richesse.final$Camp_graphique,levels = c("BF des égouts","Eaux Usées","A","B"))
+# sample_data(frogs.richesse.final) = metadata.richesse.final
+frogs.richesse.final@sam_data$Camp_graphique = factor(frogs.richesse.final@sam_data$Camp_graphique,levels = c("BF des égouts","Eaux Usées","A","B"))
+
+png("C:/Users/Marie Claire Demmou/OneDrive/stage/R_16S/figures_16S/FR/Camp_day_richesse_chaos1_shannon.png",width=10,height = 6, units='in',res=600)
+plot_richness(frogs.richesse.final, x="Camp_graphique", color="Jour" , measures=c("Chao1", "Shannon")) + 
+  geom_point(size=5, alpha=0.7) +
+  xlab("Campagne (A ou B) et échantillons de terrain")
+dev.off()
+
+frogs.richesse.final.sans.inoc=subset_samples(frogs.richesse.final, sample_data(frogs.richesse.final)$Camp_Day != "Inoc")
+frogs.richesse.final.sans.inoc@sam_data$Camp_Jour = factor(frogs.richesse.final.sans.inoc@sam_data$Camp_Jour,levels = c("BF des égouts","AJ07","AJ14","BJ07","BJ14"))
+
+# sample_data(frogs.AB.filt.norm)$Camp_graph=relevel(sample_data(frogs.AB.filt.norm)$Camp_graph, "BF_envt")
+
+
+a_my_comparisons <- list( c("AJ07", "AJ14"), c("BJ07", "BJ14"))#, c("NN", "SS"))
+symnum.args = list(cutpoints = c(0, 0.0001, 0.001, 0.01, 0.05, 1), symbols = c("****", "***", "**", "*", "ns"))
+
+png("C:/Users/Marie Claire Demmou/OneDrive/stage/R_16S/figures_16S/FR/Camp_day_richesse_shannon_compa.png",width=10,height = 6, units='in',res=600)
+plot_richness(frogs.richesse.final.sans.inoc, x="Camp_Jour", color="Camp_graphique", measures=c("Shannon")) + 
+  geom_boxplot(alpha=0.6) +
+  scale_color_manual(values = c("darkgreen","#900D09","#879bcd")) +
+  labs(color='Campagne')  +
+  stat_compare_means(method = "wilcox.test", comparisons = a_my_comparisons, label = "p.signif", symnum.args = symnum.args) +
+  xlab("Campagne (A ou B) et Jour (J07 ou J14)") 
+dev.off()
+
+```
+
+</br>
+
+```{r richesse_graph_ok_AB_EN}
+####richesse####
+frogs.richesse.final = subset_samples(frogs.AB.filt.norm, sample_data(frogs.AB.filt.norm)$Noms_R != "APBJ0_bis" & sample_data(frogs.AB.filt.norm)$Day != "J14_envt" & sample_data(frogs.AB.filt.norm)$Day != "J21")
+metadata.richesse.final=subset(metadata, Noms_R != "APBJ0_bis" & Day != "J14_envt" & Day != "J21")
+
+metadata.richesse.final$Camp_graph = factor(metadata.richesse.final$Camp_graph,levels = c("Sewer BF","Waste Water","A","B"))
+# sample_data(frogs.richesse.final) = metadata.richesse.final
+frogs.richesse.final@sam_data$Camp_graph = factor(frogs.richesse.final@sam_data$Camp_graph,levels = c("Sewer BF","Waste Water","A","B"))
+
+png("C:/Users/Marie Claire Demmou/OneDrive/stage/R_16S/figures_16S/EN/Camp_day_richesse_chaos1_shannon.png",width=10,height = 6, units='in',res=600)
+plot_richness(frogs.richesse.final, x="Camp_graph", color="Day" , measures=c("Chao1", "Shannon")) + 
+  geom_point(size=5, alpha=0.7) +
+  xlab("Campaign (A or B) and field samples")
+dev.off()
+
+frogs.richesse.final.sans.inoc=subset_samples(frogs.richesse.final, sample_data(frogs.richesse.final)$Camp_Day != "Inoc")
+frogs.richesse.final.sans.inoc@sam_data$Camp_Day = factor(frogs.richesse.final.sans.inoc@sam_data$Camp_Day,levels = c("Sewer BF","AJ07","AJ14","BJ07","BJ14"))
+
+# sample_data(frogs.AB.filt.norm)$Camp_graph=relevel(sample_data(frogs.AB.filt.norm)$Camp_graph, "BF_envt")
+
+
+a_my_comparisons <- list( c("AJ07", "AJ14"), c("BJ07", "BJ14"))#, c("NN", "SS"))
+symnum.args = list(cutpoints = c(0, 0.0001, 0.001, 0.01, 0.05, 1), symbols = c("****", "***", "**", "*", "ns"))
+
+png("C:/Users/Marie Claire Demmou/OneDrive/stage/R_16S/figures_16S/EN/Camp_day_richesse_shannon_compa.png",width=10,height = 6, units='in',res=600)
+plot_richness(frogs.richesse.final.sans.inoc, x="Camp_Day", color="Camp_graph", measures=c("Shannon")) + 
+  geom_boxplot(alpha=0.6) +
+  scale_color_manual(values = c("darkgreen","#900D09","#879bcd")) +
+  labs(color='Campaign')  +
+  stat_compare_means(method = "wilcox.test", comparisons = a_my_comparisons, label = "p.signif", symnum.args = symnum.args) +
+  xlab("Campaign (A or B) and Day (J07 or J14)") 
+dev.off()
+
+```
+
+</br>
+
+```{r AB.anova.rich}
+frogs.AB.filt.norm@sam_data$alpha <- diversity(frogs.AB.filt.norm@otu_table,
+                               MARGIN = 2,
+                               index = "shannon")
+
+samp.data = as.data.frame(frogs.AB.filt.norm@sam_data)
+
+ggplot(frogs.AB.filt.norm@sam_data, aes(x = Day, y = alpha)) + 
+  geom_boxplot()
+anova_result <- aov(samp.data$alpha ~ samp.data$Day)
+summary(anova_result) # 0.0537 .
+
+ggplot(frogs.AB.filt.norm@sam_data, aes(x = Camp_graph, y = alpha)) + 
+  geom_boxplot()
+anova_result <- aov(samp.data$alpha ~ samp.data$Camp_graph)
+summary(anova_result) # 1.74e-15 ***
+
+ggplot(frogs.AB.filt.norm@sam_data, aes(x = Camp_graph, y = alpha)) + 
+  geom_boxplot()
+anova_result <- aov(samp.data$alpha ~ samp.data$Inoculum)
+summary(anova_result) # 8.13e-15 ***
+
+
+
+frogs.campagnesAB.sansENVT.norm.filt = subset_samples(frogs.AB.filt.norm, sample_data(frogs.AB.filt.norm)$Campaign == "A" | sample_data(frogs.AB.filt.norm)$Campaign == "B")
+metadata.AB.sansENVT=subset(metadata,Campaign == "A" | Campaign == "B")
+
+frogs.campagnesAB.sansENVT.norm.filt@sam_data$alpha <- diversity(frogs.campagnesAB.sansENVT.norm.filt@otu_table,
+                                               MARGIN = 2,
+                                               index = "shannon") #shannon signif pour jour et campagne
+
+samp.data.sansENVT = as.data.frame(frogs.campagnesAB.sansENVT.norm.filt@sam_data)
+
+ggplot(frogs.campagnesAB.sansENVT.norm.filt@sam_data, aes(x = Day, y = alpha)) + 
+  geom_boxplot()
+anova_result <- aov(samp.data.sansENVT$alpha ~ samp.data.sansENVT$Day)
+summary(anova_result) # 2.31e-06 ***
+
+ggplot(frogs.campagnesAB.sansENVT.norm.filt@sam_data, aes(x = Camp_graph, y = alpha)) + 
+  geom_boxplot()
+anova_result <- aov(samp.data.sansENVT$alpha ~ samp.data.sansENVT$Camp_graph)
+summary(anova_result) # 0.0548 .
+
+ggplot(frogs.campagnesAB.sansENVT.norm.filt@sam_data, aes(x = Inoculum, y = alpha)) + 
+  geom_boxplot()
+anova_result <- aov(samp.data.sansENVT$alpha ~ samp.data.sansENVT$Inoculum)
+summary(anova_result) # 0.677
+
+ggplot(frogs.campagnesAB.sansENVT.norm.filt@sam_data, aes(x = Material, y = alpha)) + 
+  geom_boxplot()
+anova_result <- aov(samp.data.sansENVT$alpha ~ samp.data.sansENVT$Material)
+summary(anova_result) # 0.559
+
+```
+
+
+</br>
+#### Clustering
+</br>
+
+```{r AB.clustering}
+frogs.campagnesAB.sansENVT.norm.filt = subset_samples(frogs.AB.filt.norm, sample_data(frogs.AB.filt.norm)$Campaign == "A" | sample_data(frogs.AB.filt.norm)$Campaign == "B")
+metadata.AB.sansENVT=subset(metadata,Campaign == "A" | Campaign == "B")
+
+frogs.campagnesAB.BFonly.norm.filt = subset_samples(frogs.AB.filt.norm, sample_data(frogs.AB.filt.norm)$Campaign == "A" | sample_data(frogs.AB.filt.norm)$Campaign == "B" | sample_data(frogs.AB.filt.norm)$Inoculum == "BF_envt")
+metadata.AB.BFonly=subset(metadata,Campaign == "A" | Campaign == "B" | Inoculum == "BF_envt")
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/temp/clustering_AB_filter_all.png",width=14,height = 8, units='in',res=600)
+frogs.AB.dist.bc = phyloseq::distance(frogs.AB.filt.norm, method="bray")
+par(mfcol = c(1, 3)) ## To plot the three clustering trees side-by-side
+plot(hclust(frogs.AB.dist.bc, method = "complete")) # similar clusters
+plot(hclust(frogs.AB.dist.bc, method = "single")) # ‘friends of friends’ clustering strategy
+plot(hclust(frogs.AB.dist.bc, method = "ward.D2")) # minimum variance method => compact, spherical clusters (D2 = dissimilarities are squared before cluster updating)
+par(mfcol = c(1, 1))
+# dev.off()
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/temp/clustering_AB_wun_filter_all.png",width=14,height = 8, units='in',res=600)
+frogs.AB.dist.wun = phyloseq::distance(frogs.AB.filt.norm, method="wunifrac")
+par(mfcol = c(1, 3)) ## To plot the three clustering trees side-by-side
+plot(hclust(frogs.AB.dist.wun, method = "complete")) # similar clusters
+plot(hclust(frogs.AB.dist.wun, method = "single")) # ‘friends of friends’ clustering strategy
+plot(hclust(frogs.AB.dist.wun, method = "ward.D2")) # minimum variance method => compact, spherical clusters (D2 = dissimilarities are squared before cluster updating)
+par(mfcol = c(1, 1))
+# dev.off()
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/temp/clustering_AB_wun_filter_sansENVT.png",width=14,height = 8, units='in',res=600)
+frogs.AB.BFonly.dist.wun = phyloseq::distance(frogs.campagnesAB.BFonly.norm.filt, method="wunifrac")
+par(mfcol = c(1, 3)) ## To plot the three clustering trees side-by-side
+plot(hclust(frogs.AB.BFonly.dist.wun, method = "complete"))
+plot(hclust(frogs.AB.BFonly.dist.wun, method = "single"))
+plot(hclust(frogs.AB.BFonly.dist.wun, method = "ward.D2"))
+par(mfcol = c(1, 1))
+# dev.off()
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/temp/clustering_AB_wun_filter_BFonly.png",width=14,height = 8, units='in',res=600)
+frogs.AB.sansENVT.dist.wun = phyloseq::distance(frogs.campagnesAB.sansENVT.norm.filt, method="wunifrac")
+par(mfcol = c(1, 3)) ## To plot the three clustering trees side-by-side
+plot(hclust(frogs.AB.sansENVT.dist.wun, method = "complete"))
+plot(hclust(frogs.AB.sansENVT.dist.wun, method = "single"))
+plot(hclust(frogs.AB.sansENVT.dist.wun, method = "ward.D2"))
+par(mfcol = c(1, 1))
+# dev.off()
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/clustering_AB_wun_filter_comparaison_wardD2.png",width=14,height = 6, units='in',res=600)
+par(mfcol = c(1, 3)) ## To plot the three clustering trees side-by-side
+plot(hclust(frogs.AB.dist.wun, method = "ward.D2"))
+plot(hclust(frogs.AB.BFonly.dist.wun, method = "ward.D2"))
+plot(hclust(frogs.AB.sansENVT.dist.wun, method = "ward.D2"))
+par(mfcol = c(1, 1))
+# dev.off()
+
+```
+
+
+</br>
+
+#### Diversité beta
+</br>
+
+
+```{r permanova.AB}
+####permanova####
+
+frogs.campagnesAB.sansENVT.norm.filt = subset_samples(frogs.AB.filt.norm, sample_data(frogs.AB.filt.norm)$Campaign == "A" | sample_data(frogs.AB.filt.norm)$Campaign == "B")
+metadata.AB.sansENVT=subset(metadata,Campaign == "A" | Campaign == "B")
+
+# adonis(phyloseq::distance(frogs.AB.filt.norm, method="bray") ~ Inoculum,
+#        data = metadata.AB, perm = 9999) #=> pas significatif (p value = 0.0549 .)
+
+adonis(phyloseq::distance(frogs.campagnesAB.sansENVT.norm.filt, method="wunifrac") ~ Inoculum,
+       data = metadata.AB.sansENVT, perm = 9999) #=> pas significatif (p value = 0.6389)
+
+adonis(phyloseq::distance(frogs.campagnesAB.sansENVT.norm.filt, method="wunifrac") ~ Material,
+       data = metadata.AB.sansENVT, perm = 9999) # p value = 0.2985
+
+adonis(phyloseq::distance(frogs.campagnesAB.sansENVT.norm.filt, method="wunifrac") ~ Day,
+       data = metadata.AB.sansENVT, perm = 9999) # p value = 2e-04 ***
+
+adonis(phyloseq::distance(frogs.campagnesAB.sansENVT.norm.filt, method="wunifrac") ~ Campaign,
+       data = metadata.AB.sansENVT, perm = 9999) # p value = 0.0029 **
+
+adonis(phyloseq::distance(frogs.campagnesAB.sansENVT.norm.filt, method="wunifrac") ~ Bioreacteur,
+       data = metadata.AB.sansENVT, perm = 9999) # p value = 0.3638
+
+
+# pairwise.adonis(phyloseq::distance(frogs.campagnesAB.sansENVT.norm.filt, method="wunifrac"),frogs.campagnesAB.sansENVT.norm.filt@sam_data$Day) #nombre d'échantillons ok ici mais que 2 conditions à comparer
+
+
+   cap <- capscale(phyloseq::distance(frogs.campagnesAB.sansENVT.norm.filt, method="wunifrac") ~ Campaign, data = metadata.AB.sansENVT)
+   cap
+   anova <- anova(cap, permutations = 999)
+   print(anova)
+   
+   #mêmes résultats de significativité pour permanova (adonis) et cap (day et Campaign significatifs)
+
+```
+Utilisation de la distance wunifrac (weighted unifrac) qui prend en compte les caractéristiques de Bray-Curtis et de unifrac.  
+Test des facteurs : Inoculum, Material, Day, Campaign et Bioreacteur.  
+Avec permanova (fonction adonis sur ditance wunifrac), on trouve que seuls la campagne et le jour sont significatifs sur les échantillons des bioréacteurs.  
+Les mêmes résultats sont obtenus avec la fonction cap suivie d'une anova.  
+</br>
+
+</br>
+
+```{r AB.ordinate}
+
+pcoa = plot_ordination(frogs.campagnesAB.sansENVT.norm.filt, label="Noms_R", ordinate(frogs.campagnesAB.sansENVT.norm.filt, "PCoA","bray"), "samples", color="Campaign", shape="Inoculum") + 
+  geom_point(size = 5) + 
+  # geom_polygon(aes(fill=Inoculum)) + 
+  ggtitle("PcoA")
+
+cca = plot_ordination(frogs.campagnesAB.sansENVT.norm.filt, label="Noms_R", ordinate(frogs.campagnesAB.sansENVT.norm.filt, "CCA","bray"), "samples", color="Campaign", shape="Inoculum") + 
+  geom_point(size = 5) + 
+  # geom_polygon(aes(fill=Inoculum)) + 
+  ggtitle("CCA")
+
+nmds = plot_ordination(frogs.campagnesAB.sansENVT.norm.filt, label="Noms_R", ordinate(frogs.campagnesAB.sansENVT.norm.filt, "NMDS","bray"), "samples", color="Campaign", shape="Inoculum") + 
+  geom_point(size = 5) + 
+  # geom_polygon(aes(fill=Inoculum)) + 
+  ggtitle("NMDS")
+
+unifrac = plot_ordination(frogs.campagnesAB.sansENVT.norm.filt, label="Noms_R", ordinate(frogs.campagnesAB.sansENVT.norm.filt, "PCoA","unifrac", weighted=TRUE), "samples", color="Campaign", shape="Inoculum") + 
+  geom_point(size = 5) + 
+  # geom_polygon(aes(fill=Inoculum)) + 
+  ggtitle("MDS/PcoA on weighted-UniFrac distance")
+
+png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/temp/AB_temp/ordinate_4plots_AB_sansENVT.png",width=10,height = 8, units='in',res=600)
+grid.arrange(pcoa, cca, nmds, unifrac, nrow = 2)
+dev.off()
+
+#################################
+dist = "wunifrac"
+ord_meths = c("DCA", "CCA", "RDA", "DPCoA", "NMDS", "MDS", "PCoA")
+plist = llply(as.list(ord_meths), function(i, physeq, dist){
+        ordi = ordinate(physeq, method=i, distance=dist)
+        plot_ordination(physeq, ordi, "samples", color="Campaign")
+}, frogs.campagnesAB.sansENVT.norm.filt, dist)
+
+names(plist) <- ord_meths
+
+pdataframe = ldply(plist, function(x){
+    df = x$data[, 1:2]
+    colnames(df) = c("Axis_1", "Axis_2")
+    return(cbind(df, x$data))
+})
+names(pdataframe)[1] = "method"
+
+p = ggplot(pdataframe, aes(Axis_1, Axis_2, color=Campaign, shape=Inoculum))
+p = p + geom_point(size=4)
+p = p + facet_wrap(~method, scales="free")
+p = p + scale_colour_brewer(type="qual", palette="Set1")
+p
+
+p2 = ggplot(pdataframe, aes(Axis_1, Axis_2, color=Campaign, shape=Day)) +
+  geom_point(size=4) +
+  facet_wrap(~method, scales="free") +
+  scale_colour_brewer(type="qual", palette="Set1")
+p2
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/ordinate_all_plots_AB_day.png",width=10,height = 8, units='in',res=600)
+# p2
+# dev.off()
+```
+
+</br>
+
+```{r AB.constrained.ordinate.Innoc}
+
+# CAP ordinate
+cap_ord <- ordinate(
+    physeq = frogs.campagnesAB.sansENVT.norm.filt, 
+    method = "CAP",
+    distance = frogs.AB.sansENVT.dist.wun,
+    formula = ~ Inoculum + Material 
+    # formula = ~ Inoculum + Material + Day + Campaign 
+)
+
+# CAP plot
+cap_plot <- plot_ordination(
+  physeq = frogs.campagnesAB.sansENVT.norm.filt, 
+  ordination = cap_ord, 
+    color = "Inoculum",
+    # color = "Campaign",
+    axes = c(1,2)
+) + 
+    aes(shape = Material) + 
+    # aes(shape = Day) + 
+    geom_point(aes(colour = Inoculum), alpha = 0.4, size = 4) +
+    # geom_point(aes(colour = Campaign), alpha = 0.4, size = 4) +
+    geom_point(colour = "grey90", size = 1.5) + 
+    scale_color_manual(values = c("#266D40", "#00b2ca", "#c2185b", "#1976d2", "darkorchid3", "lightblue", "blue", "#1919ff", "#ffae19", "#4daf4a", "magenta","green")
+    )
+
+
+# Now add the environmental variables as arrows
+arrowmat <- vegan::scores(cap_ord, display = "bp")
+
+# Add labels, make a data.frame
+arrowdf <- data.frame(labels = rownames(arrowmat), arrowmat)
+
+# Define the arrow aesthetic mapping
+arrow_map <- aes(xend = CAP1, 
+    yend = CAP2, 
+    x = 0, 
+    y = 0, 
+    shape = NULL, 
+    color = NULL, 
+    label = labels)
+
+label_map <- aes(x = 1.3 * CAP1, 
+    y = 1.3 * CAP2, 
+    shape = NULL, 
+    color = NULL, 
+    label = labels)
+
+arrowhead = arrow(length = unit(0.02, "npc"))
+
+# Make a new graphic
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/ordinate_cap_AB_Inoc_Mat_wun.png",width=10,height = 8, units='in',res=600)
+cap_plot + 
+  geom_segment(
+    mapping = arrow_map, 
+    size = .5, 
+    data = arrowdf, 
+    color = "gray", 
+    arrow = arrowhead
+  ) + 
+  geom_text(
+    mapping = label_map, 
+    size = 4,  
+    data = arrowdf, 
+    show.legend = FALSE
+  )
+# dev.off()
+```
+
+</br>
+
+```{r AB.constrained.ordinate.Jour}
+
+# CAP ordinate
+cap_ord <- ordinate(
+    physeq = frogs.campagnesAB.sansENVT.norm.filt, 
+    method = "CAP",
+    distance = frogs.AB.sansENVT.dist.wun,
+    formula = ~ Day + Campaign 
+    # formula = ~ Inoculum + Material + Day + Campaign 
+)
+
+# CAP plot
+cap_plot <- plot_ordination(
+  physeq = frogs.campagnesAB.sansENVT.norm.filt, 
+  ordination = cap_ord, 
+    # color = "Inoculum",
+    color = "Campaign",
+    axes = c(1,2)
+) + 
+    # aes(shape = Material) + 
+    aes(shape = Day) +
+    # geom_point(aes(colour = Inoculum), alpha = 0.4, size = 4) +
+    geom_point(aes(colour = Campaign), alpha = 0.4, size = 4) +
+    geom_point(colour = "grey90", size = 1.5) + 
+    scale_color_manual(values = c("#c2185b", "#1976d2", "darkorchid3", "lightblue", "blue", "#1919ff", "#ffae19", "#4daf4a", "magenta","green")
+    )
+
+
+# Now add the environmental variables as arrows
+arrowmat <- vegan::scores(cap_ord, display = "bp")
+
+# Add labels, make a data.frame
+arrowdf <- data.frame(labels = rownames(arrowmat), arrowmat)
+
+# Define the arrow aesthetic mapping
+arrow_map <- aes(xend = CAP1, 
+    yend = CAP2, 
+    x = 0, 
+    y = 0, 
+    shape = NULL, 
+    color = NULL, 
+    label = labels)
+
+label_map <- aes(x = 1.3 * CAP1, 
+    y = 1.3 * CAP2, 
+    shape = NULL, 
+    color = NULL, 
+    label = labels)
+
+arrowhead = arrow(length = unit(0.02, "npc"))
+
+# Make a new graphic
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/ordinate_cap_AB_Inoc_Mat_wun.png",width=10,height = 8, units='in',res=600)
+cap_plot + 
+  geom_segment(
+    mapping = arrow_map, 
+    size = .5, 
+    data = arrowdf, 
+    color = "gray", 
+    arrow = arrowhead
+  ) + 
+  geom_text(
+    mapping = label_map, 
+    size = 4,  
+    data = arrowdf, 
+    show.legend = FALSE
+  )
+# dev.off()
+```
+
+
+</br>
+#### Heatmap
+</br>
+
+
+```{r AB.tree.100}
+topN = 100
+most_abundant_taxa = sort(taxa_sums(frogs.AB.filt.norm), TRUE)[1:topN]
+print(most_abundant_taxa)
+frogs.AB.norm.100 = prune_taxa(names(most_abundant_taxa), frogs.AB.filt.norm)
+# write.table(otu_table(frogs.AB.norm.100), file='C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/data_asCount/asCount_otu_table_frogs_AB_norm_100.tsv', quote=FALSE, sep='\t')
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/tree_AB.png",width=16,height = 14, units='in',res=600)
+plot_tree(frogs.AB.norm.100,"treeonly",label.tips = "taxa_names", base.spacing=0.04, plot.margin = 0.5,text.size = 3, ladderize = TRUE)
+# dev.off()
+
+frogs.AB.norm.100.otu.table.order=read.csv("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/data_asCount/asCount_otu_table_frogs_AB_norm_100_order.csv",sep=";",row.names = 1)
+# frogs.AB.norm.100.otu.table.order<-frogs.AB.norm.100.otu.table.order[order(frogs.AB.norm.100.otu.table.order[,ncol(frogs.AB.norm.100.otu.table.order)],decreasing=T),]
+
+
+hclustfunc <- function(x) hclust(x, method="complete")
+distfunc <- function(x) dist(x, method="euclidean")
+# distfunc <- function(x) phyloseq::distance(x, method="bray")
+        
+
+cl.col <- hclustfunc(distfunc(t(frogs.AB.norm.100.otu.table.order[,-43])))
+          
+gr.col <- cutree(cl.col, 6)
+gr.col.2 <- cutree(cl.col, 5)
+
+col2 <- brewer.pal(10, "Blues")
+col1=c("#08c999","#d84315","#266D40","#f57c00","#c2185b","#f06292") #"#266D40"=vert foncé BF_envt
+
+dcols =vegdist(t(frogs.AB.norm.100.otu.table.order), method="bray", binary=FALSE, diag=FALSE, upper=FALSE, na.rm = FALSE)
+
+
+png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/100/HM_AB_order.png",width=16,height = 14, units='in',res=600)
+heatmap(as.matrix(frogs.AB.norm.100.otu.table.order[,-43]),Rowv=NA,Colv=dcols, ColSideColors=col1[gr.col],col=colorRampPalette(brewer.pal(8,"Oranges"))(25)) ; legend(x="topleft", legend=c("Day 07 (campaign B, concrete)", "Day 07", "Day 14 (AJ14B1C)","Day 14","in situ WW","in situ BF"), fill=c("#f06292","#c2185b","#f57c00","#d84315","#08c999","#266D40"),bty = "n")
+dev.off()
+```
+
+</br>
+
+```{r AB.heatmap.abd}
+#séparation en fonction du jour et de la campagne
+
+  ##### most abundant taxa #####
+topN = 100
+most_abundant_taxa = sort(taxa_sums(frogs.AB.filt.norm), TRUE)[1:topN]
+print(most_abundant_taxa)
+frogs.AB.norm.100 = prune_taxa(names(most_abundant_taxa), frogs.AB.filt.norm)
+plot_heatmap(frogs.AB.norm.100, low = "yellow", high = "red", na.value = "white") 
+
+hclustfunc <- function(x) hclust(x, method="complete")
+distfunc <- function(x) dist(x, method="euclidean")
+          # distfuncBC <- function(x) phyloseq::distance(x, method=
+
+cl.col <- hclustfunc(distfunc(t(frogs.AB.norm.100@otu_table)))
+          
+gr.col <- cutree(cl.col, 6)
+gr.col.2 <- cutree(cl.col, 5)
+
+col2 <- brewer.pal(10, "Blues")
+col1=c("#08c999","#d84315","#266D40","#f57c00","#c2185b","#f06292") #"#266D40"=vert foncé BF_envt
+
+dcols =vegdist(t(frogs.AB.norm.100@otu_table), method="bray", binary=FALSE, diag=FALSE, upper=FALSE, na.rm = FALSE)
+
+png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/HM_AB.png",width=16,height = 14, units='in',res=600)
+heatmap(as.matrix(frogs.AB.norm.100@otu_table), Colv=dcols, ColSideColors=col1[gr.col],col=colorRampPalette(brewer.pal(8,"Oranges"))(25)) ; legend(x="topleft", legend=c("Day 07 (campaign B, concrete)", "Day 07", "Day 14 (AJ14B1C)","Day 14","in situ WW","in situ BF"), fill=c("#f06292","#c2185b","#f57c00","#d84315","#08c999","#266D40"),bty = "n")
+dev.off()
+
+
+```
+
+</br>
+#### Deseq2
+</br>
+
+```{r AB.deseq.norm.day}
+deseq.test.day = function(frogsABdeseq,title,topN=100,alpha = 0.05,HM=FALSE){
+  most_abundant_taxa = sort(taxa_sums(frogsABdeseq), TRUE)[1:topN]
+  frogsABdeseq = prune_taxa(names(most_abundant_taxa), frogsABdeseq)
+
+  diagdds = phyloseq_to_deseq2(frogsABdeseq, ~ Day)
+  diagdds = DESeq(diagdds, test="Wald", fitType="parametric")
+  res = results(diagdds, cooksCutoff = FALSE)
+  # res <- results(diagdds, contrast=c("Inoculum","BF","WW"))
+  print(res) #treated vs untreated => log2FC(treated/untreated) => positif = treated +++
+  sigtab = res[which(res$padj < alpha), ] #on garde les résultats avec des p values < à 0.01
+  sigtab = cbind(as(sigtab, "data.frame"), as(phyloseq::tax_table(frogs.AB.filt.norm)[rownames(sigtab), ], "matrix")) #rajouter phyloseq:: devant unable to find an inherited method for function ""
+  head(sigtab)
+  print(dim(sigtab))
+  
+  
+  #deseq2VST <- vst(diagdds)
+  
+  
+  theme_set(theme_bw())
+  scale_fill_discrete <- function(palname = "Set1", ...) {
+      scale_fill_brewer(palette = palname, ...)
+  }
+  # Phylum order
+  x = tapply(sigtab$log2FoldChange, sigtab$Phylum, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtab$Phylum = factor(as.character(sigtab$Phylum), levels=names(x))
+  # Genus order
+  x = tapply(sigtab$log2FoldChange, sigtab$Genus, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtab$Genus = factor(as.character(sigtab$Genus), levels=names(x))
+  print(ggplot(sigtab, aes(x=Genus, y=log2FoldChange, color=Phylum)) + geom_point(size=6) + 
+    theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5)))
+  
+  
+  sigtabgen = subset(sigtab, !is.na(Genus))
+  # Phylum order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Phylum, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Phylum = factor(as.character(sigtabgen$Phylum), levels=names(x))
+  #Order order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Order, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Order = factor(as.character(sigtabgen$Order), levels=names(x))  
+  # Genus order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Genus, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Genus = factor(as.character(sigtabgen$Genus), levels=names(x))
+  # OTU order
+  sigtabgen$OTU=row.names(sigtabgen)
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$OTU, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$OTU = factor(as.character(sigtabgen$OTU), levels=names(x))
+  
+  sigtabgen$condition=0
+  sigtabgen$condition[which(sigtabgen$log2FoldChange<0)]="J14"
+  sigtabgen$condition[which(sigtabgen$log2FoldChange>0)]="J07"
+  
+  sigtabgen$condition=0
+  
+  #plot
+  # p=ggplot(sigtabgen, aes(y=OTU, x=log2FoldChange, color=Order)) +
+  #   geom_vline(xintercept = 0.0, color = "gray", size = 0.5) +
+  #   geom_point(size=6) +
+  #   theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5), plot.title = element_text(size = 12, hjust = 0.5)) +
+  #   # ggtitle(title)
+  #   labs(title = str_wrap(title, 70))
+  print(sigtabgen)
+  p=ggplot(sigtabgen, aes(x=condition, y=OTU, fill=log2FoldChange)) +
+    geom_raster() +
+  # scale_fill_viridis(trans="sqrt") +
+    scale_fill_gradient(low = "#FFF5EB", high = "#F16A14") +
+  # scale_fill_gradient(brewer.pal(8,"Oranges")(25)) +
+    theme(axis.text.x=element_text(angle=65, hjust=1))
+  
+  if (HM==TRUE){
+    deseq2ResDF <- as.data.frame(res)
+    sigGenes <- rownames(deseq2ResDF[deseq2ResDF$padj <= .05,])
+    sigtabgen_test <- sigtabgen[sigtabgen$OTU %in% sigGenes,]
+    tab_HM=sigtabgen_test[,c("log2FoldChange","OTU","condition")]
+    
+    tab_HM$condition=0
+    tab_HM$condition[which(tab_HM$log2FoldChange<0)]="J07/J14"
+    tab_HM$condition[which(tab_HM$log2FoldChange>0)]="J07/J14"
+    tab_HM=tab_HM[,-4]
+
+    write_xlsx(tab_HM, "C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/test/test2.xlsx")
+    
+    liste_clus_diff=setdiff(sigtabgen$OTU,tab_HM$OTU)
+    liste_clus_diff=as.data.frame(liste_clus_diff)
+    liste_clus_diff=rename("OTU" = liste_clus_diff,liste_clus_diff)
+    liste_clus_diff$condition="J07/J14"
+    liste_clus_diff$log2FoldChange="NA"
+    write_xlsx(liste_clus_diff, "C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/test/test_liste_clus_diff.xlsx")
+  }
+  
+  return(p)
+}
+```
+
+</br>
+
+```{r deseq2.AB.norm}
+  ##### Deseq2 #####
+
+#mettre que 2 facteurs
+frogs.AB.filt.norm.deseq2.WW.BF = subset_samples(frogs.AB.filt.norm, Inoculum == "WW" | Inoculum == "BF")
+# dds$condition <- relevel(dds$condition, ref = "untreated")
+frogs.AB.filt.norm.deseq2.WW.WW_envt = subset_samples(frogs.AB.filt.norm, Inoculum == "WW" | Inoculum == "WW_envt")
+frogs.AB.filt.norm.deseq2.BF.WW_envt = subset_samples(frogs.AB.filt.norm, Inoculum == "BF" | Inoculum == "WW_envt")
+frogs.AB.filt.norm.deseq2.WW.BF_envt = subset_samples(frogs.AB.filt.norm, Inoculum == "WW" | Inoculum == "BF_envt")
+frogs.AB.filt.norm.deseq2.BF.BF_envt = subset_samples(frogs.AB.filt.norm, Inoculum == "BF" | Inoculum == "BF_envt")
+
+deseq.test.Inoc = function(frogsABdeseq,title,topN=100,alpha = 0.05){
+  most_abundant_taxa = sort(taxa_sums(frogsABdeseq), TRUE)[1:topN]
+  frogsABdeseq = prune_taxa(names(most_abundant_taxa), frogsABdeseq)
+
+  diagdds = phyloseq_to_deseq2(frogsABdeseq, ~ Inoculum)
+  diagdds = DESeq(diagdds, test="Wald", fitType="parametric")
+  res = results(diagdds, cooksCutoff = FALSE)
+  # res <- results(diagdds, contrast=c("Inoculum","BF","WW"))
+  print(res) #treated vs untreated => log2FC(treated/untreated) => positif = treated +++
+  sigtab = res[which(res$padj < alpha), ] #on garde les résultats avec des p values < à 0.01
+  sigtab = cbind(as(sigtab, "data.frame"), as(phyloseq::tax_table(frogs.AB.filt.norm)[rownames(sigtab), ], "matrix")) #rajouter phyloseq:: devant unable to find an inherited method for function ""
+  head(sigtab)
+  print(dim(sigtab))
+  
+  
+  theme_set(theme_bw())
+  scale_fill_discrete <- function(palname = "Set1", ...) {
+      scale_fill_brewer(palette = palname, ...)
+  }
+  # Phylum order
+  x = tapply(sigtab$log2FoldChange, sigtab$Phylum, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtab$Phylum = factor(as.character(sigtab$Phylum), levels=names(x))
+  # Genus order
+  x = tapply(sigtab$log2FoldChange, sigtab$Genus, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtab$Genus = factor(as.character(sigtab$Genus), levels=names(x))
+  print(ggplot(sigtab, aes(x=Genus, y=log2FoldChange, color=Phylum)) + geom_point(size=6) + 
+    theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5)))
+  
+  
+  sigtabgen = subset(sigtab, !is.na(Genus))
+  # Phylum order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Phylum, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Phylum = factor(as.character(sigtabgen$Phylum), levels=names(x))
+  #Order order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Order, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Order = factor(as.character(sigtabgen$Order), levels=names(x))  
+  # Genus order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Genus, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Genus = factor(as.character(sigtabgen$Genus), levels=names(x))
+  # OTU order
+  sigtabgen$OTU=row.names(sigtabgen)
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$OTU, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$OTU = factor(as.character(sigtabgen$OTU), levels=names(x))
+  #plot
+  p=ggplot(sigtabgen, aes(y=OTU, x=log2FoldChange, color=Order)) + 
+    geom_vline(xintercept = 0.0, color = "gray", size = 0.5) +
+    geom_point(size=6) + 
+    theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5), plot.title = element_text(size = 12, hjust = 0.5)) +
+    # ggtitle(title)
+    labs(title = str_wrap(title, 70))
+  print(p)
+  return(p)
+}
+
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/deseq2_WW_BF.png",width=10,height = 7, units='in',res=600)
+p1.AB=deseq.test.Inoc(frogs.AB.filt.norm.deseq2.WW.BF,"Plot showing the 12 differentially abundant OTUs (p < 0.05 with Deseq2) between different conditions of inoculum : wastewater alone (WW) and addition of biofilm (BF)") #Inoculum WW vs BF
+# dev.off()
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/deseq2_WWenvt_WW.png",width=10,height = 7, units='in',res=600)
+p2.AB=deseq.test.Inoc(frogs.AB.filt.norm.deseq2.WW.WW_envt,"Plot showing the 80 differentially abundant OTUs (p < 0.05 with Deseq2) between different conditions of inoculum : environmental/in situ wastewater sampling (WW_envt) and wastewater alone (WW)") #Inoculum WW envt vs WW 
+# dev.off()
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/deseq2_WWenvt_BF.png",width=10,height = 7, units='in',res=600)
+p3.AB=deseq.test.Inoc(frogs.AB.filt.norm.deseq2.BF.WW_envt,"Plot showing the 91 differentially abundant OTUs (p < 0.05 with Deseq2) between different conditions of inoculum : environmental/in situ wastewater sampling (WW_envt) and wastewater with addition of biofilm (BF)") #Inoculum WW envt vs BF 
+# dev.off()
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/deseq2_BFenvt_WW.png",width=10,height = 7, units='in',res=600)
+p4.AB=deseq.test.Inoc(frogs.AB.filt.norm.deseq2.WW.BF_envt,"Plot showing the 60 differentially abundant OTUs (p < 0.05 with Deseq2) between different conditions of inoculum : environmental/in situ biofilm sampling (BF_envt) and wastewater alone (WW)") #Inoculum WW vs BF envt 
+# dev.off()
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/deseq2_BFenvt_BF.png",width=10,height = 7, units='in',res=600)
+p5.AB=deseq.test.Inoc(frogs.AB.filt.norm.deseq2.BF.BF_envt,"Plot showing the 63 differentially abundant OTUs (p < 0.05 with Deseq2) between different conditions of inoculum : environmental/in situ biofilm sampling (BF_envt) and wastewater with addition of biofilm (BF)") #Inoculum BF envt vs BF
+# dev.off()
+
+p6.AB=deseq.test.day(frogs.campagnesAB.sansENVT.norm.filt,"Plot showing the 31 differentially abundant OTUs (p < 0.05 with Deseq2) between different collection days : day 14 (J14) and day 7 (J07)") #Day J14 vs J07
+
+# png("C:/Users/Marie Claire Demmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/deseq2_AB_all.png",width=22,height = 14, units='in',res=600)
+grid.arrange(p1.AB, p4.AB, p5.AB, p6.AB, nrow = 2)
+# dev.off()
+
+
+
+# test.deseq=deseq.test(frogs.AB.filt.norm.deseq2.WW.BF_envt,"a")[1]
+# WW.BF_envt.test=test.deseq$data$OTU
+# 
+# test.deseq.2=deseq.test(frogs.AB.filt.norm.deseq2.BF.WW_envt,"a")[1]
+# BF.BF_envt.test=test.deseq.2$data$OTU
+# 
+# setdiff(WW.BF_envt.test,BF.BF_envt.test)
+
+```
+
+</br>
+Pour les graphes, les valeurs positives de log2FC signifient que les OTU sont plus abondantes pour la première condition du titre, et les valeurs négatives de log2FC signifient que les OTU sont plus abondantes pour la seconde condition du titre.  
+</br>
+
+Dans le tableau des résultats de Deseq2, on a "treated vs untreated" qui correspond au calcul de log2FC(treated/untreated) => positif = treated +++  
+
+</br>
+</br>
+
+**Résultats**
+Ici on a donc :
+- 
+
+
+</br>
+#### Deseq2 100 plus abondants
+</br>
+
+```{r deseq2.AB.norm.100}
+
+frogs.campagneAB.100 = subset_samples(frogs.AB.norm.100, sample_data(frogs.AB.norm.100)$Campaign != "E" & sample_data(frogs.AB.norm.100)$Campaign != "F")
+
+#mettre que 2 facteurs
+frogs.AB.filt.norm.deseq2.WW.BF.100 = subset_samples(frogs.campagneAB.100, Inoculum == "WW" | Inoculum == "BF")
+# dds$condition <- relevel(dds$condition, ref = "untreated")
+frogs.AB.filt.norm.deseq2.WW.WW_envt.100 = subset_samples(frogs.campagneAB.100, Inoculum == "WW" | Inoculum == "WW_envt")
+frogs.AB.filt.norm.deseq2.BF.WW_envt.100 = subset_samples(frogs.campagneAB.100, Inoculum == "BF" | Inoculum == "WW_envt")
+frogs.AB.filt.norm.deseq2.WW.BF_envt.100 = subset_samples(frogs.campagneAB.100, Inoculum == "WW" | Inoculum == "BF_envt")
+frogs.AB.filt.norm.deseq2.BF.BF_envt.100 = subset_samples(frogs.campagneAB.100, Inoculum == "BF" | Inoculum == "BF_envt")
+
+
+p1.AB.100=deseq.test.Inoc(frogs.AB.filt.norm.deseq2.WW.BF.100,"Plot showing the 12 differentially abundant OTUs (p < 0.05 with Deseq2) between different conditions of inoculum : wastewater alone (WW) and addition of biofilm (BF)") #Inoculum WW vs BF
+p2.AB.100=deseq.test.Inoc(frogs.AB.filt.norm.deseq2.WW.WW_envt.100,"Plot showing the 70 differentially abundant OTUs (p < 0.05 with Deseq2) between different conditions of inoculum : environmental/in situ wastewater sampling (WW_envt) and wastewater alone (WW)") #Inoculum WW envt vs WW 
+p3.AB.100=deseq.test.Inoc(frogs.AB.filt.norm.deseq2.BF.WW_envt.100,"Plot showing the 81 differentially abundant OTUs (p < 0.05 with Deseq2) between different conditions of inoculum : environmental/in situ wastewater sampling (WW_envt) and wastewater with addition of biofilm (BF)") #Inoculum WW envt vs BF 
+p4.AB.100=deseq.test.Inoc(frogs.AB.filt.norm.deseq2.WW.BF_envt.100,"Plot showing the 54 differentially abundant OTUs (p < 0.05 with Deseq2) between different conditions of inoculum : environmental/in situ biofilm sampling (BF_envt) and wastewater alone (WW)") #Inoculum WW vs BF envt 
+p5.AB.100=deseq.test.Inoc(frogs.AB.filt.norm.deseq2.BF.BF_envt.100,"Plot showing the 53 differentially abundant OTUs (p < 0.05 with Deseq2) between different conditions of inoculum : environmental/in situ biofilm sampling (BF_envt) and wastewater with addition of biofilm (BF)") #Inoculum BF envt vs BF
+
+
+p6.AB=deseq.test.day(frogs.campagnesAB.sansENVT.norm.filt,"Plot showing the 31 differentially abundant OTUs (p < 0.05 with Deseq2) between different collection days : day 14 (J14) and day 7 (J07)",HM=TRUE) #Day J14 vs J07
+
+
+
+test_xlsx <- read_excel("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/test/test_tot_100.xlsx")
+# test_xlsx$OTU <- factor(test_xlsx$OTU, levels=(test_xlsx$OTU)[order(test_xlsx$OTU)])
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/100/HM_AB_day_ordre.png",width=3,height = 14, units='in',res=600)
+ggplot(test_xlsx, aes(x=condition, y=OTU, fill=log2FoldChange)) +
+      geom_tile() +
+      # scale_fill_viridis(trans="sqrt") +
+      # scale_fill_gradient2(low = "red", high = "green", na.value = "black") +
+      scale_fill_gradient(low = "green", high = "red", na.value = "white") +
+      theme(axis.text.x=element_text(angle=65, hjust=1))
+# dev.off()
+    
+    
+    
+
+# png("C:/Users/Marie Claire Demmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/AB/100/deseq2_AB_all_100.png",width=22,height = 14, units='in',res=600)
+grid.arrange(p1.AB.100, p4.AB.100, p5.AB.100, p6.AB, nrow = 2)
+# dev.off()
+
+
+```
+
+
+</br>
+
+```{r desq2.AB.heatmap.enCours, eval=FALSE, include=FALSE}
+select <- order(rowMeans(counts(dds,normalized=TRUE)),
+                decreasing=TRUE)[1:20]
+df <- as.data.frame(colData(dds)[,c("condition","type")])
+pheatmap(assay(ntd)[select,], cluster_rows=FALSE, show_rownames=FALSE,
+         cluster_cols=FALSE, annotation_col=df)
+```
+
+</br>
+
+## Campagne EF
+
+```{r EF}
+frogs.campagnesEF = subset_samples(frogs.ABEF, sample_data(frogs.ABEF)$Campaign != "A" & sample_data(frogs.ABEF)$Campaign != "B")
+metadata.EF=subset(metadata,Campaign != "A" & Campaign != "B")
+
+EF.clus=as.data.frame(frogs.campagnesEF@otu_table)
+EF.clus$cluster=row.names(EF.clus)
+clusters.all.taxo=clusters.all[,c(1,2,3,4,5,6,7,8,9)]
+EF.clusters.all=merge(EF.clus,clusters.all.taxo, by.x="cluster", by.y="observation_name")
+EF.clusters.all = relocate(EF.clusters.all,cluster, .before = taxonomy.Domain)
+
+
+#somme d'un taxa>(somme de tous les taxa)*5e-5
+filter <- phyloseq::genefilter_sample(frogs.campagnesEF, filterfun_sample(function(x) x >= sum(x)*5e-5))
+frogs.EF.filt <- prune_taxa(filter, frogs.campagnesEF)
+# phyloseq-class experiment-level object
+# otu_table()   OTU Table:         [ 362 taxa and 26 samples ]
+# sample_data() Sample Data:       [ 26 samples by 14 sample variables ]
+# tax_table()   Taxonomy Table:    [ 362 taxa by 7 taxonomic ranks ]
+
+frogs.EF.filt.norm = rarefy_even_depth(frogs.EF.filt, rngseed = 1121983)
+frogs.EF.filt.norm
+  # 5 oTUs were removed
+# phyloseq-class experiment-level object
+# otu_table()   OTU Table:         [ 357 taxa and 26 samples ]
+# sample_data() Sample Data:       [ 26 samples by 14 sample variables ]
+# tax_table()   Taxonomy Table:    [ 357 taxa by 7 taxonomic ranks ]
+
+```
+
+</br>
+#### Diversité alpha
+</br>
+
+```{r EF.div.alpha.rich}
+frogs.EF.sansENVT.rich.ok = subset_samples(frogs.EF.filt.norm, sample_data(frogs.EF.filt.norm)$Campaign == "E" | sample_data(frogs.EF.filt.norm)$Campaign == "F")
+metadata.EF.sansENVT=subset(metadata,Campaign == "E" | Campaign == "F")
+
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/ATB_EF_richesse_chaos1_shannon.png",width=8,height = 4, units='in',res=600)
+plot_richness(frogs.EF.sansENVT.rich.ok, x="ATB_type", color="campaign" , measures=c(#"Chao1",
+  "Shannon")) + 
+  geom_point(size=5, alpha=0.7) 
+# dev.off()
+
+```
+
+
+
+</br>
+#### Richesse EF graph final
+</br>
+
+```{r richesse_graph_ok_EF}
+frogs.EF.sansENVT.rich.ok = subset_samples(frogs.EF.filt.norm, sample_data(frogs.EF.filt.norm)$Campaign == "E" | sample_data(frogs.EF.filt.norm)$Campaign == "F")
+metadata.frogs.EF.sansENVT.rich=subset(metadata,Campaign == "E" | Campaign == "F")
+frogs.E.rich.ok = subset_samples(frogs.EF.filt.norm, sample_data(frogs.EF.filt.norm)$Campaign == "E")
+frogs.F.rich.ok = subset_samples(frogs.EF.filt.norm, sample_data(frogs.EF.filt.norm)$Campaign == "F")
+
+frogs.EF.sansENVT.rich.ok@sam_data$Type_ATB = factor(frogs.EF.sansENVT.rich.ok@sam_data$Type_ATB,levels = c("Témoin","FQ1","FQ2","FQ1+FQ2"))
+
+
+png("C:/Users/Marie Claire Demmou/OneDrive/stage/R_16S/figures_16S/FR/ATB_EF_richesse_chaos1_shannon.png",width=7,height = 5, units='in',res=600)
+plot_richness(frogs.EF.sansENVT.rich.ok, x="Type_ATB", color="Campagne" , measures=c(#"Chao1",
+  "Shannon")) + 
+  #labs(color='Campagne') +
+  geom_point(size=5, alpha=0.7)
+dev.off()
+
+
+## Comparaison
+my_comparisons <- list( c("Témoin", "FQ1"), c("FQ1", "FQ1+FQ2"))#, c("NN", "SS"))
+symnum.args = list(cutpoints = c(0, 0.0001, 0.001, 0.01, 0.05, 1), symbols = c("****", "***", "**", "*", "ns"))
+
+# png("C:/Users/Marie Claire Demmou/OneDrive/stage/R_16S/figures_16S/FR/Camp_day_richesse_shannon_compa.png",width=10,height = 6, units='in',res=600)
+plot_richness(frogs.E.rich.ok, x="Type_ATB", color="Campagne", measures=c("Shannon")) + 
+  geom_boxplot(alpha=0.6) +
+  scale_color_manual(values = c("darkgreen","#900D09","#879bcd")) +
+  labs(color='Campagne')  +
+  stat_compare_means(method = "wilcox.test", comparisons = my_comparisons, label = "p.signif", symnum.args = symnum.args) +
+  xlab("Type d'ATB ajouté") 
+# dev.off()
+```
+
+</br>
+```{r richesse_graph_ok_EF_EN}
+frogs.EF.sansENVT.rich.ok = subset_samples(frogs.EF.filt.norm, sample_data(frogs.EF.filt.norm)$Campaign == "E" | sample_data(frogs.EF.filt.norm)$Campaign == "F")
+metadata.frogs.EF.sansENVT.rich=subset(metadata,Campaign == "E" | Campaign == "F")
+frogs.E.rich.ok = subset_samples(frogs.EF.filt.norm, sample_data(frogs.EF.filt.norm)$Campaign == "E")
+frogs.F.rich.ok = subset_samples(frogs.EF.filt.norm, sample_data(frogs.EF.filt.norm)$Campaign == "F")
+
+frogs.EF.sansENVT.rich.ok@sam_data$ATB_type = factor(frogs.EF.sansENVT.rich.ok@sam_data$ATB_type,levels = c("Control","FQ1","FQ2","FQ1+FQ2"))
+
+
+# png("C:/Users/Marie Claire Demmou/OneDrive/stage/R_16S/figures_16S/EN/ATB_EF_richesse_chaos1_shannon.png",width=7,height = 5, units='in',res=600)
+plot_richness(frogs.EF.sansENVT.rich.ok, x="ATB_type", color="campaign" , measures=c(#"Chao1",
+  "Shannon")) + 
+  geom_point(size=5, alpha=0.7) +
+  labs(color='Campaign')
+# dev.off()
+
+```
+</br>
+
+
+
+</br>
+#### Clustering
+</br>
+
+```{r EF.clustering}
+frogs.campagnesEF.sansENVT.norm.filt = subset_samples(frogs.EF.filt.norm, sample_data(frogs.EF.filt.norm)$Campaign == "E" | sample_data(frogs.EF.filt.norm)$Campaign == "F")
+metadata.EF.sansENVT=subset(metadata,Campaign == "E" | Campaign == "F")
+
+frogs.campagnesEF.BFonly.norm.filt = subset_samples(frogs.EF.filt.norm, sample_data(frogs.EF.filt.norm)$Campaign == "E" | sample_data(frogs.EF.filt.norm)$Campaign == "F" | sample_data(frogs.EF.filt.norm)$Inoculum == "BF_envt")
+metadata.EF.BFonly=subset(metadata,Campaign == "E" | Campaign == "F" | Inoculum == "BF_envt")
+
+###clustering####
+frogs.EF.dist.bc = phyloseq::distance(frogs.EF.filt.norm, method="bray")
+par(mfcol = c(1, 3)) ## To plot the three clustering trees side-by-side
+plot(hclust(frogs.EF.dist.bc, method = "complete"))
+plot(hclust(frogs.EF.dist.bc, method = "ward.D2"))
+plot(hclust(frogs.EF.dist.bc, method = "single"))
+par(mfcol = c(1, 1))
+
+frogs.EF.dist.wuni = phyloseq::distance(frogs.EF.filt.norm, method="wunifrac")
+frogs.EF.BFonly.dist.wuni = phyloseq::distance(frogs.campagnesEF.BFonly.norm.filt, method="wunifrac")
+frogs.EF.sansENVT.dist.wuni = phyloseq::distance(frogs.campagnesEF.sansENVT.norm.filt, method="wunifrac")
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/clust_EF_wuni_ward_comparaison.png",width=14,height = 6, units='in',res=600)
+par(mfcol = c(1, 3))
+plot(hclust(frogs.EF.dist.wuni, method = "ward.D2"))
+plot(hclust(frogs.EF.BFonly.dist.wuni, method = "ward.D2"))
+plot(hclust(frogs.EF.sansENVT.dist.wuni, method = "ward.D2"))
+par(mfcol = c(1, 1))
+# dev.off()
+
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/clust_EF_bc_ward.png",width=14,height = 6, units='in',res=600)
+# plot(hclust(frogs.EF.dist.bc, method = "ward.D2"))
+# dev.off()
+```
+
+</br>
+#### Diversité beta
+</br>
+
+```{r beta.EF, eval=FALSE, include=FALSE}
+####permanova####
+adonis(phyloseq::distance(frogs.EF.filt.norm, method="bray") ~ Dosage,
+       data = metadata.EF, perm = 9999) # p value = 0.0073 **
+
+
+
+adonis(phyloseq::distance(frogs.campagnesEF.sansENVT.norm.filt, method="wunifrac") ~ Dosage,
+       data = metadata.EF.sansENVT, perm = 9999) # p value = 0.0342 *
+
+adonis(phyloseq::distance(frogs.campagnesEF.sansENVT.norm.filt, method="wunifrac") ~ Campaign,
+       data = metadata.EF.sansENVT, perm = 9999) # p value = 0.0334 *
+
+adonis(phyloseq::distance(frogs.campagnesEF.sansENVT.norm.filt, method="wunifrac") ~ ATB_type,
+       data = metadata.EF.sansENVT, perm = 9999) # p value = 0.2258
+
+
+##faire que pour E et que pour F
+
+frogs.campagneE = subset_samples(frogs.ABEF, sample_data(frogs.ABEF)$Campaign == "E")
+metadata.E=subset(metadata,Campaign == "E")
+frogs.campagneF = subset_samples(frogs.ABEF, sample_data(frogs.ABEF)$Campaign == "F")
+metadata.F=subset(metadata,Campaign == "F")
+
+adonis(phyloseq::distance(frogs.campagneE, method="wunifrac") ~ ATB_type,
+       data = metadata.E, perm = 9999) # p value = 0.0095 **
+adonis(phyloseq::distance(frogs.campagneE, method="wunifrac") ~ FQ1+FQ2+FQ1:FQ2,
+       data = metadata.E, perm = 9999) 
+# FQ1        1  0.051668 0.051668  17.782 0.28314 0.0072 **
+# FQ2        1  0.025553 0.025553   8.794 0.14003 0.0093 ** 
+# FQ1:FQ2    1  0.093641 0.093641  32.226 0.51314 0.0036 **
+
+
+
+adonis(phyloseq::distance(frogs.campagneF, method="wunifrac") ~ ATB_type,
+       data = metadata.F, perm = 9999) # p value = 0.0094 **
+adonis(phyloseq::distance(frogs.campagneF, method="wunifrac") ~ FQ1+FQ2+FQ1:FQ2,
+       data = metadata.F, perm = 9999) 
+# FQ1        1  0.033359 0.033359  15.796 0.33621 0.0069 **
+# FQ2        1  0.017150 0.017150   8.121 0.17285 0.0096 ** 
+# FQ1:FQ2    1  0.040263 0.040263  19.065 0.40579 0.0036 **
+
+# pairwise.adonis(phyloseq::distance(frogs.campagneF, method="wunifrac"),frogs.campagneF@sam_data$ATB_type) #pas assez d'échantillons pour pairwise => donne même p value pour tous (0.33333)
+
+#biblio pour regarder si les surreprésenté sont connus pour avoir résistance et les memes a fortes dose?
+
+
+#####ACP#####
+pcoa = plot_ordination(frogs.EF.filt.norm, label="Noms_R", ordinate(frogs.EF.filt.norm, "PCoA","bray"), "samples", color="ATB_type", shape="Dosage") + 
+  geom_point(size = 5) + 
+  # geom_polygon(aes(fill=Inoculum)) + 
+  ggtitle("PcoA")
+
+cca = plot_ordination(frogs.EF.filt.norm, label="Noms_R", ordinate(frogs.EF.filt.norm, "CCA","bray"), "samples", color="ATB_type", shape="Dosage") + 
+  geom_point(size = 5) + 
+  # geom_polygon(aes(fill=Inoculum)) + 
+  ggtitle("CCA")
+
+nmds = plot_ordination(frogs.EF.filt.norm, label="Noms_R", ordinate(frogs.EF.filt.norm, "NMDS","bray"), "samples", color="ATB_type", shape="Dosage") + 
+  geom_point(size = 5) + 
+  # geom_polygon(aes(fill=Inoculum)) + 
+  ggtitle("NMDS")
+
+unifrac = plot_ordination(frogs.EF.filt.norm, label="Noms_R", ordinate(frogs.EF.filt.norm, "PCoA","unifrac", weighted=TRUE), "samples", color="ATB_type", shape="Dosage") + 
+  geom_point(size = 5) + 
+  # geom_polygon(aes(fill=Inoculum)) + 
+  ggtitle("MDS/PcoA on weighted-UniFrac distance")
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/temp/EF_temp/ordinate_4plots_EF.png",width=10,height = 8, units='in',res=600)
+grid.arrange(pcoa, cca, nmds, unifrac, nrow = 2)
+# dev.off()
+
+```
+
+</br>
+Permanova sur les échantillons des 2 campagnes (E et F sans les échantillons environnementaux) : différence significative entre les échantillons en fonction du dosage.  
+Permanova sur campagne E : ATB_type tout seul significatif, si on fait FQ1+FQ2 que FQ significatif, si on rajoute l'interaction (FQ1+FQ2+FQ1:FQ2) tout est significatif.
+Permanova sur campagne F : mêmes résultats que pour E.
+</br>
+
+```{r EF.ordinate, eval=FALSE, include=FALSE}
+
+# https://deneflab.github.io/MicrobeMiseq/demos/mothur_2_phyloseq.html
+
+dist = "wunifrac"
+ord_meths = c("DCA", "CCA", "RDA", "DPCoA", "NMDS", "MDS", "PCoA")
+plist = llply(as.list(ord_meths), function(i, physeq, dist){
+        ordi = ordinate(physeq, method=i, distance=dist)
+        plot_ordination(physeq, ordi, "samples", color="ATB_type")
+}, frogs.EF.filt.norm, dist)
+
+plist = llply(as.list(ord_meths), function(i, physeq, dist){
+        ordi = ordinate(physeq, method=i, distance=dist)
+        plot_ordination(physeq, ordi, "samples", color="ATB_type")
+}, frogs.campagnesEF.sansENVT.norm.filt, dist)
+
+names(plist) <- ord_meths
+
+pdataframe = ldply(plist, function(x){
+    df = x$data[, 1:2]
+    colnames(df) = c("Axis_1", "Axis_2")
+    return(cbind(df, x$data))
+})
+names(pdataframe)[1] = "method"
+
+p = ggplot(pdataframe, aes(Axis_1, Axis_2, color=ATB_type, shape=campaign))
+p = p + geom_point(size=4)
+p = p + facet_wrap(~method, scales="free")
+p = p + scale_colour_brewer(type="qual", palette="Set1")
+p
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/ordinate_all_plots_EF.png",width=10,height = 8, units='in',res=600)
+p
+# dev.off()
+```
+
+</br>
+
+
+```{r EF.constrained.ordinate}
+# https://deneflab.github.io/MicrobeMiseq/demos/mothur_2_phyloseq.html
+
+frogs.EF.dist.wuni = phyloseq::distance(frogs.EF.filt.norm, method="wunifrac")
+
+# CAP ordinate
+cap_ord <- ordinate(
+    physeq = frogs.EF.filt.norm, 
+    method = "CAP",
+    distance = frogs.EF.dist.wuni,
+    formula = ~ ATB_type + campaign 
+)
+
+# CAP plot
+cap_plot <- plot_ordination(
+  physeq = frogs.EF.filt.norm, 
+  ordination = cap_ord, 
+    color = "ATB_type", 
+    axes = c(1,2)
+) + 
+    aes(shape = campaign) + 
+    geom_point(aes(colour = ATB_type), alpha = 0.4, size = 4) + 
+    geom_point( size = 1.5) + 
+    scale_color_manual(values = c("#999999","#53AEA5", "#f1c40f", "#e67e22", "#c0392b")
+    )
+
+# Now add the environmental variables as arrows
+arrowmat <- vegan::scores(cap_ord, display = "bp")
+
+# Add labels, make a data.frame
+arrowdf <- data.frame(labels = rownames(arrowmat), arrowmat)
+
+# Define the arrow aesthetic mapping
+arrow_map <- aes(xend = CAP1, 
+    yend = CAP2, 
+    x = 0, 
+    y = 0, 
+    shape = NULL, 
+    color = NULL, 
+    label = labels)
+
+label_map <- aes(x = 1.3 * CAP1, 
+    y = 1.3 * CAP2, 
+    shape = NULL, 
+    color = NULL, 
+    label = labels)
+
+arrowhead = arrow(length = unit(0.02, "npc"))
+
+# Make a new graphic
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/ordinate_cap_EF.png",width=10,height = 8, units='in',res=600)
+cap_plot + 
+  geom_segment(
+    mapping = arrow_map, 
+    size = .5, 
+    data = arrowdf, 
+    color = "gray", 
+    arrow = arrowhead
+  ) + 
+  geom_text(
+    mapping = label_map, 
+    size = 4,  
+    data = arrowdf, 
+    show.legend = FALSE
+  )
+# dev.off()
+```
+
+</br>
+
+```{r EF.sansENVT.constrained.ordinate}
+# https://deneflab.github.io/MicrobeMiseq/demos/mothur_2_phyloseq.html
+
+# frogs.EF.filt.norm@sam_data$Dosage[which(frogs.EF.filt.norm@sam_data$Dosage=="")]="envt"
+
+frogs.EF.sansENVT.dist.wuni = phyloseq::distance(frogs.campagnesEF.sansENVT.norm.filt, method="wunifrac")
+
+
+# CAP ordinate
+cap_ord <- ordinate(
+    physeq = frogs.campagnesEF.sansENVT.norm.filt, 
+    method = "CAP",
+    distance = frogs.EF.sansENVT.dist.wuni,
+    formula = ~ ATB_type + campaign 
+)
+
+# CAP plot
+cap_plot <- plot_ordination(
+  physeq = frogs.campagnesEF.sansENVT.norm.filt, 
+  ordination = cap_ord, 
+    color = "ATB_type", 
+    axes = c(1,2)
+) + 
+    aes(shape = campaign) + 
+    geom_point(aes(colour = ATB_type), alpha = 0.4, size = 4) + 
+    geom_point( size = 1.5) + 
+    scale_color_manual(values = c("#999999", "#f1c40f", "#e67e22", "#c0392b")
+    )
+
+
+# Now add the environmental variables as arrows
+arrowmat <- vegan::scores(cap_ord, display = "bp")
+
+# Add labels, make a data.frame
+arrowdf <- data.frame(labels = rownames(arrowmat), arrowmat)
+
+# Define the arrow aesthetic mapping
+arrow_map <- aes(xend = CAP1, 
+    yend = CAP2, 
+    x = 0, 
+    y = 0, 
+    shape = NULL, 
+    color = NULL, 
+    label = labels)
+
+label_map <- aes(x = 1.3 * CAP1, 
+    y = 1.3 * CAP2, 
+    shape = NULL, 
+    color = NULL, 
+    label = labels)
+
+arrowhead = arrow(length = unit(0.02, "npc"))
+
+# Make a new graphic
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/ordinate_cap_EF_sansENVT.png",width=10,height = 8, units='in',res=600)
+cap_plot + 
+  geom_segment(
+    mapping = arrow_map, 
+    size = .5, 
+    data = arrowdf, 
+    color = "gray", 
+    arrow = arrowhead
+  ) + 
+  geom_text(
+    mapping = label_map, 
+    size = 4,  
+    data = arrowdf, 
+    show.legend = FALSE
+  )
+# dev.off()
+```
+
+</br>
+#### Heatmap
+</br>
+
+```{r EF.tree.100}
+topN = 100
+most_abundant_taxa = sort(taxa_sums(frogs.EF.filt.norm), TRUE)[1:topN]
+print(most_abundant_taxa)
+frogs.EF.norm.100 = prune_taxa(names(most_abundant_taxa), frogs.EF.filt.norm)
+write.table(otu_table(frogs.EF.norm.100), file='C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/data_asCount/asCount_otu_table_frogs_EF_norm_100.tsv', quote=FALSE, sep='\t')
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/tree_EF.png",width=16,height = 14, units='in',res=600)
+plot_tree(frogs.EF.norm.100,"treeonly",label.tips = "taxa_names", base.spacing=0.04, plot.margin = 0.5,text.size = 3, ladderize = TRUE)
+# dev.off()
+
+frogs.EF.norm.100.otu.table.order=read.csv("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/data_asCount/asCount_otu_table_frogs_EF_norm_100_order.csv",sep=";",row.names = 1)
+# frogs.EF.norm.100.otu.table.order<-frogs.EF.norm.100.otu.table.order[order(frogs.EF.norm.100.otu.table.order[,ncol(frogs.EF.norm.100.otu.table.order)],decreasing=T),]
+
+
+hclustfunc <- function(x) hclust(x, method="complete")
+distfunc <- function(x) dist(x, method="euclidean")
+# distfunc <- function(x) dist(x, method="manhattan")
+# distfunc <- function(x) dist(x, method="binary")
+
+    # perform clustering on columns
+cl.col <- hclustfunc(distfunc(t(frogs.EF.norm.100.otu.table.order[,-27])))
+
+    # extract cluster assignments; i.e. k=8 (rows) k=5 (columns)
+gr.col <- cutree(cl.col, 5)
+
+    # require(RColorBrewer)
+col2 <- brewer.pal(6, "Blues")
+col1=c("#462255","#E54141","#7E89C8","#08C999","#266D40")
+#7E89C8=bleu clair 
+#E54141=rouge
+#62A87C=vert foncé #1C4E2E
+#7EE081=vert clair #09D7D4
+
+dcols =vegdist(t(frogs.EF.norm.100.otu.table.order), method="bray", binary=FALSE, diag=FALSE, upper=FALSE, na.rm = FALSE)
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/100/HM_EF_sideCol_BC_order.png",width=16,height = 15, units='in',res=600)
+heatmap(as.matrix(frogs.EF.norm.100.otu.table.order[,-27]), Rowv=NA, Colv=dcols, ColSideColors=col1[gr.col],col=colorRampPalette(brewer.pal(8, "Oranges"))(25)) ; legend(x="topleft", legend=c("Campaign E FQ1+FQ2 (B4)","WW_envt", "BF_envt", "Low (Campaign F)","High (Campaign E)"), 
+     fill=c("#E54141","#08C999","#266D40","#7E89C8","#462255"),bty = "n")
+# dev.off()
+
+```
+
+</br>
+
+```{r EF.Heatmap}
+#séparation en fonction du dosage
+
+  ##### most abundant taxa #####
+topN = 100
+most_abundant_taxa = sort(taxa_sums(frogs.EF.filt.norm), TRUE)[1:topN]
+print(most_abundant_taxa)
+frogs.EF.norm.100 = prune_taxa(names(most_abundant_taxa), frogs.EF.filt.norm)
+# plot_heatmap(frogs.EF.norm.100, low = "yellow", high = "red", na.value = "white") 
+
+    # set the custom distance and clustering functions, per your example
+hclustfunc <- function(x) hclust(x, method="complete")
+distfunc <- function(x) dist(x, method="euclidean")
+# distfuncBC <- function(x) phyloseq::distance(x, method="bray")
+
+    # perform clustering on columns
+cl.col <- hclustfunc(distfunc(t(frogs.EF.norm.100@otu_table)))
+
+    # extract cluster assignments; i.e. k=8 (rows) k=5 (columns)
+gr.col <- cutree(cl.col, 5)
+
+    # require(RColorBrewer)
+col2 <- brewer.pal(6, "Blues")
+col1=c("#462255","#E54141","#7E89C8","#08C999","#266D40")
+#7E89C8=bleu clair 
+#E54141=rouge
+#62A87C=vert foncé #1C4E2E
+#7EE081=vert clair #09D7D4
+
+dcols =vegdist(t(frogs.EF.norm.100@otu_table), method="bray", binary=FALSE, diag=FALSE, upper=FALSE, na.rm = FALSE)
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/HM_EF_sideCol_BC.png",width=16,height = 15, units='in',res=600)
+heatmap(as.matrix(frogs.EF.norm.100@otu_table), Colv=dcols, ColSideColors=col1[gr.col],col=colorRampPalette(brewer.pal(8, "Oranges"))(25)) ; legend(x="topleft", legend=c("Campaign E FQ1+FQ2 (B4)","WW_envt", "BF_envt", "Low (Campaign F)","High (Campaign E)"), 
+     fill=c("#E54141","#08C999","#266D40","#7E89C8","#462255"),bty = "n")
+# dev.off()
+
+
+```
+
+</br>
+#### Deseq2
+</br>
+
+```{r deseq2.EF.norm.Dosage}
+
+  ##### Deseq2 #####
+
+#mettre que 2 facteurs
+frogs.EF.filt.norm.deseq2.envt = subset_samples(frogs.EF.filt.norm, Dosage != "") #=frogs.campagnesEF.sansENVT.norm.filt
+# dds$condition <- relevel(dds$condition, ref = "untreated")
+frogs.EF.filt.norm.deseq2.H = subset_samples(frogs.EF.filt.norm, Dosage != "H")
+frogs.EF.filt.norm.deseq2.L = subset_samples(frogs.EF.filt.norm, Dosage != "L")
+
+deseq.EF = function(frogsEFdeseq,title,topN=100,alpha = 0.05){
+  most_abundant_taxa = sort(taxa_sums(frogsEFdeseq), TRUE)[1:topN]
+  frogsEFdeseq = prune_taxa(names(most_abundant_taxa), frogsEFdeseq)
+  
+  diagdds = phyloseq_to_deseq2(frogsEFdeseq, ~ Dosage)
+  diagdds = DESeq(diagdds, test="Wald", fitType="parametric")
+  res = results(diagdds, cooksCutoff = FALSE)
+  # res <- results(diagdds, contrast=c("Dosage","envt","L"))
+  print(res) #treated vs untreated => log2FC(treated/untreated) => positif = treated +++
+  sigtab = res[which(res$padj < alpha), ] #on garde les résultats avec des p values < à 0.01
+  sigtab = cbind(as(sigtab, "data.frame"), as(phyloseq::tax_table(frogs.EF.filt.norm)[rownames(sigtab), ], "matrix")) #rajouter phyloseq:: devant unable to find an inherited method for function ""
+  head(sigtab)
+  print(dim(sigtab))
+  
+  
+  theme_set(theme_bw())
+  scale_fill_discrete <- function(palname = "Set1", ...) {
+      scale_fill_brewer(palette = palname, ...)
+  }
+  # Phylum order
+  x = tapply(sigtab$log2FoldChange, sigtab$Phylum, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtab$Phylum = factor(as.character(sigtab$Phylum), levels=names(x))
+  # Genus order
+  x = tapply(sigtab$log2FoldChange, sigtab$Genus, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtab$Genus = factor(as.character(sigtab$Genus), levels=names(x))
+  print(ggplot(sigtab, aes(x=Genus, y=log2FoldChange, color=Phylum)) + geom_point(size=6) + 
+    theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5)))
+  
+  
+  sigtabgen = subset(sigtab, !is.na(Genus))
+  # Phylum order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Phylum, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Phylum = factor(as.character(sigtabgen$Phylum), levels=names(x))
+  #Family order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Order, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Order = factor(as.character(sigtabgen$Order), levels=names(x))  
+  # Genus order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Genus, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Genus = factor(as.character(sigtabgen$Genus), levels=names(x))
+  # OTU order
+  sigtabgen$OTU=row.names(sigtabgen)
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$OTU, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$OTU = factor(as.character(sigtabgen$OTU), levels=names(x))
+  # species order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Species, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Species = factor(as.character(sigtabgen$Species), levels=names(x))
+  # plot
+  p=ggplot(sigtabgen, aes(y=OTU, x=log2FoldChange, color=Order)) + 
+    geom_vline(xintercept = 0.0, color = "gray", size = 0.5) +
+    geom_point(size=6) + 
+    theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5)) +
+    # ggtitle(title) +
+    labs(title = str_wrap(title, 90))
+  print(p)
+  return(p)
+}
+
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/deseq2_High_Low_OTU2.png",width=10,height = 7, units='in',res=600)
+p1.EF=deseq.EF(frogs.EF.filt.norm.deseq2.envt,"Plot showing the 53 differentially abundant OTUs (p < 0.05 with Deseq2) between different concentration of antibiotics : low or high") #comparaison entre High et Low (sans témoin envt)
+# dev.off()
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/deseq2_envt_Low_OTU.png",width=10,height = 7, units='in',res=600)
+p2.EF=deseq.EF(frogs.EF.filt.norm.deseq2.H,"Plot showing the 82 differentially abundant OTUs (p < 0.05 with Deseq2) between different concentration of antibiotics : low or environmental concentration") #comparaison entre envt et Low (sans H)
+# dev.off()
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/deseq2_envt_High_OTU.png",width=10,height = 7, units='in',res=600)
+p3.EF=deseq.EF(frogs.EF.filt.norm.deseq2.L,"Plot showing the 73 differentially abundant OTUs (p < 0.05 with Deseq2) between different concentration of antibiotics : high or environmental concentration") #comparaison entre envt et High (sans L)
+# dev.off()
+
+# 
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/deseq2_dosage_EF_all.png",width=22,height = 14, units='in',res=600)
+grid.arrange(p1.EF, p2.EF, p3.EF, nrow = 2)
+# dev.off()
+
+
+```
+
+</br>
+```{r deseq2.EF.norm.ATB}
+
+  ##### Deseq2 #####
+
+#mettre que 2 facteurs
+frogs.E.filt.norm.deseq2.FQ1.FQ2 = subset_samples(frogs.campagneE, ATB_type != "0" & ATB_type != "FQ1+FQ2") 
+frogs.E.filt.norm.deseq2.FQ1.0 = subset_samples(frogs.campagneE, ATB_type != "FQ2" & ATB_type != "FQ1+FQ2")
+frogs.E.filt.norm.deseq2.FQ2.0 = subset_samples(frogs.campagneE, ATB_type != "FQ1" & ATB_type != "FQ1+FQ2")
+frogs.E.filt.norm.deseq2.FQ1FQ2.0 = subset_samples(frogs.campagneE, ATB_type != "FQ1" & ATB_type != "FQ2")
+
+frogs.F.filt.norm.deseq2.FQ1.FQ2 = subset_samples(frogs.campagneF, ATB_type != "0" & ATB_type != "FQ1+FQ2") 
+frogs.F.filt.norm.deseq2.FQ1.0 = subset_samples(frogs.campagneF, ATB_type != "FQ2" & ATB_type != "FQ1+FQ2")
+frogs.F.filt.norm.deseq2.FQ2.0 = subset_samples(frogs.campagneF, ATB_type != "FQ1" & ATB_type != "FQ1+FQ2")
+frogs.F.filt.norm.deseq2.FQ1FQ2.0 = subset_samples(frogs.campagneF, ATB_type != "FQ1" & ATB_type != "FQ2")
+
+
+deseq.EF.ATB = function(frogsEFdeseq,title,topN=100,alpha = 0.05,HM=FALSE){
+  most_abundant_taxa = sort(taxa_sums(frogsEFdeseq), TRUE)[1:topN]
+  frogsEFdeseq = prune_taxa(names(most_abundant_taxa), frogsEFdeseq)
+  
+  diagdds = phyloseq_to_deseq2(frogsEFdeseq, ~ ATB_type)
+  diagdds = DESeq(diagdds, test="Wald", fitType="parametric")
+  res = results(diagdds, cooksCutoff = FALSE)
+  # res <- results(diagdds, contrast=c("Dosage","envt","L"))
+  print(res) #treated vs untreated => log2FC(treated/untreated) => positif = treated +++
+  sigtab = res[which(res$padj < alpha), ] #on garde les résultats avec des p values < à 0.01
+  sigtab = cbind(as(sigtab, "data.frame"), as(phyloseq::tax_table(frogs.EF.filt.norm)[rownames(sigtab), ], "matrix")) #rajouter phyloseq:: devant unable to find an inherited method for function ""
+  head(sigtab)
+  print(dim(sigtab))
+  
+  
+  theme_set(theme_bw())
+  scale_fill_discrete <- function(palname = "Set1", ...) {
+      scale_fill_brewer(palette = palname, ...)
+  }
+  # Phylum order
+  x = tapply(sigtab$log2FoldChange, sigtab$Phylum, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtab$Phylum = factor(as.character(sigtab$Phylum), levels=names(x))
+  # Genus order
+  x = tapply(sigtab$log2FoldChange, sigtab$Genus, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtab$Genus = factor(as.character(sigtab$Genus), levels=names(x))
+  print(ggplot(sigtab, aes(x=Genus, y=log2FoldChange, color=Phylum)) + geom_point(size=6) + 
+    theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5)))
+  
+  
+  sigtabgen = subset(sigtab, !is.na(Genus))
+  # Phylum order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Phylum, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Phylum = factor(as.character(sigtabgen$Phylum), levels=names(x))
+  #Family order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Order, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Order = factor(as.character(sigtabgen$Order), levels=names(x))  
+  # Genus order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Genus, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Genus = factor(as.character(sigtabgen$Genus), levels=names(x))
+  # OTU order
+  sigtabgen$OTU=row.names(sigtabgen)
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$OTU, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$OTU = factor(as.character(sigtabgen$OTU), levels=names(x))
+  # species order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Species, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Species = factor(as.character(sigtabgen$Species), levels=names(x))
+  # plot
+  p=ggplot(sigtabgen, aes(y=OTU, x=log2FoldChange, color=Order)) + 
+    geom_vline(xintercept = 0.0, color = "gray", size = 0.5) +
+    geom_point(size=6) + 
+    theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5)) +
+    # ggtitle(title) +
+    labs(title = str_wrap(title, 90))
+  # print(p)
+  
+    if (HM==TRUE){
+    deseq2ResDF <- as.data.frame(res)
+    sigGenes <- rownames(deseq2ResDF[deseq2ResDF$padj <= .05,])
+    sigtabgen_test <- sigtabgen[sigtabgen$OTU %in% sigGenes,]
+    tab_HM=sigtabgen_test[,c("log2FoldChange","OTU")]
+    
+    tab_HM$condition=0
+    tab_HM$condition[which(tab_HM$log2FoldChange<0)]="FQ1/None"
+    tab_HM$condition[which(tab_HM$log2FoldChange>0)]="FQ1/None"
+    tab_HM=tab_HM[,-4]
+
+    write_xlsx(tab_test_deseq_plot, "C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/test/testEF.xlsx")
+    
+    liste_clus_diff=setdiff(sigtabgen$OTU,tab_test_deseq_plot$OTU)
+    liste_clus_diff=as.data.frame(liste_clus_diff)
+    liste_clus_diff=rename("OTU" = liste_clus_diff,liste_clus_diff)
+    liste_clus_diff$condition="FQ1/None"
+    liste_clus_diff$log2FoldChange="NA"
+    write_xlsx(liste_clus_diff, "C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/test/test_liste_clus_diff_EF.xlsx")
+  }
+  
+  return(p)
+}
+
+
+
+p1.E=deseq.EF.ATB(frogs.E.filt.norm.deseq2.FQ1.FQ2,"Plot showing the 34 differentially abundant OTUs (p < 0.05 with Deseq2) from campaign E between different antibiotics treatments : FQ1 or FQ2") #ATB type FQ2 vs FQ1 
+p2.E=deseq.EF.ATB(frogs.E.filt.norm.deseq2.FQ1.0,"Plot showing the 76 differentially abundant OTUs (p < 0.05 with Deseq2) from campaign E between different antibiotics treatments : FQ1 or none",HM=TRUE) #ATB type FQ1 vs 0 
+p3.E=deseq.EF.ATB(frogs.E.filt.norm.deseq2.FQ2.0,"Plot showing the 65 differentially abundant OTUs (p < 0.05 with Deseq2) from campaign E between different antibiotics treatments : FQ2 or none") #ATB type FQ2 vs 0 
+p4.E=deseq.EF.ATB(frogs.E.filt.norm.deseq2.FQ1FQ2.0,"Plot showing the 75 differentially abundant OTUs (p < 0.05 with Deseq2) from campaign E between different antibiotics treatments : FQ1+FQ2 or none") #ATB type FQ1.FQ2 vs 0 
+
+png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/deseq2_ATB_E_all.png",width=22,height = 14, units='in',res=600)
+grid.arrange(p1.E, p2.E, p3.E, p4.E, nrow = 2)
+dev.off()
+
+
+p1.F=deseq.EF.ATB(frogs.F.filt.norm.deseq2.FQ1.FQ2,"Plot showing the 47 differentially abundant OTUs (p < 0.05 with Deseq2) from campaign F between different antibiotics treatments : FQ1 or FQ2") #ATB type FQ2 vs FQ1
+p2.F=deseq.EF.ATB(frogs.F.filt.norm.deseq2.FQ1.0,"Plot showing the 31 differentially abundant OTUs (p < 0.05 with Deseq2) from campaign F between different antibiotics treatments : FQ1 or none") #ATB type FQ1 vs 0
+p3.F=deseq.EF.ATB(frogs.F.filt.norm.deseq2.FQ2.0,"Plot showing the 38 differentially abundant OTUs (p < 0.05 with Deseq2) from campaign F between different antibiotics treatments : FQ2 or none") #ATB type FQ2 vs 0 
+p4.F=deseq.EF.ATB(frogs.F.filt.norm.deseq2.FQ1FQ2.0,"Plot showing the 29 differentially abundant OTUs (p < 0.05 with Deseq2) from campaign F between different antibiotics treatments : FQ1+FQ2 or none") #FQ1+FQ2 = valeurs positives // None = valeurs négatives (FQ1.FQ2 vs 0)
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/deseq2_ATB_F_all.png",width=22,height = 14, units='in',res=600)
+grid.arrange(p1.F, p2.F, p3.F, p4.F, nrow = 2)
+# dev.off()
+
+
+#################################################################################
+# dds <- DESeqDataSetFromMatrix(countData=countData, 
+#                               colData=metaData, 
+#                               design=~dex, tidy = TRUE)
+# 
+# dds <- DESeq(dds)
+
+##Volcano plot
+#reset par
+# par(mfrow=c(1,1))
+# # Make a basic volcano plot
+# with(res, plot(log2FoldChange, -log10(pvalue), pch=20, main="Volcano plot", xlim=c(-3,3)))
+# 
+# # Add colored points: blue if padj<0.01, red if log2FC>1 and padj<0.05)
+# with(subset(res, padj<.01 ), points(log2FoldChange, -log10(pvalue), pch=20, col="blue"))
+# with(subset(res, padj<.01 & abs(log2FoldChange)>2), points(log2FoldChange, -log10(pvalue), pch=20, col="red"))
+# 
+# 
+# ##plot pca
+# vsdata <- vst(dds, blind=FALSE) #vst function will perform variance stabilizing transformation
+# plotPCA(vsdata, intgroup="dex") #using the DESEQ2 plotPCA fxn we can
+```
+
+</br>
+#### Deseq2 100 plus abondants
+</br>
+
+```{r deseq2.EF.norm.ATB.100}
+
+frogs.campagneE.100 = subset_samples(frogs.EF.norm.100, sample_data(frogs.EF.norm.100)$Campaign == "E")
+frogs.campagneF.100 = subset_samples(frogs.EF.norm.100, sample_data(frogs.EF.norm.100)$Campaign == "F")
+
+
+#mettre que 2 facteurs
+frogs.E.filt.norm.deseq2.FQ1.FQ2.100 = subset_samples(frogs.campagneE.100, ATB_type != "0" & ATB_type != "FQ1+FQ2") 
+frogs.E.filt.norm.deseq2.FQ1.0.100 = subset_samples(frogs.campagneE.100, ATB_type != "FQ2" & ATB_type != "FQ1+FQ2")
+frogs.E.filt.norm.deseq2.FQ2.0.100 = subset_samples(frogs.campagneE.100, ATB_type != "FQ1" & ATB_type != "FQ1+FQ2")
+frogs.E.filt.norm.deseq2.FQ1FQ2.0.100 = subset_samples(frogs.campagneE.100, ATB_type != "FQ1" & ATB_type != "FQ2")
+
+frogs.F.filt.norm.deseq2.FQ1.FQ2.100 = subset_samples(frogs.campagneF.100, ATB_type != "0" & ATB_type != "FQ1+FQ2") 
+frogs.F.filt.norm.deseq2.FQ1.0.100 = subset_samples(frogs.campagneF.100, ATB_type != "FQ2" & ATB_type != "FQ1+FQ2")
+frogs.F.filt.norm.deseq2.FQ2.0.100 = subset_samples(frogs.campagneF.100, ATB_type != "FQ1" & ATB_type != "FQ1+FQ2")
+frogs.F.filt.norm.deseq2.FQ1FQ2.0.100 = subset_samples(frogs.campagneF.100, ATB_type != "FQ1" & ATB_type != "FQ2")
+
+
+deseq.EF.ATB = function(frogsEFdeseq,title,topN=100,alpha = 0.05,HM=FALSE){
+  most_abundant_taxa = sort(taxa_sums(frogsEFdeseq), TRUE)[1:topN]
+  frogsEFdeseq = prune_taxa(names(most_abundant_taxa), frogsEFdeseq)
+  
+  diagdds = phyloseq_to_deseq2(frogsEFdeseq, ~ ATB_type)
+  diagdds = DESeq(diagdds, test="Wald", fitType="parametric")
+  res = results(diagdds, cooksCutoff = FALSE)
+  # res <- results(diagdds, contrast=c("Dosage","envt","L"))
+  print(res) #treated vs untreated => log2FC(treated/untreated) => positif = treated +++
+  sigtab = res[which(res$padj < alpha), ] #on garde les résultats avec des p values < à 0.01
+  sigtab = cbind(as(sigtab, "data.frame"), as(phyloseq::tax_table(frogs.EF.filt.norm)[rownames(sigtab), ], "matrix")) #rajouter phyloseq:: devant unable to find an inherited method for function ""
+  head(sigtab)
+  print(dim(sigtab))
+  
+  
+  theme_set(theme_bw())
+  scale_fill_discrete <- function(palname = "Set1", ...) {
+      scale_fill_brewer(palette = palname, ...)
+  }
+  # Phylum order
+  x = tapply(sigtab$log2FoldChange, sigtab$Phylum, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtab$Phylum = factor(as.character(sigtab$Phylum), levels=names(x))
+  # Genus order
+  x = tapply(sigtab$log2FoldChange, sigtab$Genus, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtab$Genus = factor(as.character(sigtab$Genus), levels=names(x))
+  print(ggplot(sigtab, aes(x=Genus, y=log2FoldChange, color=Phylum)) + geom_point(size=6) + 
+    theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5)))
+  
+  
+  sigtabgen = subset(sigtab, !is.na(Genus))
+  # Phylum order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Phylum, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Phylum = factor(as.character(sigtabgen$Phylum), levels=names(x))
+  #Family order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Order, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Order = factor(as.character(sigtabgen$Order), levels=names(x))  
+  # Genus order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Genus, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Genus = factor(as.character(sigtabgen$Genus), levels=names(x))
+  # OTU order
+  sigtabgen$OTU=row.names(sigtabgen)
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$OTU, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$OTU = factor(as.character(sigtabgen$OTU), levels=names(x))
+  # species order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Species, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Species = factor(as.character(sigtabgen$Species), levels=names(x))
+  # plot
+  p=ggplot(sigtabgen, aes(y=OTU, x=log2FoldChange, color=Order)) + 
+    geom_vline(xintercept = 0.0, color = "gray", size = 0.5) +
+    geom_point(size=6) + 
+    theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5)) +
+    # ggtitle(title) +
+    labs(title = str_wrap(title, 90))
+  # print(p)
+  
+    
+    if (HM==TRUE){
+    deseq2ResDF <- as.data.frame(res)
+    sigGenes <- rownames(deseq2ResDF[deseq2ResDF$padj <= .05,])
+    sigtabgen_test <- sigtabgen[sigtabgen$OTU %in% sigGenes,]
+    tab_HM=sigtabgen_test[,c("log2FoldChange","OTU")]
+    
+    tab_HM$condition=0
+    tab_HM$condition[which(tab_HM$log2FoldChange<0)]="FQ2/None"
+    tab_HM$condition[which(tab_HM$log2FoldChange>0)]="FQ2/None"
+    tab_HM=tab_HM[,-4]
+    
+
+    write_xlsx(tab_HM, "C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/test/test_E_FQ2.xlsx")
+
+    # liste_clus_diff=setdiff(sigtabgen$OTU,tab_HM$OTU)
+    # liste_clus_diff=as.data.frame(liste_clus_diff)
+    # liste_clus_diff=rename("OTU" = liste_clus_diff,liste_clus_diff)
+    # liste_clus_diff$condition="FQ1/None"  #=> pb sur cette ligne 
+    # liste_clus_diff$log2FoldChange="NA"
+    # write_xlsx(liste_clus_diff, "C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/test/test_liste_clus_diff_F_FQ1.xlsx")
+    # }
+  
+  return(p)
+    }
+}
+
+
+# 
+# p1.E.100=deseq.EF.ATB(frogs.E.filt.norm.deseq2.FQ1.FQ2.100,"Plot showing the 13 differentially abundant OTUs (p < 0.05 with Deseq2) from campaign E between different antibiotics treatments : FQ1 or FQ2") #ATB type FQ2 vs FQ1 
+# p2.E.100=deseq.EF.ATB(frogs.E.filt.norm.deseq2.FQ1.0.100,"Plot showing the 31 differentially abundant OTUs (p < 0.05 with Deseq2) from campaign E between different antibiotics treatments : FQ1 or none",HM=TRUE) #ATB type FQ1 vs 0
+p3.E.100=deseq.EF.ATB(frogs.E.filt.norm.deseq2.FQ2.0.100,"Plot showing the 28 differentially abundant OTUs (p < 0.05 with Deseq2) from campaign E between different antibiotics treatments : FQ2 or none",HM=TRUE) #ATB type FQ2 vs 0
+# p4.E.100=deseq.EF.ATB(frogs.E.filt.norm.deseq2.FQ1FQ2.0.100,"Plot showing the 37 differentially abundant OTUs (p < 0.05 with Deseq2) from campaign E between different antibiotics treatments : FQ1+FQ2 or none",HM=TRUE) #ATB type FQ1.FQ2 vs 0
+# 
+# png("C:/Users/Marie Claire Demmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/100/deseq2_ATB_E_all_100.png",width=22,height = 14, units='in',res=600)
+# grid.arrange(p1.E.100, p2.E.100, p3.E.100, p4.E.100, nrow = 2)
+# dev.off()
+# 
+# 
+# p1.F.100=deseq.EF.ATB(frogs.F.filt.norm.deseq2.FQ1.FQ2.100,"Plot showing the 22 differentially abundant OTUs (p < 0.05 with Deseq2) from campaign F between different antibiotics treatments : FQ1 or FQ2",HM=TRUE) #ATB type FQ2 vs FQ1
+# p2.F.100=deseq.EF.ATB(frogs.F.filt.norm.deseq2.FQ1.0.100,"Plot showing the 19 differentially abundant OTUs (p < 0.05 with Deseq2) from campaign F between different antibiotics treatments : FQ1 or none",HM=TRUE) #ATB type FQ1 vs 0
+# p3.F.100=deseq.EF.ATB(frogs.F.filt.norm.deseq2.FQ2.0.100,"Plot showing the 20 differentially abundant OTUs (p < 0.05 with Deseq2) from campaign F between different antibiotics treatments : FQ2 or none",HM=TRUE) #ATB type FQ2 vs 0
+# p4.F.100=deseq.EF.ATB(frogs.F.filt.norm.deseq2.FQ1FQ2.0.100,"Plot showing the 19 differentially abundant OTUs (p < 0.05 with Deseq2) from campaign F between different antibiotics treatments : FQ1+FQ2 or none",HM=TRUE) #FQ1+FQ2 = valeurs positives // None = valeurs négatives (FQ1.FQ2 vs 0)
+
+# png("C:/Users/Marie Claire Demmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/100/deseq2_ATB_F_all_100.png",width=22,height = 14, units='in',res=600)
+# grid.arrange(p1.F.100, p2.F.100, p3.F.100, p4.F.100, nrow = 2)
+# dev.off()
+
+
+
+```
+
+```{r}
+
+test_xlsx <- read_excel("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/test/HM_E_FQ2_ATB.xlsx")
+
+png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/100/HM_E_FQ2_ordre.png",width=3,height = 14, units='in',res=600)
+ggplot(test_xlsx, aes(x=condition, y=OTU, fill=log2FoldChange)) +
+      geom_tile() +
+      # scale_fill_viridis(trans="sqrt") +
+      # scale_fill_gradient2(low = "red", high = "green", na.value = "black") +
+      scale_fill_gradient(low = "green", high = "red", na.value = "white") +
+      theme(axis.text.x=element_text(angle=65, hjust=1))
+dev.off()
+
+
+```
+
+
+</br>
+```{r deseq2.EF.non.norm}
+#séparation en fonction du dosage
+
+  ##### most abundant taxa #####
+topN = 100
+most_abundant_taxa = sort(taxa_sums(frogs.EF.filt), TRUE)[1:topN]
+print(most_abundant_taxa)
+frogs.EF.100 = prune_taxa(names(most_abundant_taxa), frogs.EF.filt)
+plot_heatmap(frogs.EF.100, low = "yellow", high = "red", na.value = "white") 
+
+my_group <- as.numeric(as.factor(substr(rownames(data), 1 , 1)))
+colSide <- brewer.pal(9, "Set1")[my_group]
+
+png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/HM_EF_non_norm.png",width=8,height = 8, units='in',res=600)
+heatmap(as.matrix(frogs.EF.100@otu_table), ColSideColors=col2[gr.col]) 
+dev.off()
+
+# set the custom distance and clustering functions, per your example
+hclustfunc <- function(x) hclust(x, method="complete")
+distfunc <- function(x) dist(x, method="euclidean")
+
+# perform clustering on rows and columns
+cl.col <- hclustfunc(distfunc(t(frogs.EF.100@otu_table)))
+
+# extract cluster assignments; i.e. k=8 (rows) k=5 (columns)
+gr.col <- cutree(cl.col, 7)
+
+# require(RColorBrewer)
+col2 <- brewer.pal(7, "Pastel1")
+
+# require(gplots)    
+heatmap.2(as.matrix(frogs.EF.100@otu_table),density.info="none",hclustfun=hclustfunc, distfun=distfunc, ColSideColors=col2[gr.col])
+
+
+heatmap.2(as.matrix(frogs.EF.100@otu_table),
+density.info="none",
+# col=colorRampPalette(c("#fff4b7", "#ed6200", "#7d0025"))(n = 299),
+# col=colorRampPalette(brewer.pal(100,"Oranges"))(100),
+col = colorRampPalette(brewer.pal(8, "Blues"))(25),
+trace="none", 
+# dendrogram='both',
+# Rowv=FALSE
+)
+
+
+  ##### Deseq2 #####
+# https://joey711.github.io/phyloseq-extensions/DESeq2.html
+
+# un normalized data for deseq2 ??
+# vignette("DESeq2")
+
+#mettre que 2 facteurs
+frogs.EF.filt.deseq2.envt = subset_samples(frogs.EF.filt, Dosage != "")
+# dds$condition <- relevel(dds$condition, ref = "untreated")
+frogs.EF.filt.deseq2.H = subset_samples(frogs.EF.filt, Dosage != "H")
+frogs.EF.filt.deseq2.L = subset_samples(frogs.EF.filt, Dosage != "L")
+
+deseq.test = function(frogsEFdeseq,title,topN=100,alpha = 0.01){
+  most_abundant_taxa = sort(taxa_sums(frogsEFdeseq), TRUE)[1:topN]
+  frogsEFdeseq = prune_taxa(names(most_abundant_taxa), frogsEFdeseq)
+  
+  diagdds = phyloseq_to_deseq2(frogsEFdeseq, ~ Dosage)
+  diagdds = DESeq(diagdds, test="Wald", fitType="parametric")
+  res = results(diagdds, cooksCutoff = FALSE)
+  # res <- results(diagdds, contrast=c("Dosage","envt","L"))
+  print(res) #treated vs untreated => log2FC(treated/untreated) => positif = treated +++
+  sigtab = res[which(res$padj < alpha), ] #on garde les résultats avec des p values < à 0.01
+  sigtab = cbind(as(sigtab, "data.frame"), as(phyloseq::tax_table(frogs.EF.filt)[rownames(sigtab), ], "matrix")) #rajouter phyloseq:: devant unable to find an inherited method for function ""
+  head(sigtab)
+  dim(sigtab)
+  
+  
+  theme_set(theme_bw())
+  scale_fill_discrete <- function(palname = "Set1", ...) {
+      scale_fill_brewer(palette = palname, ...)
+  }
+  # Phylum order
+  x = tapply(sigtab$log2FoldChange, sigtab$Phylum, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtab$Phylum = factor(as.character(sigtab$Phylum), levels=names(x))
+  # Genus order
+  x = tapply(sigtab$log2FoldChange, sigtab$Genus, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtab$Genus = factor(as.character(sigtab$Genus), levels=names(x))
+  print(ggplot(sigtab, aes(x=Genus, y=log2FoldChange, color=Phylum)) + geom_point(size=6) + 
+    theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5)))
+  
+  
+  sigtabgen = subset(sigtab, !is.na(Genus))
+  # Phylum order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Phylum, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Phylum = factor(as.character(sigtabgen$Phylum), levels=names(x))
+  #Family order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Order, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Order = factor(as.character(sigtabgen$Order), levels=names(x))  
+  # Genus order
+  x = tapply(sigtabgen$log2FoldChange, sigtabgen$Genus, function(x) max(x))
+  x = sort(x, TRUE)
+  sigtabgen$Genus = factor(as.character(sigtabgen$Genus), levels=names(x))
+  p=ggplot(sigtabgen, aes(y=Genus, x=log2FoldChange, color=Order)) + 
+    geom_vline(xintercept = 0.0, color = "gray", size = 0.5) +
+    geom_point(size=6) + 
+    theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5)) +
+    ggtitle(title)
+  print(p)
+  return(p)
+}
+
+png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/deseq2_High_Low_non_norm.png",width=10,height = 7, units='in',res=600)
+deseq.test(frogs.EF.filt.deseq2.envt,"Comparaison entre dosages High et Low") #comparaison entre High et Low (sans témoin envt)
+dev.off()
+png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/deseq2_envt_Low_non_norm.png",width=10,height = 7, units='in',res=600)
+deseq.test(frogs.EF.filt.deseq2.H,"Comparaison entre dosages environnemental (envt) et Low") #comparaison entre envt et Low (sans H)
+dev.off()
+png("C:/Users/sdemmou/OneDrive/stage/R_16S/ATB_16S_R/figures_16S/EF/deseq2_envt_High_non_norm.png",width=10,height = 7, units='in',res=600)
+deseq.test(frogs.EF.filt.deseq2.L,"Comparaison entre dosages environnemental et High") #comparaison entre envt et High (sans L)
+dev.off()
+
+```
+
+</br>
+
+```{r EF.networks}
+#plot_net(frogs.EF.norm.100, maxdist = 0.4, color = "Camp_graph", shape="ATB_type", point_label = "Noms_R")
+
+#ig <- make_network(frogs.EF.norm.100, dist.fun="bray", max.dist=0.5)
+#plot_network(ig, frogs.EF.norm.100, color="Camp_graph", shape="ATB_type", line_weight=0.4, label="Noms_R")
+```
+

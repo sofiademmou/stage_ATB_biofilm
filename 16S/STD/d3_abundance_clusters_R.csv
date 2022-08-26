@@ -1,0 +1,43 @@
+r;e;c;o;f;genre;species;cluster;nb_sq;STD6310;STD6300;STD6300_VDU;STD6310_VDU
+Bacteria;Campylobacterota;Campylobacteria;Campylobacterales;Arcobacteraceae;Multi-affiliation;Multi-affiliation;Cluster_1;121694;0;0;6;88
+Bacteria;Firmicutes;Clostridia;Peptostreptococcales-Tissierellales;Peptostreptococcaceae;Proteocatella;unknown species;Cluster_7;101512;0;0;2;0
+Bacteria;Bacteroidota;Bacteroidia;Bacteroidales;Bacteroidaceae;Bacteroides;Multi-affiliation;Cluster_4;89185;0;0;0;22
+Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Enterobacteriaceae;Multi-affiliation;Multi-affiliation;Cluster_15;73354;1;15;49;1
+Bacteria;Firmicutes;Bacilli;Lactobacillales;Listeriaceae;Listeria;Multi-affiliation;Cluster_10;42699;17519;406;397;22814
+Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Rhizobiaceae;Multi-affiliation;Multi-affiliation;Cluster_12;37113;0;0;1;0
+Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Enterobacteriaceae;Salmonella;Salmonella enterica;Cluster_20;37052;243;3904;6411;322
+Bacteria;Proteobacteria;Gammaproteobacteria;Multi-affiliation;Multi-affiliation;Multi-affiliation;Multi-affiliation;Cluster_23;48065;4569;3142;5723;7508
+Bacteria;Firmicutes;Bacilli;Bacillales;Bacillaceae;Bacillus;Multi-affiliation;Cluster_27;12120;800;2588;5334;2530
+Bacteria;Campylobacterota;Campylobacteria;Campylobacterales;Arcobacteraceae;Multi-affiliation;Multi-affiliation;Cluster_47;15615;0;0;0;22
+Bacteria;Proteobacteria;Gammaproteobacteria;Pseudomonadales;Moraxellaceae;Acinetobacter;Multi-affiliation;Cluster_44;35788;0;0;0;9
+Bacteria;Bacteroidota;Bacteroidia;Bacteroidales;Williamwhitmaniaceae;Acetobacteroides;unknown species;Cluster_38;7312;0;0;1;0
+Bacteria;Firmicutes;Bacilli;Lactobacillales;Lactobacillaceae;Limosilactobacillus;Multi-affiliation;Cluster_54;5140;33;1501;3113;8
+Bacteria;Firmicutes;Bacilli;Lactobacillales;Carnobacteriaceae;Multi-affiliation;Multi-affiliation;Cluster_64;3894;0;0;1;0
+Bacteria;Bacteroidota;Bacteroidia;Bacteroidales;Prevotellaceae;Multi-affiliation;Multi-affiliation;Cluster_126;7129;0;0;0;9
+Bacteria;Proteobacteria;Gammaproteobacteria;Burkholderiales;Comamonadaceae;Multi-affiliation;Multi-affiliation;Cluster_77;22333;0;0;0;5
+Bacteria;Firmicutes;Bacilli;Lactobacillales;Multi-affiliation;Multi-affiliation;Multi-affiliation;Cluster_73;3231;1;317;1310;3
+Bacteria;Firmicutes;Clostridia;Multi-affiliation;Multi-affiliation;Multi-affiliation;Multi-affiliation;Cluster_139;5723;0;0;0;1
+Bacteria;Campylobacterota;Campylobacteria;Campylobacterales;Arcobacteraceae;Arcobacter;Arcobacter faecis;Cluster_111;2210;0;0;0;7
+Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Yersiniaceae;Serratia;Multi-affiliation;Cluster_98;5798;7;0;0;0
+Bacteria;Firmicutes;Bacilli;Multi-affiliation;Multi-affiliation;Multi-affiliation;Multi-affiliation;Cluster_112;1694;29;501;838;0
+Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Rhizobiaceae;Multi-affiliation;Multi-affiliation;Cluster_120;2048;0;0;1;0
+Bacteria;Bacteroidota;Bacteroidia;Flavobacteriales;Weeksellaceae;Cloacibacterium;Multi-affiliation;Cluster_134;1396;0;0;2;0
+Bacteria;Fusobacteriota;Fusobacteriia;Fusobacteriales;Leptotrichiaceae;Leptotrichia;Multi-affiliation;Cluster_162;991;0;0;4;0
+Bacteria;Actinobacteriota;Actinobacteria;Bifidobacteriales;Bifidobacteriaceae;Bifidobacterium;Multi-affiliation;Cluster_209;1340;0;0;1;0
+Bacteria;Proteobacteria;Gammaproteobacteria;Burkholderiales;Oxalobacteraceae;Multi-affiliation;Multi-affiliation;Cluster_225;649;0;0;0;3
+Bacteria;Proteobacteria;Multi-affiliation;Multi-affiliation;Multi-affiliation;Multi-affiliation;Multi-affiliation;Cluster_235;561;4;0;0;0
+Bacteria;Proteobacteria;Gammaproteobacteria;Burkholderiales;Aquaspirillaceae;Rivicola;metagenome;Cluster_263;483;0;0;0;5
+Bacteria;Firmicutes;Clostridia;Christensenellales;Christensenellaceae;Christensenellaceae R-7 group;Multi-affiliation;Cluster_413;745;0;0;0;8
+Bacteria;Firmicutes;Bacilli;Bacillales;Bacillaceae;Bacillus;Fermentibacillus polygoni;Cluster_356;338;5;67;65;194
+Bacteria;Firmicutes;Bacilli;Lactobacillales;Listeriaceae;Listeria;Brochothrix sp.;Cluster_369;335;2;68;44;168
+Bacteria;Firmicutes;Bacilli;Bacillales;Bacillaceae;Bacillus;Multi-affiliation;Cluster_407;329;0;126;189;0
+Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Aeromonadaceae;Aeromonas;Aeromonas caviae;Cluster_1179;264;0;0;0;6
+Bacteria;Firmicutes;Bacilli;Bacillales;Bacillaceae;Bacillus;Multi-affiliation;Cluster_503;261;0;54;197;0
+Bacteria;Proteobacteria;Gammaproteobacteria;Burkholderiales;Comamonadaceae;Simplicispira;unknown species;Cluster_414;243;0;0;0;5
+Bacteria;Proteobacteria;Gammaproteobacteria;Burkholderiales;Rhodocyclaceae;Zoogloea;Multi-affiliation;Cluster_423;221;0;0;0;4
+Bacteria;Proteobacteria;Gammaproteobacteria;Burkholderiales;Comamonadaceae;Simplicispira;metagenome;Cluster_481;187;0;0;1;0
+Bacteria;Firmicutes;Bacilli;Lactobacillales;Listeriaceae;Listeria;Multi-affiliation;Cluster_523;170;0;37;27;1
+Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Yersiniaceae;Rahnella1;Multi-affiliation;Cluster_854;133;0;0;0;2
+Bacteria;Proteobacteria;Gammaproteobacteria;Enterobacterales;Aeromonadaceae;Aeromonas;Pseudomonas putida;Cluster_801;112;0;0;0;1
+Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Xanthobacteraceae;Multi-affiliation;Multi-affiliation;Cluster_1085;108;1;0;0;0
+Bacteria;Firmicutes;Multi-affiliation;Multi-affiliation;Multi-affiliation;Multi-affiliation;Multi-affiliation;Cluster_1294;107;0;53;50;0

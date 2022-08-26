@@ -1,0 +1,153 @@
+species;nb_seq;ech;sum_seq
+Salmonella enterica;230;STD6310;17362
+Escherichia coli;4536;STD6310;59936
+Bacillus subtilis;770;STD6310;11765
+Limosilactobacillus fermentum;33;STD6310;5011
+Staphylococcus aureus;27;STD6310;1587
+Listeria monocytogenes;17505;STD6310;42626
+Enterococcus faecalis;1;STD6310;3207
+Enterobacter sp.;0;STD6310;33416
+Bacillus sp.;0;STD6310;244
+Brochothrix sp.;2;STD6310;279
+Fermentibacillus polygoni;4;STD6310;294
+Listeria monocytogenes/uncultured Lactobacillus;0;STD6310;168
+Bacillus subtilis;0;STD6310;174
+Cirocbacter freundii;1;STD6310;74331
+Aliarcobacter cryaerophilus;0;STD6310;125584
+Aeromonas cavernicola/allosaccharophila;7;STD6310;436652
+Bacteroides sp.;0;STD6310;88621
+unknown species;0;STD6310;101228
+Pseudochrobactrum sp.;0;STD6310;35296
+unknown species;0;STD6310;7178
+Acinetobacter johnsonii;0;STD6310;33514
+Arcobacter cloacea;0;STD6310;12035
+Trichococcus flocculiformis;0;STD6310;3829
+Comamonas jiangduensis;0;STD6310;20822
+Acinetobacter faecis;0;STD6310;1941
+Ochrobactrum sp./Brucella sp.;0;STD6310;1816
+Prevotella copri;0;STD6310;6594
+Cloacibacterium normanense;0;STD6310;1370
+Faecalibacterium prausnitzii;0;STD6310;5357
+UB (Leptotrichia);0;STD6310;964
+Bifidobacterium faecale;0;STD6310;1308
+Janthinobacterium lividum;0;STD6310;631
+Moraxella oslensis;4;STD6310;549
+metagenome;0;STD6310;466
+unknown species;0;STD6310;243
+UB;0;STD6310;484
+Zoogloea oleivorans;0;STD6310;220
+metagenome;0;STD6310;182
+Salmonella enterica;3688;STD6300;
+Escherichia coli;3540;STD6300;
+Bacillus subtilis;2421;STD6300;
+Limosilactobacillus fermentum;1428;STD6300;
+Staphylococcus aureus;459;STD6300;
+Listeria monocytogenes;400;STD6300;
+Enterococcus faecalis;281;STD6300;
+Enterobacter sp.;132;STD6300;
+UB;94;STD6300;
+Brochothrix sp.;55;STD6300;
+Fermentibacillus polygoni;50;STD6300;
+Listeria monocytogenes/uncultured Lactobacillus;38;STD6300;
+Bacillus subtilis;35;STD6300;
+Cirocbacter freundii;16;STD6300;
+Aliarcobacter cryaerophilus;0;STD6300;
+Aeromonas cavernicola/allosaccharophila;0;STD6300;
+Bacteroides sp.;0;STD6300;
+unknown species;0;STD6300;
+Pseudochrobactrum sp.;0;STD6300;
+unknown species;0;STD6300;
+Acinetobacter johnsonii;0;STD6300;
+Arcobacter cloacea;0;STD6300;
+Trichococcus flocculiformis;0;STD6300;
+Comamonas jiangduensis;0;STD6300;
+Acinetobacter faecis;0;STD6300;
+Ochrobactrum sp./Brucella sp.;0;STD6300;
+Prevotella copri;0;STD6300;
+Cloacibacterium normanense;0;STD6300;
+Faecalibacterium prausnitzii;0;STD6300;
+UB (Leptotrichia);0;STD6300;
+Bifidobacterium faecale;0;STD6300;
+Janthinobacterium lividum;0;STD6300;
+Moraxella oslensis;0;STD6300;
+metagenome;0;STD6300;
+unknown species;0;STD6300;
+UB;0;STD6300;
+Zoogloea oleivorans;0;STD6300;
+metagenome;0;STD6300;
+Salmonella enterica;6209;STD6300_VD;
+Escherichia coli;6285;STD6300_VD;
+Bacillus subtilis;5233;STD6300_VD;
+Limosilactobacillus fermentum;3059;STD6300_VD;
+Staphylococcus aureus;797;STD6300_VD;
+Listeria monocytogenes;393;STD6300_VD;
+Enterococcus faecalis;1217;STD6300_VD;
+Enterobacter sp.;150;STD6300_VD;
+??;135;STD6300_VD;
+Brochothrix sp.;32;STD6300_VD;
+Fermentibacillus polygoni;58;STD6300_VD;
+Listeria monocytogenes/uncultured Lactobacillus;25;STD6300_VD;
+Bacillus subtilis;130;STD6300_VD;
+Cirocbacter freundii;54;STD6300_VD;
+Aliarcobacter cryaerophilus;6;STD6300_VD;
+Aeromonas cavernicola/allosaccharophila;2;STD6300_VD;
+Bacteroides sp.;0;STD6300_VD;
+unknown species;2;STD6300_VD;
+Pseudochrobactrum sp.;2;STD6300_VD;
+unknown species;1;STD6300_VD;
+Acinetobacter johnsonii;0;STD6300_VD;
+Arcobacter cloacea;0;STD6300_VD;
+Trichococcus flocculiformis;1;STD6300_VD;
+Comamonas jiangduensis;0;STD6300_VD;
+Acinetobacter faecis;0;STD6300_VD;
+Ochrobactrum sp./Brucella sp.;1;STD6300_VD;
+Prevotella copri;0;STD6300_VD;
+Cloacibacterium normanense;2;STD6300_VD;
+Faecalibacterium prausnitzii;0;STD6300_VD;
+UB (Leptotrichia);4;STD6300_VD;
+Bifidobacterium faecale;1;STD6300_VD;
+Janthinobacterium lividum;0;STD6300_VD;
+Moraxella oslensis;0;STD6300_VD;
+metagenome;0;STD6300_VD;
+unknown species;0;STD6300_VD;
+UB;0;STD6300_VD;
+Zoogloea oleivorans;0;STD6300_VD;
+metagenome;1;STD6300_VD;
+Salmonella enterica;286;STD6310_VD;
+Escherichia coli;7498;STD6310_VD;
+Bacillus subtilis;2481;STD6310_VD;
+Limosilactobacillus fermentum;8;STD6310_VD;
+Staphylococcus aureus;0;STD6310_VD;
+Listeria monocytogenes;22805;STD6310_VD;
+Enterococcus faecalis;3;STD6310_VD;
+Enterobacter sp.;1;STD6310_VD;
+??;0;STD6310_VD;
+Brochothrix sp.;138;STD6310_VD;
+Fermentibacillus polygoni;175;STD6310_VD;
+Listeria monocytogenes/uncultured Lactobacillus;1;STD6310_VD;
+Bacillus subtilis;0;STD6310_VD;
+Cirocbacter freundii;1;STD6310_VD;
+Aliarcobacter cryaerophilus;88;STD6310_VD;
+Aeromonas cavernicola/allosaccharophila;21;STD6310_VD;
+Bacteroides sp.;22;STD6310_VD;
+unknown species;0;STD6310_VD;
+Pseudochrobactrum sp.;0;STD6310_VD;
+unknown species;0;STD6310_VD;
+Acinetobacter johnsonii;8;STD6310_VD;
+Arcobacter cloacea;24;STD6310_VD;
+Trichococcus flocculiformis;0;STD6310_VD;
+Comamonas jiangduensis;6;STD6310_VD;
+Acinetobacter faecis;5;STD6310_VD;
+Ochrobactrum sp./Brucella sp.;0;STD6310_VD;
+Prevotella copri;9;STD6310_VD;
+Cloacibacterium normanense;0;STD6310_VD;
+Faecalibacterium prausnitzii;1;STD6310_VD;
+UB (Leptotrichia);0;STD6310_VD;
+Bifidobacterium faecale;0;STD6310_VD;
+Janthinobacterium lividum;3;STD6310_VD;
+Moraxella oslensis;0;STD6310_VD;
+metagenome;5;STD6310_VD;
+unknown species;5;STD6310_VD;
+UB;8;STD6310_VD;
+Zoogloea oleivorans;4;STD6310_VD;
+metagenome;0;STD6310_VD;

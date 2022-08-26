@@ -1,0 +1,101 @@
+species;nb_seq;ech;couleur;test
+Acidovorax sp.;0;STD6310;other;1
+Acidovorax sp.;0;STD6300;other;2
+Acidovorax sp.;0;STD6300_VD;other;3
+Acidovorax sp.;9;STD6310_VD;other;4
+Acinetobacter sp.;0;STD6310;other;5
+Acinetobacter sp.;0;STD6300;other;6
+Acinetobacter sp.;0;STD6300_VD;other;7
+Acinetobacter sp.;5;STD6310_VD;other;8
+Aeromonas sp.;0;STD6310;other;9
+Aeromonas sp.;0;STD6300;other;10
+Aeromonas sp.;0;STD6300_VD;other;11
+Aeromonas sp.;20;STD6310_VD;other;12
+Aliarcobacter cryaerophilus;0;STD6310;other;13
+Aliarcobacter cryaerophilus;0;STD6300;other;14
+Aliarcobacter cryaerophilus;6;STD6300_VD;other;15
+Aliarcobacter cryaerophilus;77;STD6310_VD;other;16
+Arcobacter faecis;0;STD6310;other;17
+Arcobacter faecis;0;STD6300;other;18
+Arcobacter faecis;0;STD6300_VD;other;19
+Arcobacter faecis;5;STD6310_VD;other;20
+Arcobacter sp.;0;STD6310;other;21
+Arcobacter sp.;0;STD6300;other;22
+Arcobacter sp.;0;STD6300_VD;other;23
+Arcobacter sp.;23;STD6310_VD;other;24
+Bacillus subtilis;799;STD6310;Bacillus subtilis;25
+Bacillus subtilis;2608;STD6300;Bacillus subtilis;26
+Bacillus subtilis;5350;STD6300_VD;Bacillus subtilis;27
+Bacillus subtilis;2536;STD6310_VD;Bacillus subtilis;28
+Bacteroides uniformis;0;STD6310;other;29
+Bacteroides uniformis;0;STD6300;other;30
+Bacteroides uniformis;0;STD6300_VD;other;31
+Bacteroides uniformis;22;STD6310_VD;other;32
+Christensenellaceae R-7 group;0;STD6310;other;33
+Christensenellaceae R-7 group;0;STD6300;other;34
+Christensenellaceae R-7 group;0;STD6300_VD;other;35
+Christensenellaceae R-7 group;8;STD6310_VD;other;36
+Comamonas sp.;0;STD6310;other;37
+Comamonas sp.;0;STD6300;other;38
+Comamonas sp.;0;STD6300_VD;other;39
+Comamonas sp.;5;STD6310_VD;other;40
+Cutibacterium acnes;3;STD6310;other;41
+Cutibacterium acnes;13;STD6300;other;42
+Cutibacterium acnes;0;STD6300_VD;other;43
+Cutibacterium acnes;0;STD6310_VD;other;44
+Enterococcus faecalis;1;STD6310;Enterococcus faecalis;45
+Enterococcus faecalis;314;STD6300;Enterococcus faecalis;46
+Enterococcus faecalis;1296;STD6300_VD;Enterococcus faecalis;47
+Enterococcus faecalis;3;STD6310_VD;Enterococcus faecalis;48
+Escherichia coli;224;STD6310;Escherichia coli;49
+Escherichia coli;2579;STD6300;Escherichia coli;50
+Escherichia coli;4700;STD6300_VD;Escherichia coli;51
+Escherichia coli;357;STD6310_VD;Escherichia coli;52
+Limosilactobacillus fermentum;33;STD6310;Limosilactobacillus fermentum;53
+Limosilactobacillus fermentum;1503;STD6300;Limosilactobacillus fermentum;54
+Limosilactobacillus fermentum;3108;STD6300_VD;Limosilactobacillus fermentum;55
+Limosilactobacillus fermentum;8;STD6310_VD;Limosilactobacillus fermentum;56
+Listeria monocytogenes;17518;STD6310;Listeria monocytogenes;57
+Listeria monocytogenes;412;STD6300;Listeria monocytogenes;58
+Listeria monocytogenes;395;STD6300_VD;Listeria monocytogenes;59
+Listeria monocytogenes;22835;STD6310_VD;Listeria monocytogenes;60
+metagenome;0;STD6310;other;61
+metagenome;0;STD6300;other;62
+metagenome;0;STD6300_VD;other;63
+metagenome;5;STD6310_VD;other;64
+Prevotella sp.;0;STD6310;other;65
+Prevotella sp.;0;STD6300;other;66
+Prevotella sp.;0;STD6300_VD;other;67
+Prevotella sp.;9;STD6310_VD;other;68
+Pseudomonas aeruginosa;4289;STD6310;Pseudomonas aeruginosa;69
+Pseudomonas aeruginosa;567;STD6300;Pseudomonas aeruginosa;70
+Pseudomonas aeruginosa;1025;STD6300_VD;Pseudomonas aeruginosa;71
+Pseudomonas aeruginosa;7132;STD6310_VD;Pseudomonas aeruginosa;72
+Salmonella enterica;244;STD6310;Salmonella enterica;73
+Salmonella enterica;3275;STD6300;Salmonella enterica;74
+Salmonella enterica;5770;STD6300_VD;Salmonella enterica;75
+Salmonella enterica;316;STD6310_VD;Salmonella enterica;76
+Serratia sp.;7;STD6310;other;77
+Serratia sp.;0;STD6300;other;78
+Serratia sp.;0;STD6300_VD;other;79
+Serratia sp.;0;STD6310_VD;other;80
+Staphylococcus aureus;29;STD6310;Staphylococcus aureus;81
+Staphylococcus aureus;492;STD6300;Staphylococcus aureus;82
+Staphylococcus aureus;826;STD6300_VD;Staphylococcus aureus;83
+Staphylococcus aureus;0;STD6310_VD;Staphylococcus aureus;84
+Proteiniphilum sp.;0;STD6310;other;85
+Proteiniphilum sp.;0;STD6300;other;86
+Proteiniphilum sp.;0;STD6300_VD;other;87
+Proteiniphilum sp.;10;STD6310_VD;other;88
+Rikenellaceae sp.;0;STD6310;other;89
+Rikenellaceae sp.;0;STD6300;other;90
+Rikenellaceae sp.;0;STD6300_VD;other;91
+Rikenellaceae sp.;9;STD6310_VD;other;92
+Simplicispira sp.;0;STD6310;other;93
+Simplicispira sp.;0;STD6300;other;94
+Simplicispira sp.;0;STD6300_VD;other;95
+Simplicispira sp.;5;STD6310_VD;other;96
+Undibacterium sp.;8;STD6310;other;97
+Undibacterium sp.;0;STD6300;other;98
+Undibacterium sp.;0;STD6300_VD;other;99
+Undibacterium sp.;2;STD6310_VD;other;100

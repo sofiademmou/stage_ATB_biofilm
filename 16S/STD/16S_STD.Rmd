@@ -1,0 +1,607 @@
+---
+title: "Analyse 16S ATB (vérification STD)"
+author: "Sofia Demmou"
+date: "04/04/2022"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+####library####
+library(ggplot2) #visualisation graphique
+library("gplots")
+library(RColorBrewer)
+
+library(phyloseq)
+library(phyloseq.extended)
+library(vegan) #fonction "rarecurve" + autres méthodes d'ordination et calculs de distances
+#library(ade4) #
+
+library(stringr) #fonction "sub_str" pour renommer les échantillons
+
+library(DESeq2)
+library(pheatmap) #heatmap DESeq2
+library(dplyr) #fonction "select" pour DESeq2 (annot_col)
+library(tibble) #fonction "column_to_rownames" pour DESeq2 (annot_col)
+
+library(MicrobiotaProcess) #fonction "get_vennlist" pour construire le diagramme de Venn
+library(VennDiagram) #diagramme de Venn
+library("ggVennDiagram")
+
+
+#https://files.zymoresearch.com/protocols/_d6300_zymobiomics_microbial_community_standard.pdf
+
+#setwd("C:/Users/Marie Claire Demmou/Desktop/BioInfo/stage/Ecolab/16S/R_16S/STD")
+# setwd("C:/Users/Marie Claire Demmou/Dropbox/Stockage/stage/R_16S/STD")
+```
+
+
+```{r import, eval=FALSE, include=FALSE}
+pintail80_FROGS_abundance_clusters <- read.delim("data/pintail80_FROGS_abundance_clusters.tsv", header=TRUE)
+pintail80_FROGS_abundance_clusters <- pintail80_FROGS_abundance_clusters[,-1]
+
+pintail80_STD_abundance_clusters = pintail80_FROGS_abundance_clusters[-1,c(1,4:5,13,29,41,42)]
+pin80_tab=subset(pintail80_STD_abundance_clusters, (pintail80_STD_abundance_clusters$DBIbiofilm10_CTAGTC.K37J4_L001 != 0 
+                                          | pintail80_STD_abundance_clusters$DBIbiofilm9_TATCAT.K37J4_L001 != 0
+                                          | pintail80_STD_abundance_clusters$VD.DBIbiofilm.ech64_TGCGGG.JNFP8_L001 != 0
+                                          | pintail80_STD_abundance_clusters$VD.DBIbiofilm.ech65_TCTATG.JNFP8_L001 != 0))
+colnames(pin80_tab)=c("r;e;c;o;f;genre;species","cluster","nb_sq","STD6310","STD6300","STD6300_VDU","STD6310_VDU") #d'après fichier excel : ABRbiofilm816S 1sur2.xlsx (onglet N°ADN)
+write.table(pin80_tab,file="testpin80.csv",sep=";",row.names=FALSE,quote=FALSE)
+```
+
+
+Import d1
+```{r d1, echo=FALSE}
+d1_FROGS_abundance_clusters <- read.delim("data/d1_FROGS_abundance_clusters.tsv", header=TRUE)
+d1_FROGS_abundance_clusters <- d1_FROGS_abundance_clusters[,-1]
+
+d1_STD_abundance_clusters = d1_FROGS_abundance_clusters[-1,c(1,4:5,13,29,41,42)]
+  # On enlève les lignes qui ont des 0 pour tous les échantillons  
+tab=subset(d1_STD_abundance_clusters, (d1_STD_abundance_clusters$DBIbiofilm10_CTAGTC.K37J4_L001 != 0 
+           | d1_STD_abundance_clusters$DBIbiofilm9_TATCAT.K37J4_L001 != 0
+           | d1_STD_abundance_clusters$VD.DBIbiofilm.ech64_TGCGGG.JNFP8_L001 != 0
+           | d1_STD_abundance_clusters$VD.DBIbiofilm.ech65_TCTATG.JNFP8_L001 != 0))
+colnames(tab)=c("r;e;c;o;f;genre;species","cluster","nb_sq","STD6310","STD6300","STD6300_VDU","STD6310_VDU")
+write.table(tab,file="d1_abundance_clusters_R.csv",sep=";",row.names=FALSE,quote=FALSE,col.names = TRUE)
+
+
+d1_STD6310 = d1_FROGS_abundance_clusters[-1,c(1:5,13)] ; names(d1_STD6310)[6] = "nb_seq"
+d1_Tneg_extract = d1_FROGS_abundance_clusters[-1,c(1:5,21)] ; names(d1_Tneg_extract)[6] = "nb_seq"
+d1_APBJ0_55x4 = d1_FROGS_abundance_clusters[-1,c(1:5,26)] ; names(d1_APBJ0_55x4)[6] = "nb_seq"
+d1_STD6300 = d1_FROGS_abundance_clusters[-1,c(1:5,29)] ; names(d1_STD6300)[6] = "nb_seq"
+d1_STD6300_VD = d1_FROGS_abundance_clusters[-1,c(1:5,41)] ; names(d1_STD6300_VD)[6] = "nb_seq"
+d1_STD6310_VD = d1_FROGS_abundance_clusters[-1,c(1:5,42)] ; names(d1_STD6310_VD)[6] = "nb_seq"
+```
+
+Import d3
+```{r d3, echo=FALSE}
+d3_FROGS_abundance_clusters <- read.delim("data/d3_FROGS_abundance_clusters.tsv", header=TRUE)
+d3_FROGS_abundance_clusters <- d3_FROGS_abundance_clusters[,-1]
+
+d3_STD_abundance_clusters = d3_FROGS_abundance_clusters[-1,c(1,4:5,13,29,41,42)]
+d3_tab=subset(d3_STD_abundance_clusters, (d3_STD_abundance_clusters$DBIbiofilm10_CTAGTC.K37J4_L001 != 0 
+                                       | d3_STD_abundance_clusters$DBIbiofilm9_TATCAT.K37J4_L001 != 0
+                                       | d3_STD_abundance_clusters$VD.DBIbiofilm.ech64_TGCGGG.JNFP8_L001 != 0
+                                       | d3_STD_abundance_clusters$VD.DBIbiofilm.ech65_TCTATG.JNFP8_L001 != 0))
+colnames(d3_tab)=c("r;e;c;o;f;genre;species","cluster","nb_sq","STD6310","STD6300","STD6300_VDU","STD6310_VDU")
+write.table(d3_tab,file="d3_abundance_clusters_R.csv",sep=";",row.names=FALSE,quote=FALSE)
+
+d3_STD6310 = d3_FROGS_abundance_clusters[-1,c(1:5,13)] ; names(d3_STD6310)[6] = "nb_seq"
+d3_Tneg_extract = d3_FROGS_abundance_clusters[-1,c(1:5,21)] ; names(d3_Tneg_extract)[6] = "nb_seq"
+d3_APBJ0_55x4 = d3_FROGS_abundance_clusters[-1,c(1:5,26)] ; names(d3_APBJ0_55x4)[6] = "nb_seq"
+d3_STD6300 = d3_FROGS_abundance_clusters[-1,c(1:5,29)] ; names(d3_STD6300)[6] = "nb_seq"
+d3_STD6300_VD = d3_FROGS_abundance_clusters[-1,c(1:5,41)] ; names(d3_STD6300_VD)[6] = "nb_seq"
+d3_STD6310_VD = d3_FROGS_abundance_clusters[-1,c(1:5,42)] ; names(d3_STD6310_VD)[6] = "nb_seq"
+```
+
+Import pintail80
+```{r pintail80, echo=FALSE}
+pintail80_FROGS_abundance_clusters <- read.delim("data/pintail80_FROGS_abundance_clusters.tsv", header=TRUE)
+pintail80_FROGS_abundance_clusters <- pintail80_FROGS_abundance_clusters[,-1]
+
+pintail80_STD_abundance_clusters = pintail80_FROGS_abundance_clusters[-1,c(1,4:5,13,29,41,42)]
+pintail80_tab=subset(pintail80_STD_abundance_clusters, (pintail80_STD_abundance_clusters$DBIbiofilm10_CTAGTC.K37J4_L001 != 0 
+                                          | pintail80_STD_abundance_clusters$DBIbiofilm9_TATCAT.K37J4_L001 != 0
+                                          | pintail80_STD_abundance_clusters$VD.DBIbiofilm.ech64_TGCGGG.JNFP8_L001 != 0
+                                          | pintail80_STD_abundance_clusters$VD.DBIbiofilm.ech65_TCTATG.JNFP8_L001 != 0))
+colnames(pintail80_tab)=c("r;e;c;o;f;genre;species","cluster","nb_sq","STD6310","STD6300","STD6300_VDU","STD6310_VDU")
+write.table(pintail80_tab,file="pintail80_abundance_clusters_R.csv",sep=";",row.names=FALSE,quote=FALSE)
+```
+
+Import pintail100
+```{r pintail100, echo=FALSE}
+pintail100_FROGS_abundance_clusters <- read.delim("data/pintail100_d1_FROGS_abundance_clusters.tsv", header=TRUE)
+pintail100_FROGS_abundance_clusters <- pintail100_FROGS_abundance_clusters[,-1]
+
+pintail100_STD_abundance_clusters = pintail100_FROGS_abundance_clusters[-1,c(1,4:5,13,29,41,42)]
+pintail100_tab=subset(pintail100_STD_abundance_clusters, (pintail100_STD_abundance_clusters$DBIbiofilm10_CTAGTC.K37J4_L001 != 0 
+                                                        | pintail100_STD_abundance_clusters$DBIbiofilm9_TATCAT.K37J4_L001 != 0
+                                                        | pintail100_STD_abundance_clusters$VD.DBIbiofilm.ech64_TGCGGG.JNFP8_L001 != 0
+                                                        | pintail100_STD_abundance_clusters$VD.DBIbiofilm.ech65_TCTATG.JNFP8_L001 != 0))
+colnames(pintail100_tab)=c("r;e;c;o;f;genre;species","cluster","nb_sq","STD6310","STD6300","STD6300_VDU","STD6310_VDU")
+write.table(pintail100_tab,file="pintail100_abundance_clusters_R.csv",sep=";",row.names=FALSE,quote=FALSE)
+```
+</br>
+
+## Analyse taxo
+```{r taxo, echo=FALSE}
+d1_STD6300_top=(d1_STD6300[,c(1,4,6)] %>% arrange(desc(as.numeric(nb_seq))) %>% head(15))
+#write.table(d1_STD6300_top,file="C:/Users/sdemmou/Desktop/stage/16S/R_16S/testSTD6300.csv",sep=";",row.names=FALSE,quote=FALSE)
+d3_STD6300_top=(d3_STD6300[,c(1,4,6)] %>% arrange(desc(as.numeric(nb_seq))) %>% head(15))
+
+d1_STD6310_top=(d1_STD6310[,c(1,4,6)] %>% arrange(desc(as.numeric(nb_seq))) %>% head(15))
+d3_STD6310_top=(d3_STD6310[,c(1,4,6)] %>% arrange(desc(as.numeric(nb_seq))) %>% head(15))
+
+# d1_Tneg_extract[,c(1,6)] %>% arrange(desc(as.numeric(nb_seq))) %>% head(15)
+# d3_Tneg_extract[,c(1,6)] %>% arrange(desc(as.numeric(nb_seq))) %>% head(15)
+
+d1_STD6300_VD_top=(d1_STD6300_VD[,c(1,4,6)] %>% arrange(desc(as.numeric(nb_seq))) %>% head(15))
+d3_STD6300_VD_top=(d3_STD6300_VD[,c(1,4,6)] %>% arrange(desc(as.numeric(nb_seq))) %>% head(15))
+
+d1_STD6310_VD_top=(d1_STD6310_VD[,c(1,4,6)] %>% arrange(desc(as.numeric(nb_seq))) %>% head(15))
+d3_STD6310_VD_top=(d3_STD6310_VD[,c(1,4,6)] %>% arrange(desc(as.numeric(nb_seq))) %>% head(15))
+```
+</br>
+
+#### Plots d1
+```{r plot, echo=FALSE}
+#test_6300_top <- read.csv("C:/Users/sdemmou/Desktop/stage/16S/R_16S/testout.csv", header=TRUE,sep=";")
+
+test_d1 <- read.csv("data/d1_abundance_species.csv", header=TRUE,sep=";")
+test_d1_top <- read.csv("data/d1_abundance_species_top.csv", header=TRUE,sep=";")
+
+# library(viridis)
+# library(hrbrthemes)
+
+#col=colnames(test_d1)[4:7]
+
+ggplot(test_d1_top, aes(fill=species, y=as.numeric(nb_seq), x=ech)) + 
+  geom_bar(position="fill", stat="identity") + 
+  #geom_text(aes(label = scales::percent(..prop..), y= ..prop.. ), stat= "count", vjust = -.5) +
+  #scale_fill_viridis(discrete = T) + 
+  #theme_wsj() + scale_colour_wsj("colors6") +
+  theme_minimal() +
+  xlab("")
+```
+</br>
+
+=> On retrouve bien les espèces du protocoles mais pas dans les mêmes proportions   
+On retrouve un Limosilactobacillus fermentum au lieu du Lactobacillus fermentum du protocole (changement d'affilation)   
+4 espèces en plus :  
+   - Fermentibacillus polygoni = ?  
+   - Enterobacter sp.= commensale du tube digestif de l'Homme et des animaux, pouvant être rencontré dans le sol et les eaux d'égouts  
+   - Brochotrix sp.= contaminants naturels des produits animal comme la charcuterie ... (non pathogène pour l'homme), présents dans les   fermes dans le sol et l'herbe, peut être trouvée dans les tubes digestifs des animaux et des hommes  
+   - Alicobacter cryerophilus = globally emerging foodborne and zoonotic pathogen  
+Il manque juste Pseudomonas aeruginosa pour tous les échantillons ...  
+</br>
+
+#### Plots d3
+```{r plot2, echo=FALSE}
+test_d3 <- read.csv("data/d3_abundance_species.csv", header=TRUE,sep=";")
+test_d3_top <- read.csv("data/d3_abundance_species_top.csv", header=TRUE,sep=";")
+
+ggplot(test_d3_top, aes(fill=species, y=as.numeric(nb_seq), x=ech)) + 
+  geom_bar(position="fill", stat="identity") + 
+  #geom_text(aes(label = scales::percent(..prop..), y= ..prop.. ), stat= "count", vjust = -.5) +
+  #scale_fill_viridis(discrete = T) + 
+  #theme_wsj() + scale_colour_wsj("colors6") +
+  theme_minimal() +
+  xlab("")
+```
+</br>
+
+## Comparaison nombre OTU
+```{r nombreOTU, echo=TRUE}
+sum(as.numeric(d1_STD6300_top$nb_seq)) #12637  => 14 OTU
+sum(as.numeric(d3_STD6300_top$nb_seq)) #12779  => 14 OTU
+
+sum(as.numeric(d1_STD6310_top$nb_seq)) #23120  => 12 OTU (2 avec 1 séquence)
+sum(as.numeric(d3_STD6310_top$nb_seq)) #23214  => 13 OTU (3 avec 1 séquence)
+
+
+```
+=> plus de sequences pour d3
+=> nombre OTU comparable (1 de plus pour d3)
+
+ Nombre de séquences par ech  
+rowSums(test_STD_richesse)   
+STD6300   STD6300_VD  STD6310   STD6310_VD    
+12637      23800      23120      33606   
+</br>
+
+## Richesse et diversité par échantillon
+```{r richesse, echo=TRUE}
+rich_6310=test_d1_top[1:14,2]
+vegan::diversity(rich_6310, index="shannon") # 0.7063407 => moins d'espèces différentes 
+vegan::diversity(rich_6310, index="simpson") # 0.3860318 
+
+rich_6310_VD=test_d1_top[43:55,2]
+vegan::diversity(rich_6310_VD, index="shannon") # 0.8958577 => moins d'espèces différentes 
+vegan::diversity(rich_6310_VD, index="simpson") # 0.4799799
+
+
+rich_6300=test_d1_top[15:28,2]
+vegan::diversity(rich_6300, index="shannon") # 1.743315 => plus d'espèces différentes 
+vegan::diversity(rich_6300, index="simpson") # 0.7821046
+
+rich_6300_VD=test_d1_top[29:42,2]
+vegan::diversity(rich_6300_VD, index="shannon") # 1.728077 => plus d'espèces différentes 
+vegan::diversity(rich_6300_VD, index="simpson") # 0.7898526
+```
+</br>
+
+## Comparaison richesse et diversité d=1
+```{r richessed1, echo=TRUE}
+test_STD_richesse <- read.csv("data/d1_abundance_species_ech.csv", header=TRUE,sep=";")
+test_STD_richesse = test_STD_richesse[,2:5]
+test_STD_richesse = as.data.frame(t(test_STD_richesse))
+h=vegan::diversity(test_STD_richesse, index="shannon")
+h    
+h/log(vegan::specnumber(test_STD_richesse))
+```
+=> ech STD6300 ont plus d'espèces différentes  
+Pielou = equitabilité (1=équitabilité totale) => pour STD6310 on voit qu'une espèce prend le dessus (L. monocytogenes)   
+
+ATTENTION => ces 2 indices sont dépendants de la taille de l'échantillon   
+</br>
+
+```{r diversited1, echo=TRUE}
+vegan::diversity(test_STD_richesse, index="simpson")
+#vegan::vegdist(test_STD_richesse, method = "jaccard", binary = TRUE)
+```
+=> ech STD6300 ont plus d'espèces différentes   
+
+Les échantillons 6300 sont plus riches et plus divers => c'est ce qu'on retrouve dans le protocole avec 96% de Listeria pour les STD6310   
+
+</br>
+
+## Comparaison richesse et diversité d=3
+```{r richessed3, echo=TRUE}
+test_STD_richesse_d3 <- read.csv("data/d3_abundance_species_ech.csv", header=TRUE,sep=";")
+test_STD_richesse_d3 = test_STD_richesse_d3[,2:5]
+test_STD_richesse_d3 = as.data.frame(t(test_STD_richesse_d3))
+h=vegan::diversity(test_STD_richesse_d3, index="shannon")
+h
+h/log(vegan::specnumber(test_STD_richesse_d3))
+```
+=> ech STD6300 ont plus d'espèces différentes
+Pielou = equitabilité (1=équitabilité totale) => pour STD6310 on voit qu'une espèce prend le dessus (L. monocytogenes)
+
+ATTENTION => ces 2 indices sont dépendant de la taille de l'echantillon 
+
+```{r diversited3, echo=TRUE}
+vegan::diversity(test_STD_richesse_d3, index="simpson")
+#vegan::vegdist(test_STD_richesse, method = "jaccard", binary = TRUE)
+```
+=> ech STD6300 ont plus d'espèces différentes   
+
+Les échantillons 6300 sont plus riches et plus divers => c'est ce qu'on retrouve dans le protocole avec 96% de Listeria pour les STD6310   
+
+</br>
+
+## Comparaison STD d=1/d=3 et protocol (avec SILVA pour les STD)  
+```{r comparaisonSTDd1/d3, echo=FALSE}
+protocol_6310 = data.frame(
+  species=c("Listeria monocytogenes", "Pseudomonas aeruginosa", "Escherichia coli", "Salmonella enterica", "Limosilactobacillus fermentum", "Enterococcus faecalis", "Staphylococcus aureus", "Bacillus subtilis"),
+  nb_seq=c(95.9,2.8,0.069,0.07,0.012,0.00067,0.0001,1.2),
+  ech_d=c(rep("6310.protocol",8))
+)
+
+protocol_6300 = data.frame(
+  species=c("Pseudomonas aeruginosa", "Escherichia coli", "Salmonella enterica", "Limosilactobacillus fermentum", "Enterococcus faecalis", "Staphylococcus aureus", "Listeria monocytogenes", "Bacillus subtilis"),
+  nb_seq=c(4.2,10.1,10.4,18.4,9.9,15.5,14.1,17.4),
+  ech_d=c(rep("6300.protocol",8))
+)
+
+d1_top = read.csv("data/d1_abundance_species_top.csv", header=TRUE,sep=";")
+d3_top = read.csv("data/d3_abundance_species_top.csv", header=TRUE,sep=";")
+
+df=bind_rows(protocol_6310,protocol_6300,d1_top,d3_top)
+
+#voir d1/d3 => lequel ressemble le plus au protocole?
+
+png("C:/Users/sdemmou/OneDrive/stage/R_16S/STD/figuresSTD/plot_protocol_d1_d3_SILVA.png",width=8,height = 6, units='in',res=600)
+ggplot(df, aes(fill=species, y=as.numeric(nb_seq), x=ech_d)) + 
+  geom_bar(position="fill", stat="identity") + 
+  geom_bar(position="fill", stat="identity") + 
+  scale_fill_manual(values=c("#B7245C", "#E5C3D1", "#aecf00",  "#ff8f00", "#ACF7C1", "#F3FAE1", "#7e0021", "#ff420e","#643BA5",  "#579d1c", "#314004", "#004586", "#ffd320", "#83caff")) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+  xlab("")+
+  ylab("Percentage of sequences")
+dev.off()
+```
+</br>
+
+## Comparaison STD SILVA/pintail80/100 et protocol (avec d=1)  
+```{r comparaisonSTDpintailSILVA, echo=FALSE}
+protocol_6310 = data.frame(
+  species=c("Listeria monocytogenes", "Pseudomonas aeruginosa", "Escherichia coli", "Salmonella enterica", "Limosilactobacillus fermentum", "Enterococcus faecalis", "Staphylococcus aureus", "Bacillus subtilis"),
+  nb_seq=c(95.9,2.8,0.069,0.07,0.012,0.00067,0.0001,1.2),
+  ech=c(rep("6310.protocol",8))
+)
+
+protocol_6300 = data.frame(
+  species=c("Pseudomonas aeruginosa", "Escherichia coli", "Salmonella enterica", "Limosilactobacillus fermentum", "Enterococcus faecalis", "Staphylococcus aureus", "Listeria monocytogenes", "Bacillus subtilis"),
+  nb_seq=c(4.2,10.1,10.4,18.4,9.9,15.5,14.1,17.4),
+  ech=c(rep("6300.protocol",8))
+)
+
+SILVA_top = read.csv("data/d1_abundance_species_top.csv", header=TRUE,sep=";")
+
+pintail80_top = read.csv("data/pintail80_abundance_species_top.csv", header=TRUE,sep=";")
+
+pintail100_top = read.csv("data/pintail100_abundance_species_top.csv", header=TRUE,sep=";")
+
+df=bind_rows(protocol_6310,protocol_6300,SILVA_top,pintail80_top,pintail100_top)
+
+#voir SILVA/pintail => lequel ressemble le plus au protocole?
+
+png("C:/Users/sdemmou/OneDrive/stage/R_16S/STD/figuresSTD/plot_protocol_silva_pin100_pin80.png",width=8,height = 6, units='in',res=600)
+ggplot(df, aes(fill=species, y=as.numeric(nb_seq), x=ech)) + #FFA07A#873600
+  geom_bar(position="fill", stat="identity") + 
+  #theme_minimal() +
+  # scale_fill_manual(values=c("#f4d03f", "#34495e",  "#873600", "#f186ee",  "#7d3c98",  "#2980b9", "#1abc9c", "#1f618d", "#27ae60",  "#e81a1a",  "#ca6f1e",  "#f39c12", "#FFA07A", "#b3b6b7", "#a93226", "#48dbdb", "#aed6f1", "#53db48")) +
+  scale_fill_manual(values=c("#B7245C", "#E5C3D1", "#aecf00",  "#F5918F", "#D27D4B", "#ACF7C1", "#F3FAE1", "#7e0021", "#ff420e","#643BA5","#ff8f00",  "#579d1c", "#314004", "#b3b6b7", "#004586", "#ffd320", "#83caff")) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+  xlab("")+
+  ylab("Number of sequences")
+dev.off()
+
+```
+```{r compTreeHMpin80pin100}
+#####pin80#####
+frogs.pin80 = import_biom("data/Galaxy20-[all_pin80_d_1___FROGS_BIOM_to_std_BIOM__abundance.standard.biom].biom1","tree/pin80_FROGS_Tree.nwk")
+colnames(frogs.pin80@tax_table) <-c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species")
+sample_data(frogs.pin80) = read.csv("metadata_STD.csv", row.names=1, sep=";")
+sample_names(frogs.pin80) = sample_data(frogs.pin80)$Nom
+frogs.pin80 = rarefy_even_depth(frogs.pin80, rngseed = 1121983)
+
+write.table(otu_table(frogs.pin80), file='HM/otu_table_pin80_rare.tsv', quote=FALSE, sep='\t')
+frogs.pin80@otu_table
+ 
+#####pin100#####
+frogs.pin100 = import_biom("data/Galaxy44-[all_pin100_d_1___FROGS_BIOM_to_std_BIOM__abundance.standard.biom].biom1","tree/pin100_FROGS_Tree_echTot.nwk")
+colnames(frogs.pin100@tax_table) <-c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species")
+sample_data(frogs.pin100) = read.csv("metadata_STD.csv", row.names=1, sep=";")
+sample_names(frogs.pin100) = sample_data(frogs.pin100)$Nom
+frogs.pin100 = rarefy_even_depth(frogs.pin100, rngseed = 1121983)
+
+write.table(otu_table(frogs.pin100), file='HM/otu_table_pin100_rare.tsv', quote=FALSE, sep='\t')
+
+#####tree#####
+plot_tree(frogs.pin80,color = "Nom", shape = "protocol",size = "Abundance",justify="left", base.spacing=0.04, plot.margin = 0.5,text.size = FALSE, ladderize = TRUE) #+ coord_polar(theta="y")
+plot_tree(frogs.pin100,color = "Nom",label.tips = "taxa_names", base.spacing=0.04, plot.margin = 0.5,text.size = 3, ladderize = TRUE) #+ coord_polar(theta="y")
+plot_heatmap(frogs.pin80, low = "yellow", high = "red", na.value = "white")
+
+# pin80.rare.otu.table=read.csv("HM/otu_table_STD_pin80_rare.csv",sep=";",row.names = 1)
+
+
+
+pin80.rare.otu.table.order=read.csv("HM/otu_table_pin80_rare_ordre.csv",sep=";",row.names = 1)
+pin80.rare.otu.table.order<-pin80.rare.otu.table.order[order(pin80.rare.otu.table.order[,ncol(pin80.rare.otu.table.order)],decreasing=T),]
+
+
+# color.palette  <- c("#F8F8F8", colorRampPalette(c("#fff4b7", "#ed6200", "#a20706"))(n=49))
+color.palette  <- c("#fff4b7", colorRampPalette(c("#fbe49a", "#ed6200", "#a20706"))(n=49))
+col_breaks = c(seq(0,0.1,length=1),  # for white
+           seq(0.1,2000,length=10),
+           seq(2010,4000,length=10),
+           seq(4010,6000,length=10),
+           seq(6010,8000,length=10),
+           seq(8010,10000,length=10))
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/STD/figuresSTD/plot_protocol_silva_pin100_pin80.png",width=8,height = 6, units='in',res=600)
+heatmap.2(as.matrix(pin80.rare.otu.table.order[,-5]),
+density.info="none",
+# col=colorRampPalette(c("#fff4b7", "#ed6200", "#7d0025"))(n = 299),
+# col=colorRampPalette(brewer.pal(100,"Oranges"))(100),
+col = color.palette,  # use on color palette defined earlier
+breaks=col_breaks,    # enable color transition at specified limits
+trace="none",         
+margins =c(12,12),    
+# dendrogram='both',     
+Rowv=FALSE)
+# dev.off()
+```
+</br>
+
+
+## Comparaison STD d1 et pintail100 avec le protocol (paramètres finaux)
+```{r comparaisonSTDprotocol, echo=FALSE}
+sp.protocol.6310=c("Listeria monocytogenes", "Pseudomonas aeruginosa", "Escherichia coli", "Salmonella enterica", "Limosilactobacillus fermentum", "Enterococcus faecalis", "Staphylococcus aureus", "Bacillus subtilis")
+sp.protocol.6300=c("Pseudomonas aeruginosa", "Escherichia coli", "Salmonella enterica", "Limosilactobacillus fermentum", "Enterococcus faecalis", "Staphylococcus aureus", "Listeria monocytogenes", "Bacillus subtilis")
+
+protocol_6310 = data.frame(
+  couleur=sp.protocol.6310,
+  species=sp.protocol.6310,
+  nb_seq=c(95.9,2.8,0.069,0.07,0.012,0.00067,0.0001,1.2),
+  ech=c(rep("6310__protocol",8))
+)
+
+protocol_6300 = data.frame(
+  couleur=sp.protocol.6300,
+  species=sp.protocol.6300,
+  nb_seq=c(4.2,10.1,10.4,18.4,9.9,15.5,14.1,17.4),
+  ech=c(rep("6300__protocol",8))
+)
+
+
+# pintail100_top = read.csv("data/pintail100_abundance_species_top.csv", header=TRUE,sep=";")
+pintail100_top = read.csv("data/STD_pintail100_abundance_species_final_other.csv", header=TRUE,sep=";")
+
+df=bind_rows(protocol_6310,protocol_6300,pintail100_top)
+
+#voir SILVA/pintail => lequel ressemble le plus au protocole?
+
+# png("C:/Users/sdemmou/OneDrive/stage/R_16S/STD/figuresSTD/plot_protocol_STD_d1pin100.png",width=7,height = 6, units='in',res=600)
+ggplot(df, aes(fill=species, y=as.numeric(nb_seq), x=ech)) + #FFA07A#873600
+  geom_bar(position="fill", stat="identity") + 
+  theme_minimal() +
+  # scale_fill_manual(values=c("#873600", "#f186ee", "#2980b9", "#1abc9c",   "#e81a1a",  "#ca6f1e",  "#f39c12", "#FFA07A", "#b3b6b7", "#a93226", "#48dbdb", "#aed6f1", "#53db48")) +
+  scale_fill_manual(values=c("#aecf00", "#7e0021", "#ff420e",  "#579d1c", "#314004", "#b3b6b7", "#004586", "#ffd320", "#83caff")) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+  xlab("") +
+  ylab("Percentage of sequences")
+# dev.off()
+
+```
+Après vérification et comparaison des séquences de Kluyvera cryocrescens avec les séquences des autres clusters, il y a peut être eu une erreur lors de l'affiliation entre Kluyvera cryocrescens et Salmonella enterica (8 nucléotides de différence entre les 2 séquences), plutôt qu'une contamination des échantillons.  
+On retrouve ainsi les mêmes espèces que dans les standards, mais dans des proportions différentes.   
+</br>
+
+```{r compHeatmap.enCours, echo=FALSE}
+frogs_STD = import_frogs("data/STD_pin100_d1_FROGS_Affiliation_postprocess_abundance_biom.biom1", taxMethod = "blast")
+write.table(otu_table(frogs_STD), file='otu_table_STD.tsv', quote=FALSE, sep='\t')
+
+
+# otu_table_STD=read.csv("otu_table_STD.tsv",sep="\t",row.names = 1)
+otu_table_STD=read.csv("HM/species_otu_table_STD_regroup.csv",sep=";",row.names = 1)
+
+heatmap(otu_table(frogs_STD))
+
+plot_heatmap(frogs_STD, low = "yellow", high = "red", na.value = "white")
+
+
+otu_breaks <- seq(min(otu_table_STD), max(otu_table_STD), length.out = 10)
+
+pheatmap(otu_table_STD)
+# library(viridis)
+# pheatmap(otu_table_STD,color=inferno(length(otu_breaks) - 1))
+pheatmap(otu_table_STD,color=colorRampPalette(c("yellow", "white", "red"))(50)) #rajouter en fonction arbre phylogenetique
+
+
+# topN = 40
+# most_abundant_taxa = sort(taxa_sums(food.rare), TRUE)[1:topN]
+# print(most_abundant_taxa)
+# food40 = prune_taxa(names(most_abundant_taxa), food.rare)
+# plot_heatmap(food40, low = "yellow", high = "red", na.value = "white") 
+# write.table(tax_table(food40), file='Abundant_OTU_taxonomy.tsv', quote=FALSE, sep='\t')
+
+```
+
+```{r treeHeatmap, echo=FALSE}
+# setwd("C:/Users/sdemmou/OneDrive/stage/R_16S/STD")
+
+# tree=read.tree("tree/STD_pin100_FROGS_Tree__tree.nwk")
+
+frogs.STD = import_biom("data/Galaxy44-[d_1___FROGS_BIOM_to_std_BIOM__abundance.standard.biom].biom1","tree/STD_pin100_FROGS_Tree__tree.nwk")
+colnames(frogs.STD@tax_table) <-c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species")
+sample_data(frogs.STD) = read.csv("metadata_STD.csv", row.names=1, sep=";")
+sample_names(frogs.STD) = sample_data(frogs.STD)$Nom
+frogs.STD.rare = rarefy_even_depth(frogs.STD, rngseed = 1121983)
+
+write.table(otu_table(frogs.STD.rare), file='otu_table_STD_rare.tsv', quote=FALSE, sep='\t')
+
+
+plot_tree(frogs.STD.rare,color = "Nom", shape = "protocol",size = "Abundance",justify="left", base.spacing=0.04, plot.margin = 0.5,text.size = FALSE, ladderize = TRUE) #+ coord_polar(theta="y")
+plot_tree(frogs.STD.rare,color = "Nom", shape = "protocol",label.tips = "taxa_names",size = "Abundance", base.spacing=0.04, plot.margin = 0.5,text.size = 3, ladderize = TRUE) #+ coord_polar(theta="y")
+plot_heatmap(frogs.STD.rare, low = "yellow", high = "red", na.value = "white")
+
+STD.rare.otu.table=read.csv("HM/otu_table_STD_rare.csv",sep=";",row.names = 1)
+
+STD.rare.otu.table.order=read.csv("HM/otu_table_STD_rare_ordre.tsv",sep="\t",row.names = 1)
+STD.rare.otu.table.order<-STD.rare.otu.table.order[order(STD.rare.otu.table.order[,ncol(STD.rare.otu.table.order)],decreasing=T),]
+
+heatmap.2(as.matrix(STD.rare.otu.table[-1, ]),
+density.info="none",
+# col=colorRampPalette(c("#fff4b7", "#ed6200", "#7d0025"))(n = 299),
+col=colorRampPalette(brewer.pal(50,"Oranges"))(50),
+trace="none",         
+margins =c(12,12),    
+# dendrogram='both',     
+Rowv=FALSE)    
+# brewer.pal(8,"Blues"))(3)
+
+
+pheatmap(STD.rare.otu.table,color=colorRampPalette(c("white", "yellow", "red"))(50),cluster_rows = F)
+heatmap(as.matrix(STD.rare.otu.table[-1, ]),Rowv = FALSE)
+heatmap(as.matrix(STD.rare.otu.table[,-1 ]))
+
+  ##couleurs heatmap OK
+color.palette  <- c("#e5e7e9", colorRampPalette(c("#fbe49a", "#ed6200", "#a20706"))(n=499))
+col_breaks = c(seq(0,0.1,length=1),  # for white
+           seq(0.1,2000,length=100),
+           seq(2100,4000,length=100),
+           seq(4100,6000,length=100),
+           seq(6100,8000,length=100),
+           seq(8100,10000,length=100))
+
+png("C:/Users/sdemmou/OneDrive/stage/R_16S/STD/figuresSTD/HM_pin100_protocol.png",width=8,height =8, units='in',res=600)
+heatmap.2(as.matrix(STD.rare.otu.table[,-7]),
+density.info="none",
+# col=colorRampPalette(c("#fff4b7", "#ed6200", "#7d0025"))(n = 299),
+# col=colorRampPalette(brewer.pal(100,"Oranges"))(100),
+col = color.palette,  # use on color palette defined earlier
+breaks=col_breaks,    # enable color transition at specified limits
+trace="none",         
+margins =c(12,12),    
+# dendrogram='both',
+Rowv=FALSE)
+dev.off()
+
+# otu_table_STD=read.csv("species_otu_table_STD.csv",sep=";",row.names = 1)
+# otu_tree=read.csv("tree/species_otu_table_STD_tree.csv",sep=";")
+
+# order_tree=otu_tree$X
+# 
+# heatmap_plot = pheatmap(otu_table_STD,cluster_rows = F)
+# # heatmap(otu_table(frogs_STD))
+# # plot_heatmap(frogs_STD, low = "yellow", high = "red", na.value = "white")
+# 
+# # order=tree[["tip.label"]]
+# 
+# #rarefy pour mettre en pourcentage
+# 
+# # otu_table_STD_ordered <- otu_table_STD[rownames(order_tree),]
+# # pheatmap(otu_table_STD_ordered)
+# # 
+# # pheatmap::pheatmap(otu_table_STD_ordered, annotation_row = order_tree, cluster_rows = F)
+# # 
+# # heatmap_plot <- ggplot(data = otter_long, aes(x = measurement, y = accession)) +
+# #   geom_tile(aes(fill = value)) +
+# #   scale_fill_gradient2() +
+# #   theme(axis.text.y = element_text(size = 6))
+# 
+# tree_plot=plot(tree)
+# 
+# grid.newpage()
+# print(heatmap_plot, 
+#       vp = viewport(x = 0.4, y = 0.5, width = 0.8, height = 1.0))
+# print(tree_plot, 
+#       vp = viewport(x = 0.90, y = 0.445, width = 0.2, height = 1.0))
+
+# install.packages("shiny")
+# shiny::runGitHub("shiny-phyloseq","joey711")
+
+```
+
+```{r compBubble, echo=FALSE}
+frogs = import_frogs("data/STD_pin100_d1_FROGS_Affiliation_postprocess_abundance_biom.biom1", taxMethod = "blast")
+
+  ##BUBBLE CHART
+#https://github.com/alex-bagnoud/OTU-table-to-bubble-plot
+#https://github.com/joey711/phyloseq/issues/1396
+
+# ggplot(df, aes(fill=species, y=as.numeric(nb_seq), x=ech)) + #FFA07A#873600
+#   geom_point(aes(color = cyl, size = qsec), alpha = 0.5) +
+#   theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+#   scale_size(range = c(0.5, 12)) +
+#   xlab("") +
+#   ylab("Number of sequences")
+
+##rarefaction des ech
+frogs_rare = rarefy_even_depth(frogs, rngseed = 1121983)
+
+plot_bar(frogs_rare, fill="Species") + theme(axis.text.x = element_text(angle = 30, hjust = 1))#en raréfiant à celui qui est le plus bas (rng seed à na pas changer)
+
+# ggplot(df, aes(x = wt, y = mpg)) + 
+#   geom_point(aes(color = cyl, size = qsec), alpha = 0.5) +
+#   scale_color_manual(values = c("#00AFBB", "#E7B800", "#FC4E07")) +
+#   scale_size(range = c(0.5, 12))  # Adjust the range of points size
+```
+
+
+
+
+
+

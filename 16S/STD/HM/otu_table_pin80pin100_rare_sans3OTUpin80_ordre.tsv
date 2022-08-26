@@ -1,0 +1,36 @@
+	pin100_6310	pin100_6300	pin100_6300_VD	pin100_6310_VD	pin80_6310	pin80_6300	pin80_6300_VD	pin80_6310_VD	protocol_6300	protocol_6310	ordrepin80	ordrepin100
+33_Salmonella enterica	133	3643	3345	114	133	3643	3345	114	1314,248	8,8459	1	1
+24_Kluyvera cryocrescens	0	648	371	1	0	0	0	0	0	0		2
+21_Enterobacteriaceae sp.	2	15	32	0	2	15	32	0	0	0	2	3
+28_Escherichia coli	135	2508	2501	118	135	2508	2501	118	1276,337	8,71953	3	4
+152_ Serratia sp.	4	0	0	0	4	0	0	0	0	0	4	5
+7_Aeromonas sp.	0	0	0	4	0	648	372	9	0	0	5	6
+251_Moraxella sp.	1	0	0	0	1	0	0	0	0	0	6	7
+68_Acinetobacter sp.	0	0	0	1	0	0	0	1	0	0	7	8
+26_Pseudomonas aeruginosa	2325	536	518	2686	2325	536	518	2686	530,754	353,836	8	9
+100_Comamonas sp.	0	0	0	4	0	0	0	0	0	0		10
+265_metagenome	0	0	0	1	0	0	0	0	0	0		11
+12_Rhizobiaceae sp.	0	0	3	0	0	0	2	0	0	0	11	12
+125_Ochrobactrum sp.	0	0	1	0	0	0	2	0	0	0	12	13
+72_Enterococcus faecalis	1	286	620	1	1	286	620	0	1251,063	0,0846679	22	14
+65_Trichococcus sp.	0	0	1	0	0	0	0	0	0	0		15
+8_Listeria monocytogenes	9582	380	197	8671	9582	380	197	8671	1781,817	12118,883	16	16
+442_Brochothrix sp.	3	51	21	46	3	51	20	46	0	0	17	17
+571_Bacillus subtilis	0	110	78	0	0	110	77	0	0	0	18	18
+50_Limosilactobacillus fermentum	17	1416	1625	4	17	1416	1625	6	2325,208	1,51644	19	19
+664_Listeria monocytogenes	0	37	12	0	0	37	12	0	0	0	20	20
+472_Fermentibacillus polygoni	1	50	45	62	1	50	44	62	0	0	15	21
+29_Bacillus subtilis	413	2465	2775	871	413	2465	2775	871	2198,838	151,644	13	22
+709_Bacillus subtilis	0	23	74	0	0	23	76	0	0	0	14	23
+131_ Staphylococcus aureus	20	469	408	0	20	469	408	0	1958,735	0,012637	21	24
+447_Christensenellaceae R-7 group	0	0	0	3	0	0	0	0	0	0		25
+4_Proteocatella sp.	0	0	2	0	0	0	3	0	0	0	24	26
+163_metagenome	0	0	1	0	0	0	2	0	0	0	25	27
+3_Arcobacter sp.	0	0	3	25	0	0	3	25	0	0	26	28
+226_Arcobacter sp.	0	0	0	2	0	0	0	0	0	0		29
+78_Arcobacteraceae sp.	0	0	0	11	0	0	0	0	0	0		30
+53_Arcobacter sp.	0	0	0	1	0	0	0	5	0	0	27	31
+211_Prevotellaceae sp.	0	0	0	1	0	0	0	4	0	0	28	32
+1_Bacteroides sp.	0	0	0	10	0	0	0	11	0	0	29	33
+39_Acetobacteroides sp.	0	0	2	0	0	0	0	0	0	0		34
+138_Cloacibacterium sp.	0	0	2	0	0	0	2	0	0	0	30	35

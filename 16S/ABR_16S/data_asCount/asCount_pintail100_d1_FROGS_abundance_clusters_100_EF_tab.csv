@@ -1,0 +1,77 @@
+cluster;EF BF_envt;EF WW_envt;E B1;E FQ1/None;E FQ2/None;E FQ1+FQ2/None;F FQ1/None;F FQ2/None;F FQ1+FQ2/None
+Cluster_432;EF BF_envt;EF WW_envt;;FQ1;FQ2;FQ1+FQ2;;;
+Cluster_252;EF BF_envt;EF WW_envt;;;;;;None;
+Cluster_393;EF BF_envt;EF WW_envt;;;;;;;
+Cluster_894;EF BF_envt;EF WW_envt;;;;;;;
+Cluster_250;EF BF_envt;;;;;;;;
+Cluster_289;EF BF_envt;;;;;;;;
+Cluster_304;EF BF_envt;;;;;;;;
+Cluster_318;EF BF_envt;;;;;;;;
+Cluster_158;;EF WW_envt;;;;;;;
+Cluster_219;;EF WW_envt;;;;;;;
+Cluster_242;;EF WW_envt;;;;;;;
+Cluster_248;;EF WW_envt;;;;;;;
+Cluster_259;;EF WW_envt;;;;;;;
+Cluster_389;;EF WW_envt;;;;;;;
+Cluster_464;;EF WW_envt;;;;;;;
+Cluster_471;;EF WW_envt;;;;;;;
+Cluster_586;;EF WW_envt;;;;;;;
+Cluster_87;;;E B1;FQ1;FQ2;FQ1+FQ2;FQ1;FQ2;FQ1+FQ2
+Cluster_100;;;E B1;FQ1;FQ2;FQ1+FQ2;;;None
+Cluster_160;;;E B1;FQ1;FQ2;FQ1+FQ2;;;
+Cluster_190;;;E B1;FQ1;FQ2;FQ1+FQ2;;;
+Cluster_21;;;E B1;FQ1;FQ2;FQ1+FQ2;;;
+Cluster_279;;;E B1;FQ1;FQ2;FQ1+FQ2;;;
+Cluster_75;;;E B1;FQ1;FQ2;FQ1+FQ2;;;
+Cluster_86;;;E B1;FQ1;FQ2;FQ1+FQ2;;;
+Cluster_11;;;E B1;FQ1;;FQ1+FQ2;None;;
+Cluster_148;;;E B1;FQ1;;FQ1+FQ2;;;
+Cluster_4;;;E B1;None;;;;;
+Cluster_25;;;E B1;;;FQ1+FQ2;;;
+Cluster_35;;;E B1;;;;None;;
+Cluster_20;;;;FQ1;FQ2;FQ1+FQ2;FQ1;FQ2;FQ1+FQ2
+Cluster_23;;;;FQ1;FQ2;FQ1+FQ2;FQ1;FQ2;FQ1+FQ2
+Cluster_36;;;;FQ1;FQ2;FQ1+FQ2;FQ1;None;
+Cluster_85;;;;FQ1;FQ2;FQ1+FQ2;None;;
+Cluster_33;;;;FQ1;FQ2;FQ1+FQ2;;FQ2;
+Cluster_94;;;;FQ1;FQ2;FQ1+FQ2;;None;
+Cluster_226;;;;FQ1;FQ2;FQ1+FQ2;;;
+Cluster_26;;;;None;None;;None;;None
+Cluster_3;;;;None;None;;;FQ2;FQ1+FQ2
+Cluster_72;;;;FQ1;;FQ1+FQ2;;;None
+Cluster_1;;;;FQ1;;FQ1+FQ2;;;
+Cluster_30;;;;None;;None;;;
+Cluster_5;;;;None;;None;;;
+Cluster_62;;;;FQ1;;;FQ1;;
+Cluster_7;;;;None;;;FQ1;;
+Cluster_181;;;;FQ1;;;;;None
+Cluster_130;;;;None;;;;;
+Cluster_180;;;;None;;;;;
+Cluster_19;;;;;FQ2;FQ1+FQ2;None;None;None
+Cluster_6;;;;;FQ2;FQ1+FQ2;;;FQ1+FQ2
+Cluster_15;;;;;FQ2;FQ1+FQ2;;;
+Cluster_40;;;;;None;None;;;
+Cluster_39;;;;;None;;FQ1;FQ2;FQ1+FQ2
+Cluster_50;;;;;None;;None;None;
+Cluster_132;;;;;None;;;;
+Cluster_172;;;;;None;;;;
+Cluster_31;;;;;None;;;;
+Cluster_52;;;;;None;;;;
+Cluster_27;;;;;;None;None;FQ2;FQ1+FQ2
+Cluster_24;;;;;;FQ1+FQ2;;FQ2;None
+Cluster_216;;;;;;FQ1+FQ2;;FQ2;
+Cluster_91;;;;;;None;;;None
+Cluster_110;;;;;;FQ1+FQ2;;;
+Cluster_221;;;;;;None;;;
+Cluster_281;;;;;;None;;;
+Cluster_49;;;;;;None;;;
+Cluster_67;;;;;;None;;;
+Cluster_90;;;;;;None;;;
+Cluster_17;;;;;;;FQ1;FQ2;FQ1+FQ2
+Cluster_2;;;;;;;None;None;None
+Cluster_227;;;;;;;FQ1;FQ2;FQ1+FQ2
+Cluster_147;;;;;;;FQ1;;FQ1+FQ2
+Cluster_63;;;;;;;None;;None
+Cluster_120;;;;;;;;None;
+Cluster_45;;;;;;;;None;
+Cluster_78;;;;;;;;None;
