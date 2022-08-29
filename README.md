@@ -17,7 +17,7 @@ Dans chacun de ces fichiers, une fonction d'importation des tableaux Excel obten
 
 
 La détection de variants au niveau des gènes *gyrA* et *parC* nécessite l'utilisation d'un cluster. Pour cela, il suffit de lancer **MobaXterm**, puis de se connecter aux serveurs GenoToul en créant une nouvelle session en ssh, en rentrant ensuite l'hôte **genologin.toulouse.inra.fr** (remote host) et enfin son identifiant GenoToul.  
-Une fois connecté à son espace personnel, il suffit de se placer dans le dossier work/, et de lancer le fichier Snakefile d'éxucution du workflow en l'envoyant sur le cluster ("**sbatch commands_to_run.sh**" dans le terminal).  
+Une fois connecté à son espace personnel, il suffit de se placer dans le dossier work/, et de lancer le fichier Snakefile d'exécution du workflow en l'envoyant sur le cluster ("**sbatch commands_to_run.sh**" dans le terminal).  
 <br>  
 Si l'on souhaite modifier les échantillons sur lesquels travailler, il suffit de modifier les deux premières lignes du fichier Snakefile (**samples=""** et **gene=""** avec un espace entre chaque valeur). Il est également possible de modifier la base de données de référence pour le tri des données (db_ref="") et la séquence de référence servant à aligner les reads pour détecter les mutations (seq_ref="").  
 Les donnés doivent cependant toujours se trouver sous la forme "**gène_numéchantillon_R1_val_1.fq**" pour le read 1 ou "**gène_numéchantillon_R2_val_2.fq**" pour le read 2 (il suffit de les renommer si ce n'est pas le cas lorsqu'on les récupère).  
