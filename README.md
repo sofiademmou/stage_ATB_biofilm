@@ -8,7 +8,7 @@
 - **script_qnr_results** : fichier rmd (Rmarkdown) permettant de générer un rapport avec les principaux résultats statistiques 
 - **script_qnr_plot** : fichier permettant de générer les graphes finaux
 
-Dans chacun de ces fichiers, une fonction d'importation des tableaux Excel obtenus en sortie de CRX-Manager, ainsi qu'une fonction de tri des données de qPCR (données non quantifiables, non détectables,  ...) sont d'abord exécutées. Le fichier **explication_script_R.pptx** résume les différentes étapes et paramètres à disposition pour la fonction de tri des données (le chemin de gauche est l'exécution de base de la fonction, les paramètres "gamme" et "NTC" permettent de gérer les cas particuliers lorsqu'ils sont passés en **TRUE**).  
+Dans chacun de ces fichiers, une fonction d'importation des tableaux Excel obtenus en sortie de CFX-Manager, ainsi qu'une fonction de tri des données de qPCR (données non quantifiables, non détectables,  ...) sont d'abord exécutées. Le fichier **explication_script_R.pptx** résume les différentes étapes et paramètres à disposition pour la fonction de tri des données (le chemin de gauche est l'exécution de base de la fonction, les paramètres "gamme" et "NTC" permettent de gérer les cas particuliers lorsqu'ils sont passés en **TRUE**).  
 
 <br>
 
