@@ -34,7 +34,7 @@ Les fichiers **pourcentage_mutation_codon_gyrA/parC....py** permettent de calcul
 ## Analyse 16S
 
 
-- Le dossier **STD** concerne le traitement des données de standards, incorporés aux échantillons pour faciliter la sélection des paramètres les plus adaptés à nos données dans le workflow d'analyse des données.
+- Le dossier **STD** concerne le traitement des données de standards qui ont été incorporés aux échantillons pour faciliter la sélection des paramètres les plus adaptés à nos données dans le workflow d'analyse.
 
 Il contient tout d'abord un fichier Rmd permettant la comparaison des différents paramètres disponibles dans le workflow d'analyse utilisé. Le dossier **data** contient les différents fichiers obtenus à la sortie du worflow sur Galaxy. Les autres fichiers et dossiers sont des fichiers intermédiaires permettant d'obtenir les figures finales.
 
