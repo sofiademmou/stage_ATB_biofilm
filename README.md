@@ -42,7 +42,7 @@ Il contient tout d'abord un fichier Rmd permettant la comparaison des différent
 
 - Le dossier **ABR_16S** contient les fichiers permettant l'analyse complète des données de séquençage de l'*ARNr16S* (diversités $\alpha$ et $\beta$, abondance différentielle, ...).
 
-Les données de séquençage utilisées pour cette analyse sont contenues dans le dossier **data_asCount**. Le script .Rmd d'analyse de données utilise, en plus de ces fichiers, le fichier de métadonnées **metadata_16S_qnr.csv** contenant toutes les informations sur les échantillons (campagne, jour de prélèvement, matériel du coupon, ...), et le fichier **d1_FROGS_Affiliation_postprocess_abundance_biom.biom1**, fichier BIOM issu de l'analyse bioinformatique avec le pipeline FROGS réalisé sur Galaxy.
+Les données de séquençage utilisées pour cette analyse sont contenues dans le dossier **data_asCount**. Le script .Rmd d'analyse de données utilise, en plus de ces fichiers, le fichier de métadonnées **metadata_16S_qnr.csv** contenant toutes les informations sur les échantillons (campagne, jour de prélèvement, matériel du coupon, ...), et le fichier **d1_FROGS_Affiliation_postprocess_abundance_biom.biom1**, fichier BIOM issu de l'analyse bioinformatique réalisée avec le pipeline FROGS sur Galaxy.
 
 
 
