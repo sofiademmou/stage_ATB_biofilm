@@ -22,7 +22,7 @@ Une fois connecté à son espace personnel, il suffit de se placer dans le dossi
 Si l'on souhaite modifier les échantillons sur lesquels travailler, il suffit de modifier les deux premières lignes du fichier Snakefile (**samples=""** et **gene=""** avec un espace entre chaque valeur). Il est également possible de modifier la base de données de référence pour le tri des données (db_ref="") et la séquence de référence servant à aligner les reads pour détecter les mutations (seq_ref="").  
 Les donnés doivent cependant toujours se trouver sous la forme "**gène_numéchantillon_R1_val_1.fq**" pour le read 1 ou "**gène_numéchantillon_R2_val_2.fq**" pour le read 2 (il suffit de les renommer si ce n'est pas le cas lorsqu'on les récupère).  
 
-Certains chemins utilisés pour récupérer les fichiers en input sont des chemins absolus. Il faudra donc modifier ces chemins si les fichiers utilisés ne sont pas dans les mêmes dossiers que ceux spécifiés dans ce script (pas de dossier spécial "data" ou "db" par exemple).  
+Certains chemins d'accès utilisés pour récupérer les fichiers en input sont des chemins d'accès absolus. Il faudra donc modifier ces chemins si les fichiers utilisés ne sont pas dans les mêmes dossiers que ceux spécifiés dans ce script (pas de dossier spécial "data" ou "db" par exemple).  
   
 <br>
 
