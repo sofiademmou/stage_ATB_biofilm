@@ -34,13 +34,13 @@ Les fichiers **pourcentage_mutation_codon_gyrA/parC....py** permettent de calcul
 ## Analyse 16S
 
 
-Le dossier **STD** concerne le traitement des données de standards, incorporés aux échantillons pour faciliter la sélection des paramètres les plus adaptés à nos données dans le workflow d'analyse des données.
+- Le dossier **STD** concerne le traitement des données de standards, incorporés aux échantillons pour faciliter la sélection des paramètres les plus adaptés à nos données dans le workflow d'analyse des données.
 
 Il contient tout d'abord un fichier Rmd permettant la comparaison des différents paramètres disponibles dans le workflow d'analyse utilisé. Le dossier **data** contient les différents fichiers obtenus à la sortie du worflow sur Galaxy. Les autres fichiers et dossiers sont des fichiers intermédiaires permettant d'obtenir les figures finales.
 
 <br>
 
-Le dossier **ABR_16S** contient les fichiers permettant l'analyse complète des données de séquençage de l'*ARNr16S* (diversités $\alpha$ et $\beta$, abondance différentielle, ...).
+- Le dossier **ABR_16S** contient les fichiers permettant l'analyse complète des données de séquençage de l'*ARNr16S* (diversités $\alpha$ et $\beta$, abondance différentielle, ...).
 
 Les données de séquençage utilisées pour cette analyse sont contenues dans le dossier **data_asCount**. Le script .Rmd d'analyse de données utilise, en plus de ces fichiers, le fichier de métadonnées **metadata_16S_qnr.csv** contenant toutes les informations sur les échantillons (campagne, jour de prélèvement, matériel du coupon, ...), et le fichier **d1_FROGS_Affiliation_postprocess_abundance_biom.biom1**, fichier BIOM issu de l'analyse bioinformatique avec le pipeline FROGS réalisé sur Galaxy.
 
