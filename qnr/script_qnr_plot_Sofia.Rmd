@@ -212,7 +212,9 @@ write_xlsx(PCR_24_qnrC_tri, "sorted_files/PCR_24_qnrC_tri.xlsx")
 ```{r plots, warning=FALSE, include=FALSE}
 metadata = read.csv("metadata_qPCR.csv", row.names=1, sep=";")
 
-metadata$type_ech = factor(metadata$type_ech, levels=c('Ech in situ','BF in vitro')) #on réordonne les type d'échantillon pour l'affichage sur les graphiques
+# metadata$type_ech = factor(metadata$type_ech, levels=c('Ech in situ','BF in vitro')) #on réordonne les type d'échantillon pour l'affichage sur les graphiques
+
+metadata$type_ech = factor(metadata$type_ech, levels=c('BF des égouts','Eaux usées','BF in vitro'))
 
 results_log_plot = function(tab,metadata,PASS=TRUE){
   for (i in 1:20){
@@ -226,121 +228,57 @@ results_log_plot = function(tab,metadata,PASS=TRUE){
   
   #séparation du tableau complet en sous tableaux pour les campagnes AB et EF 
   tab_lm_AB = subset(tab_lm, Content=="Unkn" & Campain!="F" & Campain!="E")
-  tab_lm_EF = subset(tab_lm, Content=="Unkn" & Campain!="A" & Campain!="B")
+  tab_lm_EF = subset(tab_lm, Content=="Unkn" & (Campain=="E" | Campain=="F"))
   nrow(tab_lm_AB)
   nrow(tab_lm_EF)
   
-  if (PASS==TRUE){
   #J7 et J14 ensemble
   p1=ggplot(tab_lm_AB) +
-    aes(x=Material, y=log_rapport,color=Material) +
+    aes(x=Materiel, y=log_rapport,color=Materiel) +
     geom_boxplot(outlier.colour="black", outlier.shape=NA,outlier.size=2, notch=FALSE) +
-    scale_color_manual(values=c("black","#999999","red","#f1c40f","#ffffff00","black", "#DEB887"))+
+    scale_color_manual(values=c("black","#999999","#f1c40f"))+
     ylim(-8.5, 2.7) +
-    ylab("Abondance relative \n log(gène/réf)") +
-    geom_dotplot(aes(fill=Inoculum,color=Tm_QC), binaxis='y', stackdir='center',size=1, position=position_dodge(0)) +
-    scale_fill_manual(values=c("#196f3d", "#1abc9c", "#2471a3", "#56B4E9")) +
-    geom_hline(aes(yintercept = -6.5),color="red",linetype = "dashed") +
+    ylab("Abondance relative \n log(gène/ARNr16S)") +
+    geom_dotplot(aes(fill=Inoculum), binaxis='y', stackdir='center',size=1, position=position_dodge(0)) +
+    scale_fill_manual(values=c("#F29A18", "#00A878","#5AB1BB","#81654B")) +
     facet_grid(. ~ type_ech, scales="free_x", space = "free_x") +
-    labs(title = tab$Target[1],
-              subtitle = "Effet de l'inoculum et du matériel sur la quantité de gène de résistance") + 
-    theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5)) #couleur des points en fonction de l'inoculum mais meme boxplot
+    labs(title = tab$Target[1]) + 
+    theme(plot.title = element_text(hjust = 0.5), axis.title.y = element_text(size = 8)) #couleur des points en fonction de l'inoculum mais meme boxplot
   
   print(p1)
 
   
   
-  tab_lm_EF$campaign = factor(tab_lm_EF$campaign,levels = c("envt","F (low)","E (high)"))
+  tab_lm_EF$Campagne = factor(tab_lm_EF$Campagne,levels = c("envt","F (2.5 µg/L)","E (5 mg/L)"))
+  tab_lm_EF$ATB_type = factor(tab_lm_EF$ATB_type,levels = c("Témoin","FQ1","FQ2","FQ1+FQ2"))
  
   p2=ggplot(tab_lm_EF) +
     aes(x=ATB_type, y=log_rapport,color=ATB_type) +
     geom_boxplot(outlier.colour="black", outlier.shape=NA,outlier.size=2, notch=FALSE) +
-    scale_color_manual(values=c("#999999","red", "#f1c40f", "#e67e22", "#c0392b","black"))  +
+    scale_color_manual(values=c("#999999", "#f1c40f", "#e67e22", "#c0392b","#CAD5D8"))  +
     ylim(-8, 2.7) +
-    ylab("Abondance relative \n log(gène/réf)") +
-    geom_dotplot(aes(fill=campaign,color=Tm_QC), binaxis='y', stackdir='center',size=1, position=position_dodge(0)) +
-    scale_fill_manual(values=c("#ecf0f1", "#999999", "#2c3e50")) + 
-    geom_hline(aes(yintercept = -6.5),color="red",linetype = "dashed") +
+    ylab("Abondance relative \n log(gène/ARNr16S)") +
+    geom_dotplot(aes(fill=Campagne), binaxis='y', stackdir='center',size=1, position=position_dodge(0)) +
+    scale_fill_manual(values=c( "#999999", "#2c3e50","#ecf0f1")) + 
     facet_grid(. ~ type_ech, scales="free_x", space = "free_x") +
-    labs(title = tab$Target[1],
-              subtitle = "Effet du type d'ATB sur la quantité de gène de résistance (campagnes EF)") + 
-    theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5))
+    labs(title = tab$Target[1]) + 
+    theme(plot.title = element_text(hjust = 0.5), axis.title.y = element_text(size = 8))
   
   
   p3=ggplot(tab_lm_EF) +
-    aes(x=campaign, y=log_rapport,color=campaign) +
+    aes(x=Campagne, y=log_rapport,color=Campagne) +
     geom_boxplot(outlier.colour="black", outlier.shape=NA,outlier.size=2, notch=FALSE) +
-    scale_color_manual(values=c("#2c3e50","#CAD5D8", "#999999", "red", "black"))  +
+    scale_color_manual(values=c("#CAD5D8","#2c3e50", "#999999", "black"))  +
     ylim(-8, 2.7) +
-    ylab("Abondance relative \n log(gène/réf)") +
-    geom_dotplot(aes(fill=ATB_type,color=Tm_QC), binaxis='y', stackdir='center',size=1, position=position_dodge(0)) +
+    ylab("Abondance relative \n log(gène/ARNr16S)") +
+    geom_dotplot(aes(fill=ATB_type), binaxis='y', stackdir='center',size=1, position=position_dodge(0)) +
     scale_fill_manual(values=c("#999999", "#f1c40f", "#e67e22", "#c0392b","black")) + 
-    geom_hline(aes(yintercept = -6.5),color="red",linetype = "dashed") +
     facet_grid(. ~ type_ech, scales="free_x", space = "free_x") +
-    labs(title = tab$Target[1],
-              subtitle = "Effet du dosage sur la quantité de gène de résistance (campagnes EF)") +  
-    theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5))
+    labs(title = tab$Target[1]) + 
+    theme(plot.title = element_text(hjust = 0.5), axis.title.y = element_text(size = 8))
   
   print(p2)
-  }
   
-##############################################################################################################
-  
-  if (PASS==FALSE){
-  
-  #J7 et J14 ensemble
-  p1=ggplot(tab_lm_AB) +
-    aes(x=Material, y=log_rapport,color=Material) +
-    geom_boxplot(outlier.colour="black", outlier.shape=NA,outlier.size=2, notch=FALSE) +
-    scale_color_manual(values=c("black","#999999","#f1c40f","#ffffff00","black", "#DEB887"))+
-    ylim(-8.5, 2.7) +
-    ylab("Abondance relative \n log(gène/réf)") +
-    geom_dotplot(aes(fill=Inoculum,color=Tm_QC), binaxis='y', stackdir='center',size=1, position=position_dodge(0)) +
-    scale_fill_manual(values=c("#196f3d", "#1abc9c", "#2471a3", "#56B4E9")) +
-    geom_hline(aes(yintercept = -6.5),color="red",linetype = "dashed") +
-    facet_grid(. ~ type_ech, scales="free_x", space = "free_x") +
-    labs(title = tab$Target[1],
-              subtitle = "Effet de l'inoculum et du matériel sur la quantité de gène de résistance") + 
-    theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5)) #couleur des points en fonction de l'inoculum mais meme boxplot
-  
-  print(p1)
-
-  
-  tab_lm_EF$campaign = factor(tab_lm_EF$campaign,levels = c("envt","F (low)","E (high)"))
-
-
-  p2=ggplot(tab_lm_EF) +
-    aes(x=ATB_type, y=log_rapport,color=ATB_type) +
-    geom_boxplot(outlier.colour="black", outlier.shape=NA,outlier.size=2, notch=FALSE) +
-    scale_color_manual(values=c("#999999", "#f1c40f", "#e67e22", "#c0392b","black"))  +
-    ylim(-8, 2.7) +
-    ylab("Abondance relative \n log(gène/réf)") +
-    geom_dotplot(aes(fill=campaign,color=Tm_QC), binaxis='y', stackdir='center',size=1, position=position_dodge(0)) +
-    scale_fill_manual(values=c("#ecf0f1", "#999999", "#2c3e50")) + 
-    geom_hline(aes(yintercept = -6.5),color="red",linetype = "dashed") +
-    facet_grid(. ~ type_ech, scales="free_x", space = "free_x") +
-    labs(title = tab$Target[1],
-              subtitle = "Effet du type d'ATB sur la quantité de gène de résistance (campagnes EF)") + 
-    theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5))
-  
-
-  
-  p3=ggplot(tab_lm_EF) +
-    aes(x=campaign, y=log_rapport,color=campaign) +
-    geom_boxplot(outlier.colour="black", outlier.shape=NA,outlier.size=2, notch=FALSE) +
-    scale_color_manual(values=c("#2c3e50","#CAD5D8", "#999999", "black"))  +
-    ylim(-8, 2.7) +
-    ylab("Abondance relative \n log(gène/réf)") +
-    geom_dotplot(aes(fill=ATB_type,color=Tm_QC), binaxis='y', stackdir='center',size=1, position=position_dodge(0)) +
-    scale_fill_manual(values=c("#999999", "#f1c40f", "#e67e22", "#c0392b","black")) + 
-    geom_hline(aes(yintercept = -6.5),color="red",linetype = "dashed") +
-    facet_grid(. ~ type_ech, scales="free_x", space = "free_x") +
-    labs(title = tab$Target[1],
-              subtitle = "Effet du dosage sur la quantité de gène de résistance (campagnes EF)") +  
-    theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5))
-  
-  print(p2)
-  }
   
   return(list(p1=p1, p2=p2, p3=p3))
 }
@@ -353,7 +291,7 @@ results_log_plot = function(tab,metadata,PASS=TRUE){
 ```{r}
 metadata = read.csv("metadata_qPCR.csv", row.names=1, sep=";")
 
-metadata$type_ech = factor(metadata$type_ech, levels=c('Ech in situ','BF in vitro'))
+metadata$type_ech = factor(metadata$type_ech, levels=c('BF des égouts','Eaux usées','BF in vitro'))
 
 tab=PCR_19_qnrA_tri
 
@@ -376,7 +314,7 @@ ggplot(tab_lm_EF) +
     scale_color_manual(values=c("#999999","red", "#f1c40f", "#e67e22", "#c0392b","black"))  +
     ylim(-8, 2.7) +
     ylab("Abondance relative \n log(gène/réf)") +
-    geom_dotplot(aes(fill=campaign,color=Tm_QC), binaxis='y', stackdir='center',size=1, position=position_dodge(0)) +
+    geom_dotplot(aes(fill=Campagne,color=Tm_QC), binaxis='y', stackdir='center',size=1, position=position_dodge(0)) +
     scale_fill_manual(values=c("#ecf0f1", "#999999", "#2c3e50")) + 
     geom_hline(aes(yintercept = -6.5),color="red",linetype = "dashed") +
   labs(title = tab$Target[1]) +
@@ -389,16 +327,16 @@ dev.off()
 # Résultats  
 ### qnrA  
 ```{r qnrA, include=FALSE}
-# png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/qnrA_plot_AB.png",sep=""),width=8,height = 4, units='in',res=600)
-png(paste("C:/Users/sdemmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrA_plot_AB.png",sep=""),width=6,height = 4, units='in',res=600)
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrA_plot_AB.png",sep=""),width=6,height = 4, units='in',res=600)
+# png(paste("C:/Users/sdemmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrA_plot_AB.png",sep=""),width=6,height = 4, units='in',res=600)
 results_log_plot(PCR_19_qnrA_tri,metadata)[1]
 dev.off()
 
-png(paste("C:/Users/sdemmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrA_plot_ATB_EF.png",sep=""),width=6,height = 4, units='in',res=600)
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrA_plot_ATB_EF.png",sep=""),width=7,height = 4, units='in',res=600)
 results_log_plot(PCR_19_qnrA_tri,metadata)[2]
 dev.off()
 
-png(paste("C:/Users/sdemmou/OneDrive/stage/ENVT/qPCR/figures_qnr/qnrA_plot_Dosage_EF.png",sep=""),width=6,height = 4, units='in',res=600)
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrA_plot_Dosage_EF.png",sep=""),width=6,height = 4, units='in',res=600)
 results_log_plot(PCR_19_qnrA_tri,metadata)[3]
 dev.off()
 ```
@@ -411,15 +349,15 @@ Génération des graphiques
 
 ### qnrB  
 ```{r qnrB, include=FALSE}
-png(paste("C:/Users/sdemmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrB_plot_AB.png",sep=""),width=6,height = 4, units='in',res=600)
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrB_plot_AB.png",sep=""),width=6,height = 4, units='in',res=600)
 results_log_plot(PCR_20_qnrB_tri,metadata)[1]
 dev.off()
 
-png(paste("C:/Users/sdemmou/OneDrive/stage/ENVT/qPCR/figures_qnr/qnrB_plot_ATB_EF.png",sep=""),width=6,height = 4, units='in',res=600)
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrB_plot_ATB_EF.png",sep=""),width=7,height = 4, units='in',res=600)
 results_log_plot(PCR_20_qnrB_tri,metadata)[2]
 dev.off()
 
-png(paste("C:/Users/sdemmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrB_plot_Dosage_EF.png",sep=""),width=6,height = 4, units='in',res=600)
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrB_plot_Dosage_EF.png",sep=""),width=6,height = 4, units='in',res=600)
 results_log_plot(PCR_20_qnrB_tri,metadata)[3]
 dev.off()
 ```
@@ -433,15 +371,15 @@ Génération des graphiques
 
 ### qnrS  
 ```{r qnrS, include=FALSE}
-png(paste("C:/Users/sdemmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrS_plot_AB.png",sep=""),width=6,height = 4, units='in',res=600)
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrS_plot_AB.png",sep=""),width=6,height = 4, units='in',res=600)
 results_log_plot(PCR_21_qnrS_tri,metadata,PASS=FALSE)[1]
 dev.off()
 
-png(paste("C:/Users/sdemmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrS_plot_ATB_EF.png",sep=""),width=6,height = 4, units='in',res=600)
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrS_plot_ATB_EF.png",sep=""),width=7,height = 4, units='in',res=600)
 results_log_plot(PCR_21_qnrS_tri,metadata,PASS=FALSE)[2]
 dev.off()
 
-png(paste("C:/Users/sdemmou/OneDrive/stage/ENVT/qPCR/figures_qnr/qnrS_plot_Dosage_EF.png",sep=""),width=6,height = 4, units='in',res=600)
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrS_plot_Dosage_EF.png",sep=""),width=6,height = 4, units='in',res=600)
 results_log_plot(PCR_21_qnrS_tri,metadata,PASS=FALSE)[3]
 dev.off()
 ```
@@ -455,15 +393,15 @@ Génération des graphiques
 
 ### qnrD  
 ```{r qnrD, include=FALSE}
-png(paste("C:/Users/sdemmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrD_plot_AB.png",sep=""),width=6,height = 4, units='in',res=600)
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrD_plot_AB.png",sep=""),width=6,height = 4, units='in',res=600)
 results_log_plot(PCR_22_qnrD_tri,metadata,PASS=FALSE)[1]
 dev.off()
 
-png(paste("C:/Users/sdemmou/OneDrive/stage/ENVT/qPCR/figures_qnr/qnrD_plot_ATB_EF.png",sep=""),width=6,height = 4, units='in',res=600)
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrD_plot_ATB_EF.png",sep=""),width=7,height = 4, units='in',res=600)
 results_log_plot(PCR_22_qnrD_tri,metadata,PASS=FALSE)[2]
 dev.off()
 
-png(paste("C:/Users/sdemmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrD_plot_Dosage_EF.png",sep=""),width=6,height = 4, units='in',res=600)
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrD_plot_Dosage_EF.png",sep=""),width=6,height = 4, units='in',res=600)
 results_log_plot(PCR_22_qnrD_tri,metadata,PASS=FALSE)[3]
 dev.off()
 ```

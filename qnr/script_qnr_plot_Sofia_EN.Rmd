@@ -1,0 +1,413 @@
+---
+title: "Analyse statistique des données de qPCR du projet ATB biofilm"
+author: "Sofia DEMMOU"
+date: "01/04/2022"
+output: 
+  html_document: 
+    toc: yes
+    df_print: paged
+header-includes: \renewcommand{\contentsname}{Table des matières}
+encoding: UTF-8
+---
+
+
+```{r library, include=FALSE}
+####Library à importer au début####
+library(stringr) #fonction "sub_str" pour renommer les échantillons
+library(ggplot2) #affichage des graphiques
+library(ggrepel) #affichage des graphiques
+library(readxl) #pour importer les fichiers excel dans R
+library(ggsignif) #pour fonction geom_signif
+
+library(car) #pour l'Anova
+
+library(writexl) #pour exporter les tableaux R en tableau excel
+
+library(cowplot) #pour option plot_grid de ggplot
+
+library(multcomp) #pour Dunnett
+library(DescTools) #pour Dunnett
+library(FSA) #pour Dunn
+
+library(printr) #pour les sorties en gras avec print
+
+```
+
+# Fonctions
+
+### Fonction pour importer les données et ajouter les colonnes "ID", "[ADN]ng/µL" et "Dilution".
+
+```{r import}
+f = function(file,excel=TRUE){
+  if (excel==FALSE){
+    tab=read.csv(file, sep=";")
+  }
+  else{
+    tab <- read_excel(file, range = "A20:K104")
+  }
+  
+  #on crée des colonnes ID, ADN et Dilution remplies de 0 pour pouvoir les remplir après
+  tab$ID=0
+  tab$ADN=0
+  tab$Dilution=0
+  for (i in 1:84){
+    tab$ID[i]=str_sub(tab$Sample[i],end=3) #on récupère les 2 premiers caractères du sample
+    tab$ID[i]=gsub("x","",tab$ID[i])
+    tab$Dilution[i]=str_sub(tab$Sample[i],start=4) #on récupère les 2 derniers caractères correspondant à la dilution
+    tab$Dilution[i]=gsub("x","",tab$Dilution[i])
+    tab$Dilution[i]=gsub("1/","",tab$Dilution[i]) #on enlève la division pour la dilution
+  }
+  
+  tab$ID[is.na(tab$ID)]="STD" 
+  
+  return(tab)
+}
+```
+
+<br/>
+
+### Fonction de remplacement des données.
+```{r tri}
+tri_qPCR = function(tab,Y.intercept,slope,gammeNTC=FALSE,LOQ,moyLOQ,target=FALSE,range=FALSE,ref){ 
+  #paramètre target pour sélectionner un gène en particulier pour la suite
+  if (target!=FALSE){
+    tab=subset(tab, Target==target)
+  }
+
+  #On calcule la moyenne et le range des Tm STD
+  m.Tm.STD=mean(as.numeric(tab$`Melt Temperature`[which(tab$ID=="STD" & tab$`Melt Temperature`!="None")])) #on elève les None pour éviter les NA
+  #on attribue la même valeur au m.Tm.STD min et max pour 
+  m.Tm.STD.min=m.Tm.STD 
+  m.Tm.STD.max=m.Tm.STD
+  
+  #si on choisit l'option range
+  if (range==TRUE){
+    r.Tm.STD=range(as.numeric(tab$`Melt Temperature`[which(tab$ID=="STD" & tab$`Melt Temperature`!="None")]))
+    m.Tm.STD.min=r.Tm.STD[1]
+    m.Tm.STD.max=r.Tm.STD[2]
+  }
+
+  
+  #On calcule le range des Cq STD
+  r.Cq.STD=range(as.numeric(tab$Cq[which(tab$ID=="STD" & tab$Cq!="None")]))
+  
+
+  #Si on a des Tm différents des Tm Ok 
+  tab$Cq_modif=tab$Cq #création d'une colonne pour les Cq modifiés (copie de la colonne Cq)
+  tab$Cq_modif[which(tab$Content!="NTC" & tab$`Melt Temperature`!="None" & (tab$`Melt Temperature`<=m.Tm.STD.min-1 | tab$`Melt Temperature`>=m.Tm.STD.max+1))]=35 #on remplace les valeurs de Cq modifiés par 35 pour les valeurs de Tm différents des Tm STD 
+
+  #si on a des None pour les Tm
+  tab$Cq_modif[which(tab$`Melt Temperature`=="None")]=40
+  
+  tab$Tm_QC="PASS" #création d'une colonne indiquant si le Cq de la ligne (l'échantillon) a été modifié
+  tab$Tm_QC[which(tab$Content!="NTC" & (tab$`Melt Temperature`<=m.Tm.STD.min-1 | tab$`Melt Temperature`>=m.Tm.STD.max+1))]=FALSE #changement de la valeur pour les ech non détectables (en dehors des Tm STD ou des Cq STD)
+  
+
+  #Si on a des NTC avec des Cq (pas NA), et des pics au même endroit que les Tm STD => on crée une liste avec les numéros de ligne qui vérifient cette condition
+  if (gammeNTC=="NTC"){  
+    li=which(tab$Content=="NTC" & is.na(tab$Cq)==FALSE & tab$`Melt Temperature`>=m.Tm.STD.min-1 & tab$`Melt Temperature`<=m.Tm.STD.max+1)
+    tab$Tm_QC[li]=FALSE
+    if (length(li)!=0){ #si cette liste existe bien (non vide)
+      µ.Cq.NTC=mean(as.numeric(tab$Cq[li]))
+      r.Cq.NTC=range(as.numeric(tab$Cq[li]))
+      #On visualise le range et la moyenne des Cq NTC 
+      print(µ.Cq.NTC) 
+      print(r.Cq.NTC)
+      #Pour les échantillons avec Tm +/- moy des Tm STD (Tm OK)
+      ech=which(tab$`Melt Temperature`>=m.Tm.STD.min-1 & tab$`Melt Temperature`<=m.Tm.STD.max+1)
+      #Si Cq(ech) >= LOQ (Cqmean NTC - 1)
+      ech2=which(tab$Cq[ech]>=(µ.Cq.NTC-1)) 
+      if (length(ech2)!=0){ #si on vérifie bien cette condition
+        tab$Tm_QC[ech]=FALSE
+        #Si CqmeanNTC < 35
+        if (µ.Cq.NTC<35){
+          tab$Cq_modif[ech]=µ.Cq.NTC
+          }
+        #Si CqmeanNTC > 35
+        else{
+          tab$Cq_modif[ech]=35-2
+          }
+        }
+      }
+  }
+  
+  if (gammeNTC=="gamme"){
+    #parametre gammme => oui => Cq le moins concentré range max +2 pour non quanti 
+    ech.out = which(tab$Cq > max(tab$Cq[which(tab$ID=="STD")])) #si Cq > à Cq le moins concentré 
+    tab$Cq_modif[ech.out]=moyLOQ+2
+    tab$Tm_QC[ech.out]=FALSE
+  }
+  
+  #On calcule SQ avec les nouveaux Cq
+  # tab$SQ_final=10^((as.numeric(tab$Cq_modif)-Y.intercept)/slope)
+  tab$SQ_final=10^((as.numeric(tab$Cq_modif)-tab$"Y-Intercept")/tab$Slope)
+  #on garde la valeur de départ pour les STD
+  tab$SQ_final[which(tab$ID=="STD")]=tab$`Starting Quantity (SQ)`[which(tab$ID=="STD")]
+  
+  #on rajoute col SQ/dil
+  tab$SQ_dil=tab$SQ_final #on copie la colonne SQ_final pour la modifier par rapport aux dilution des échantillons
+  dil_ech=which(tab$Dilution!="NA" & tab$Dilution!="ND" & tab$Dilution!="24.02.20") #on sélectionne les échantillons dilués
+  tab$SQ_dil[dil_ech]=tab$SQ_final[dil_ech]*as.numeric(tab$Dilution[dil_ech])
+  
+  
+  tab$rapport=tab$SQ_dil/ref #ou SQ_final
+  
+  #on rajoute une colonne pour les log des rapports 
+  tab$log_rapport=log(tab$rapport,10) #attention bien mettre la base 10 (sinon base exp(1))
+  
+  tab$absolu=tab$SQ_dil*42
+  tab$absolu[which(tab$ID=="55")]=tab$SQ_dil[which(tab$ID=="55")]*325
+  tab$absolu[which(tab$ID=="54" | tab$ID=="56"| tab$ID=="57"| tab$ID=="58"| tab$ID=="119"| tab$ID=="120"| tab$ID=="121"| tab$ID=="122")]=tab$SQ_dil[which(tab$ID=="54" | tab$ID=="56"| tab$ID=="57"| tab$ID=="58"| tab$ID=="119"| tab$ID=="120"| tab$ID=="121"| tab$ID=="122")]*2.5
+  
+  tab$log_absolu=log(tab$absolu,10)
+  
+  return(tab)
+}
+```
+
+
+<br/>
+<br/>
+
+# Test sur les données
+
+### Tri des données de qPCR
+```{r donnees, warning=FALSE, include=FALSE}
+PCR_18 = f("data_qPCR/20220314_111512_CT023447_ATBBiof16S_PCRn°18.xlsx")
+PCR_18_16S_tri = tri_qPCR(PCR_18, ref=PCR_18$`Starting Quantity (SQ)`) 
+write_xlsx(PCR_18_16S_tri, "sorted_files/PCR_18_16S_tri.xlsx")
+
+PCR_19 = f("data_qPCR/qnrA_final.xlsx")
+PCR_19_qnrA_tri = tri_qPCR(PCR_19, ref=PCR_18_16S_tri$SQ_dil) #SQ dil pour la ref
+write_xlsx(PCR_19_qnrA_tri, "sorted_files/PCR_19_qnrA_tri.xlsx")
+
+PCR_20 = f("data_qPCR/qnrB_final.xlsx")
+PCR_20_qnrB_tri = tri_qPCR(PCR_20, ref=PCR_18_16S_tri$SQ_dil)
+write_xlsx(PCR_20_qnrB_tri, "sorted_files/PCR_20_qnrB_tri.xlsx")
+
+PCR_21 = f("data_qPCR/qnrS_final.xlsx")
+PCR_21_qnrS_tri = tri_qPCR(PCR_21, ref=PCR_18_16S_tri$SQ_dil)
+write_xlsx(PCR_21_qnrS_tri, "sorted_files/PCR_21_qnrS_tri.xlsx")
+
+PCR_22 = f("data_qPCR/qnrD_final.xlsx")
+PCR_22_qnrD_tri = tri_qPCR(PCR_22,range=TRUE, ref=PCR_18_16S_tri$SQ_dil)
+write_xlsx(PCR_22_qnrD_tri, "sorted_files/PCR_22_qnrD_tri.xlsx")
+
+PCR_23 = f("data_qPCR/20220315_151005_CT023447_ATBBiof_qepA_PCRn°23.xlsx")
+PCR_23_qepA_tri = tri_qPCR(PCR_23, ref=PCR_18_16S_tri$SQ_dil)
+write_xlsx(PCR_23_qepA_tri, "sorted_files/PCR_23_qepA_tri.xlsx")
+
+PCR_24 = f("data_qPCR/20220315_162521_CT023447_ATBBiof_qnrC_PCRn°24.xlsx")
+PCR_24_qnrC_tri = tri_qPCR(PCR_24, ref=PCR_18_16S_tri$SQ_dil)
+write_xlsx(PCR_24_qnrC_tri, "sorted_files/PCR_24_qnrC_tri.xlsx")
+```
+
+
+<br/>
+<br/>
+
+# Analyse statistique
+### Plot des rapports SQgene/SQref (dilués)
+
+```{r plots, warning=FALSE, include=FALSE}
+metadata = read.csv("metadata_qPCR_EN.csv", row.names=1, sep=";")
+
+metadata$type_ech = factor(metadata$type_ech, levels=c('Sewer BF','Waste Water','In vitro BF '))
+
+results_log_plot = function(tab,metadata,PASS=TRUE){
+  for (i in 1:20){
+    metadata$ID_ech[i]=str_sub(row.names(metadata)[i],11,end=-19)
+  }
+  for (i in 21:58){
+    metadata$ID_ech[i]=str_sub(row.names(metadata)[i],18,end=-19)
+  }
+  
+  tab_lm = merge(tab,metadata, by.x = "ID",by.y = "ID_ech", all.x=TRUE)
+  
+  #séparation du tableau complet en sous tableaux pour les campagnes AB et EF 
+  tab_lm_AB = subset(tab_lm, Content=="Unkn" & campain!="F" & campain!="E")
+  tab_lm_EF = subset(tab_lm, Content=="Unkn" & (campain=="E" | campain=="F"))
+  nrow(tab_lm_AB)
+  nrow(tab_lm_EF)
+  
+  #J7 et J14 ensemble
+  p1=ggplot(tab_lm_AB) +
+    aes(x=Material, y=log_rapport,color=Material) +
+    geom_boxplot(outlier.colour="black", outlier.shape=NA,outlier.size=2, notch=FALSE) +
+    scale_color_manual(values=c("#999999","#f1c40f","black"))+
+    ylim(-8.5, 2.7) +
+    ylab("Relative adundance \n log(gene/ARNr16S)") +
+    geom_dotplot(aes(fill=Inoculum), binaxis='y', stackdir='center',size=1, position=position_dodge(0)) +
+    scale_fill_manual(values=c("#F29A18", "#00A878","#5AB1BB","#81654B")) +
+    facet_grid(. ~ type_ech, scales="free_x", space = "free_x") +
+    labs(title = tab$Target[1]) + 
+    theme(plot.title = element_text(hjust = 0.5, face="italic"), axis.title.y = element_text(size = 8)) #couleur des points en fonction de l'inoculum mais meme boxplot
+  
+  print(p1)
+
+  
+  
+  tab_lm_EF$Campain = factor(tab_lm_EF$Campain,levels = c("envt","F (FQ at 2.5 µg/L)","E (FQ at 5 mg/L)"))
+  tab_lm_EF$ATB_type = factor(tab_lm_EF$ATB_type,levels = c("Control","FQ1","FQ2","FQ1+FQ2"))
+ 
+  p2=ggplot(tab_lm_EF) +
+    aes(x=ATB_type, y=log_rapport,color=ATB_type) +
+    geom_boxplot(outlier.colour="black", outlier.shape=NA,outlier.size=2, notch=FALSE) +
+    scale_color_manual(values=c("#999999", "#f1c40f", "#e67e22", "#c0392b","#CAD5D8"))  +
+    ylim(-8, 2.7) +
+    ylab("Relative adundance \n log(gene/ARNr16S)") +
+    geom_dotplot(aes(fill=Campain), binaxis='y', stackdir='center',size=1, position=position_dodge(0)) +
+    scale_fill_manual(values=c( "#999999", "#2c3e50","#ecf0f1")) + 
+    facet_grid(. ~ type_ech, scales="free_x", space = "free_x") +
+    labs(title = tab$Target[1]) + 
+    theme(plot.title = element_text(hjust = 0.5, face="italic"), axis.title.y = element_text(size = 8))
+  
+  
+  p3=ggplot(tab_lm_EF) +
+    aes(x=Campain, y=log_rapport,color=Campain) +
+    geom_boxplot(outlier.colour="black", outlier.shape=NA,outlier.size=2, notch=FALSE) +
+    scale_color_manual(values=c("#CAD5D8","#2c3e50", "#999999", "black"))  +
+    ylim(-8, 2.7) +
+    ylab("Relative adundance \n log(gene/ARNr16S)") +
+    geom_dotplot(aes(fill=ATB_type), binaxis='y', stackdir='center',size=1, position=position_dodge(0)) +
+    scale_fill_manual(values=c("#999999", "#f1c40f", "#e67e22", "#c0392b","black")) + 
+    facet_grid(. ~ type_ech, scales="free_x", space = "free_x") +
+    labs(title = tab$Target[1]) + 
+    theme(plot.title = element_text(hjust = 0.5, face="italic"), axis.title.y = element_text(size = 8))
+  
+  print(p2)
+  
+  
+  return(list(p1=p1, p2=p2, p3=p3))
+}
+```
+
+
+### graphe diapo ATB qnrA
+
+
+```{r}
+metadata = read.csv("metadata_qPCR.csv", row.names=1, sep=";")
+
+metadata$type_ech = factor(metadata$type_ech, levels=c('BF des égouts','Eaux usées','BF in vitro'))
+
+tab=PCR_19_qnrA_tri
+
+for (i in 1:20){
+    metadata$ID_ech[i]=str_sub(row.names(metadata)[i],11,end=-19)
+  }
+  for (i in 21:58){
+    metadata$ID_ech[i]=str_sub(row.names(metadata)[i],18,end=-19)
+  }
+  
+tab_lm = merge(tab,metadata, by.x = "ID",by.y = "ID_ech", all.x=TRUE)
+
+
+tab_lm_EF = subset(tab_lm, Content=="Unkn" & Campain!="A" & Campain!="B" & type_ech!="Ech in situ")
+
+png(paste("C:/Users/sdemmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrA_plot_ATB_EF_diapo.png",sep=""),width=6,height = 4, units='in',res=600)
+ggplot(tab_lm_EF) +
+  aes(x=ATB_type, y=log_rapport,color=ATB_type) +
+    geom_boxplot(outlier.colour="black", outlier.shape=NA,outlier.size=2, notch=FALSE) +
+    scale_color_manual(values=c("#999999","red", "#f1c40f", "#e67e22", "#c0392b","black"))  +
+    ylim(-8, 2.7) +
+    ylab("Abondance relative \n log(gène/réf)") +
+    geom_dotplot(aes(fill=campain,color=Tm_QC), binaxis='y', stackdir='center',size=1, position=position_dodge(0)) +
+    scale_fill_manual(values=c("#ecf0f1", "#999999", "#2c3e50")) + 
+    geom_hline(aes(yintercept = -6.5),color="red",linetype = "dashed") +
+  labs(title = tab$Target[1]) +
+  theme(plot.title = element_text(hjust = 0.5))
+dev.off()
+```
+
+</br>
+
+# Résultats  
+### qnrA  
+```{r qnrA, include=FALSE}
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/EN/relatif/qnrA_plot_AB.png",sep=""),width=6,height = 4, units='in',res=600)
+# png(paste("C:/Users/sdemmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/qnrA_plot_AB.png",sep=""),width=6,height = 4, units='in',res=600)
+results_log_plot(PCR_19_qnrA_tri,metadata)[1]
+dev.off()
+
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/EN/relatif/qnrA_plot_ATB_EF.png",sep=""),width=7,height = 4, units='in',res=600)
+results_log_plot(PCR_19_qnrA_tri,metadata)[2]
+dev.off()
+
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/EN/relatif/qnrA_plot_Dosage_EF.png",sep=""),width=6,height = 4, units='in',res=600)
+results_log_plot(PCR_19_qnrA_tri,metadata)[3]
+dev.off()
+```
+
+
+Génération des graphiques
+
+</br>
+</br>
+
+### qnrB  
+```{r qnrB, include=FALSE}
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/EN/relatif/qnrB_plot_AB.png",sep=""),width=6,height = 4, units='in',res=600)
+results_log_plot(PCR_20_qnrB_tri,metadata)[1]
+dev.off()
+
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/EN/relatif/qnrB_plot_ATB_EF.png",sep=""),width=7,height = 4, units='in',res=600)
+results_log_plot(PCR_20_qnrB_tri,metadata)[2]
+dev.off()
+
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/EN/relatif/qnrB_plot_Dosage_EF.png",sep=""),width=6,height = 4, units='in',res=600)
+results_log_plot(PCR_20_qnrB_tri,metadata)[3]
+dev.off()
+```
+
+
+
+Génération des graphiques
+
+</br>
+</br>
+
+### qnrS  
+```{r qnrS, include=FALSE}
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/EN/relatif/qnrS_plot_AB.png",sep=""),width=6,height = 4, units='in',res=600)
+results_log_plot(PCR_21_qnrS_tri,metadata,PASS=FALSE)[1]
+dev.off()
+
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/EN/relatif/qnrS_plot_ATB_EF.png",sep=""),width=7,height = 4, units='in',res=600)
+results_log_plot(PCR_21_qnrS_tri,metadata,PASS=FALSE)[2]
+dev.off()
+
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/EN/relatif/qnrS_plot_Dosage_EF.png",sep=""),width=6,height = 4, units='in',res=600)
+results_log_plot(PCR_21_qnrS_tri,metadata,PASS=FALSE)[3]
+dev.off()
+```
+
+
+
+Génération des graphiques
+
+</br>
+</br>
+
+### qnrD  
+```{r qnrD, include=FALSE}
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/EN/relatif/qnrD_plot_AB.png",sep=""),width=6,height = 4, units='in',res=600)
+results_log_plot(PCR_22_qnrD_tri,metadata,PASS=FALSE)[1]
+dev.off()
+
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/EN/relatif/qnrD_plot_ATB_EF.png",sep=""),width=7,height = 4, units='in',res=600)
+results_log_plot(PCR_22_qnrD_tri,metadata,PASS=FALSE)[2]
+dev.off()
+
+png(paste("C:/Users/Marie Claire Demmou/OneDrive/stage/ENVT/qPCR/figures_qnr/figures_finales/EN/relatif/qnrD_plot_Dosage_EF.png",sep=""),width=6,height = 4, units='in',res=600)
+results_log_plot(PCR_22_qnrD_tri,metadata,PASS=FALSE)[3]
+dev.off()
+```
+
+
+Génération des graphiques
+
+</br>
+</br>
+
+

@@ -1,0 +1,59 @@
+;ID_ech;type_ech;Bioreactor;Inoculum;Material;Mat_Camp;Day;campain;Campain;Dosage;FQ1;FQ2;ATB_type;ATB_type_plot
+DBIbiofilm100_GTCGGC-K37J4_L001;2;In vitro BF ;B3;BF;Concrete;CE (high);J14;E;E (FQ at 5 mg/L);H;0;1;FQ2;FQ2
+DBIbiofilm101_TGTAAA-K37J4_L001;3;In vitro BF ;B4;BF;Concrete;CE (high);J14;E;E (FQ at 5 mg/L);H;1;1;FQ1+FQ2;FQ1+FQ2
+DBIbiofilm102_CAGCGT-K37J4_L001;4;In vitro BF ;B1;BF;Concrete;CE (high);J14;E;E (FQ at 5 mg/L);H;0;0;Control;0
+DBIbiofilm103_GGATCA-K37J4_L001;5;In vitro BF ;B2;BF;Concrete;CE (high);J14;E;E (FQ at 5 mg/L);H;1;0;FQ1;FQ1
+DBIbiofilm104_CCCCAT-K37J4_L001;6;In vitro BF ;B3;BF;Concrete;CE (high);J14;E;E (FQ at 5 mg/L);H;0;1;FQ2;FQ2
+DBIbiofilm105_CCTCCC-K37J4_L001;7;In vitro BF ;B4;BF;Concrete;CE (high);J14;E;E (FQ at 5 mg/L);H;1;1;FQ1+FQ2;FQ1+FQ2
+DBIbiofilm109_CCTGCT-K37J4_L001;8;In vitro BF ;B1;BF;Concrete;CF (low);J14;F;F (FQ at 2.5 µg/L);L;0;0;Control;0
+DBIbiofilm110_TTACTC-K37J4_L001;9;In vitro BF ;B2;BF;Concrete;CF (low);J14;F;F (FQ at 2.5 µg/L);L;1;0;FQ1;FQ1
+DBIbiofilm111_ATTAGG-K37J4_L001;10;In vitro BF ;B3;BF;Concrete;CF (low);J14;F;F (FQ at 2.5 µg/L);L;0;1;FQ2;FQ2
+DBIbiofilm112_GCCTAA-K37J4_L001;11;In vitro BF ;B4;BF;Concrete;CF (low);J14;F;F (FQ at 2.5 µg/L);L;1;1;FQ1+FQ2;FQ1+FQ2
+DBIbiofilm113_AAAGCG-K37J4_L001;12;In vitro BF ;B1;BF;Concrete;CF (low);J14;F;F (FQ at 2.5 µg/L);L;0;0;Control;0
+DBIbiofilm114_TTGCTA-K37J4_L001;13;In vitro BF ;B2;BF;Concrete;CF (low);J14;F;F (FQ at 2.5 µg/L);L;1;0;FQ1;FQ1
+DBIbiofilm115_TCTTCT-K37J4_L001;14;In vitro BF ;B3;BF;Concrete;CF (low);J14;F;F (FQ at 2.5 µg/L);L;0;1;FQ2;FQ2
+DBIbiofilm116_CTACTA-K37J4_L001;15;In vitro BF ;B4;BF;Concrete;CF (low);J14;F;F (FQ at 2.5 µg/L);L;1;1;FQ1+FQ2;FQ1+FQ2
+DBIbiofilm119_TGCGCT-K37J4_L001;17;Waste Water;0;WW_envt;zero;0envt;J00;C_envt;envt;;;;Control;envt
+DBIbiofilm120_ACGATC-K37J4_L001;18;Waste Water;0;WW_envt;zero;0envt;J00;D_envt;envt;;;;Control;envt
+DBIbiofilm121_CGCTCT-K37J4_L001;19;Waste Water;0;WW_envt;zero;0envt;J00;E_envt;envt;;;;Control;envt
+DBIbiofilm122_GATAGA-K37J4_L001;20;Waste Water;0;WW_envt;zero;0envt;J00;F_envt;envt;;;;Control;envt
+DBIbiofilm98_CCGTCA-K37J4_L001;22;In vitro BF ;B1;BF;Concrete;CE (high);J14;E;E (FQ at 5 mg/L);H;0;0;Control;envt
+DBIbiofilm99_CATCCT-K37J4_L001;23;In vitro BF ;B2;BF;Concrete;CE (high);J14;E;E (FQ at 5 mg/L);H;1;0;FQ1;FQ1
+VD-DBIbiofilm-ech34_TCCATT-JNFP8_L001;25;In vitro BF ;B4;BF;Polycarbonate;Pautre;J14;B;autre;;;;0;envt
+VD-DBIbiofilm-ech54_ACCTCA-JNFP8_L001;26;Waste Water;0;WW_envt;zero;0envt;J00;A_envt;envt;;;;0;envt
+VD-DBIbiofilm-ech55_CCCGAG-JNFP8_L001;27;Sewer BF;0;zBF_envt;zero;BF;J00;A_envt;envt;;;;0;envt
+VD-DBIbiofilm-ech55bis_GGACGG-JNFP8_L001;28;Sewer BF;0;zBF_envt;zero;BF;J00;A_envt;envt;;;;0;envt
+VD-DBIbiofilm-ech56_GGTATA-JNFP8_L001;29;Waste Water;0;WW_envt;zero;0envt;J00;B_envt;envt;;;;0;envt
+VD-DBIbiofilm-ech57_GTGCTG-JNFP8_L001;30;Waste Water;0;WW_envt;zero;0envt;J21;A_envt;envt;;;;0;envt
+VD-DBIbiofilm-ech58_CCCTCC-JNFP8_L001;31;Waste Water;0;WW_envt;zero;0envt;J14;B_envt;envt;;;;0;0
+VD-DBIbiofilm-ech60_GAGAAC-JNFP8_L001;32;In vitro BF ;B1;WW;Concrete;Cautre;J07;A;autre;;;;0;0
+VD-DBIbiofilm-ech61_TGGTGT-JNFP8_L001;33;In vitro BF ;B1;WW;Concrete;Cautre;J14;A;autre;;;;0;0
+VD-DBIbiofilm-ech62_AAACAA-JNFP8_L001;34;In vitro BF ;B1;WW;Polycarbonate;Pautre;J14;A;autre;;;;0;0
+VD-DBIbiofilm-ech63_AGGGAT-JNFP8_L001;35;In vitro BF ;B3;BF;Polycarbonate;Pautre;J14;A;autre;;;;0;0
+VD-DBIbiofilm-ech68_GCAATA-JNFP8_L001;38;In vitro BF ;B2;WW;Concrete;Cautre;J07;A;autre;;;;0;0
+VD-DBIbiofilm-ech69_CAATTA-JNFP8_L001;39;In vitro BF ;B3;BF;Concrete;Cautre;J07;A;autre;;;;0;0
+VD-DBIbiofilm-ech70_CAATGC-JNFP8_L001;40;In vitro BF ;B4;BF;Concrete;Cautre;J07;A;autre;;;;0;0
+VD-DBIbiofilm-ech71_TGTTCG-JNFP8_L001;41;In vitro BF ;B1;WW;Polycarbonate;Pautre;J07;A;autre;;;;0;0
+VD-DBIbiofilm-ech72_CCAACA-JNFP8_L001;42;In vitro BF ;B2;WW;Polycarbonate;Pautre;J07;A;autre;;;;0;0
+VD-DBIbiofilm-ech73_CTACCG-JNFP8_L001;43;In vitro BF ;B3;BF;Polycarbonate;Pautre;J07;A;autre;;;;0;0
+VD-DBIbiofilm-ech74_TCGTTC-JNFP8_L001;44;In vitro BF ;B4;BF;Polycarbonate;Pautre;J07;A;autre;;;;0;0
+VD-DBIbiofilm-ech75_GCGATG-JNFP8_L001;45;In vitro BF ;B2;WW;Concrete;Cautre;J14;A;autre;;;;0;0
+VD-DBIbiofilm-ech76_ATATAA-JNFP8_L001;46;In vitro BF ;B3;BF;Concrete;Cautre;J14;A;autre;;;;0;0
+VD-DBIbiofilm-ech77_ATACTG-JNFP8_L001;47;In vitro BF ;B4;BF;Concrete;Cautre;J14;A;autre;;;;0;0
+VD-DBIbiofilm-ech78_GGAGAG-JNFP8_L001;48;In vitro BF ;B2;WW;Polycarbonate;Pautre;J14;A;autre;;;;0;0
+VD-DBIbiofilm-ech79_ACGAGA-JNFP8_L001;49;In vitro BF ;B4;BF;Polycarbonate;Pautre;J14;A;autre;;;;0;0
+VD-DBIbiofilm-ech80_ATTACA-JNFP8_L001;50;In vitro BF ;B1;WW;Concrete;Cautre;J07;B;autre;;;;0;0
+VD-DBIbiofilm-ech81_TGATTT-JNFP8_L001;51;In vitro BF ;B2;WW;Concrete;Cautre;J07;B;autre;;;;0;0
+VD-DBIbiofilm-ech82_GGGGTG-JNFP8_L001;52;In vitro BF ;B3;BF;Concrete;Cautre;J07;B;autre;;;;0;0
+VD-DBIbiofilm-ech83_ACAAAA-JNFP8_L001;53;In vitro BF ;B4;BF;Concrete;Cautre;J07;B;autre;;;;0;0
+VD-DBIbiofilm-ech84_CTCCAG-JNFP8_L001;54;In vitro BF ;B1;WW;Polycarbonate;Pautre;J07;B;autre;;;;0;0
+VD-DBIbiofilm-ech85_GGTGTT-JNFP8_L001;55;In vitro BF ;B2;WW;Polycarbonate;Pautre;J07;B;autre;;;;0;0
+VD-DBIbiofilm-ech86_CGGGAG-JNFP8_L001;56;In vitro BF ;B3;BF;Polycarbonate;Pautre;J07;B;autre;;;;0;0
+VD-DBIbiofilm-ech87_TGGTAG-JNFP8_L001;57;In vitro BF ;B4;BF;Polycarbonate;Pautre;J07;B;autre;;;;0;0
+VD-DBIbiofilm-ech90_AACCGA-JNFP8_L001;58;In vitro BF ;B1;WW;Concrete;Cautre;J14;B;autre;;;;0;0
+VD-DBIbiofilm-ech91_GGCAAT-JNFP8_L001;59;In vitro BF ;B2;WW;Concrete;Cautre;J14;B;autre;;;;0;0
+VD-DBIbiofilm-ech92_CCTTGA-JNFP8_L001;60;In vitro BF ;B3;BF;Concrete;Cautre;J14;B;autre;;;;0;0
+VD-DBIbiofilm-ech93_GTTTCT-JNFP8_L001;61;In vitro BF ;B4;BF;Concrete;Cautre;J14;B;autre;;;;0;0
+VD-DBIbiofilm-ech94_ACACGC-JNFP8_L001;62;In vitro BF ;B1;WW;Polycarbonate;Pautre;J14;B;autre;;;;0;0
+VD-DBIbiofilm-ech95_GTGGGG-JNFP8_L001;63;In vitro BF ;B2;WW;Polycarbonate;Pautre;J14;B;autre;;;;0;0
+VD-DBIbiofilm-ech96_CACCCA-JNFP8_L001;64;In vitro BF ;B3;BF;Polycarbonate;Pautre;J14;B;autre;;;;0;0

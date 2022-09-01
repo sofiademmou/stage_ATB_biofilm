@@ -258,7 +258,7 @@ std.biom = "data_asCount/asCount_pintail100_d1_FROGS_BIOM_to_std_BIOM_abundance.
 
 # frogs.ABEF=import_frogs(biomfile, taxMethod = "blast", treefilename="data_asCount/asCount_pintail100_d1_FROGS_tree.nwk")
 
-frogs.ABEF=import_biom(std.biom)
+frogs.ABEF=import_biom(std.biom, treefilename="data_asCount/asCount_pintail100_d1_FROGS_tree.nwk")
 colnames(frogs.ABEF@tax_table) <- c("Kingdom","Phylum","Class","Order","Family","Genus","Species")
 
 # metadata = read.csv("metadata_16S.csv", row.names=1, sep=";")

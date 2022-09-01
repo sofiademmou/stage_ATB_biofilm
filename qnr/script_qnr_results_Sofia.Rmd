@@ -3,7 +3,7 @@ title: "Analyse statistique des données de qPCR du projet ATB biofilm"
 author: "Sofia DEMMOU"
 date: "01/04/2022"
 output: 
-  pdf_document: 
+  html_document: 
     toc: yes
     df_print: paged
 header-includes: \renewcommand{\contentsname}{Table des matières}
@@ -48,7 +48,7 @@ f = function(file){
   for (i in 1:84){
     tab$ID[i]=str_sub(tab$Sample[i],end=3) #on récupère les 2 premiers caractères du sample
     tab$ID[i]=gsub("x","",tab$ID[i])
-    tab$Dilution[i]=str_sub(tab$Sample[i],start=4) #on récupère les 2 dernier caractères correspondant à la dilution
+    tab$Dilution[i]=str_sub(tab$Sample[i],start=4) #on récupère les 2 derniers caractères correspondant à la dilution
     tab$Dilution[i]=gsub("x","",tab$Dilution[i])
     tab$Dilution[i]=gsub("1/","",tab$Dilution[i]) #on enlève la division pour la dilution
   }
@@ -71,11 +71,11 @@ tri_qPCR = function(tab,Y.intercept,slope,gammeNTC=FALSE,LOQ,moyLOQ,target=FALSE
 
   #On calcule la moyenne et le range des Tm STD
   m.Tm.STD=mean(as.numeric(tab$`Melt Temperature`[which(tab$ID=="STD" & tab$`Melt Temperature`!="None")])) #on elève les None pour éviter les NA
-  #on attribue la même valeur au m.Tm.STD min et max pour 
+  #on attribue la même valeur au m.Tm.STD min et max pour pouvoir l'utiliser par la suite (même sans option "range")
   m.Tm.STD.min=m.Tm.STD 
   m.Tm.STD.max=m.Tm.STD
   
-  #si on choisit l'option range
+  #si on choisit l'option "range"
   if (range==TRUE){
     r.Tm.STD=range(as.numeric(tab$`Melt Temperature`[which(tab$ID=="STD" & tab$`Melt Temperature`!="None")]))
     m.Tm.STD.min=r.Tm.STD[1]
@@ -87,21 +87,21 @@ tri_qPCR = function(tab,Y.intercept,slope,gammeNTC=FALSE,LOQ,moyLOQ,target=FALSE
   r.Cq.STD=range(as.numeric(tab$Cq[which(tab$ID=="STD" & tab$Cq!="None")]))
   
 
-  #Si on a des Tm différents des Tm Ok 
+  #Si on a des Tm différents des Tm Ok (STD)
   tab$Cq_modif=tab$Cq #création d'une colonne pour les Cq modifiés (copie de la colonne Cq)
   tab$Cq_modif[which(tab$Content!="NTC" & tab$`Melt Temperature`!="None" & (tab$`Melt Temperature`<=m.Tm.STD.min-1 | tab$`Melt Temperature`>=m.Tm.STD.max+1))]=35 #on remplace les valeurs de Cq modifiés par 35 pour les valeurs de Tm différents des Tm STD 
 
   #si on a des None pour les Tm
   tab$Cq_modif[which(tab$`Melt Temperature`=="None")]=40
   
-  tab$Tm_QC="PASS" #création d'une colonne indiquant si le Cq de la ligne (l'échantillon) a été modifié
+  tab$Tm_QC="PASS" #création d'une colonne "Quality Control" indiquant si le Cq de la ligne (l'échantillon) a été modifié
   tab$Tm_QC[which(tab$Content!="NTC" & (tab$`Melt Temperature`<=m.Tm.STD.min-1 | tab$`Melt Temperature`>=m.Tm.STD.max+1))]=FALSE #changement de la valeur pour les ech non détectables (en dehors des Tm STD ou des Cq STD)
   
 
-  #Si on a des NTC avec des Cq (pas NA), et des pics au même endroit que les Tm STD => on crée une liste avec les numeros de ligne qui vérifient cette condition
+  #Si on a des NTC avec des Cq (pas NA), et des pics au même endroit que les Tm STD => on crée une liste avec les numeros de ligne qui vérifient cette condition pour les modifier par la suite
   if (gammeNTC=="NTC"){  
     li=which(tab$Content=="NTC" & is.na(tab$Cq)==FALSE & tab$`Melt Temperature`>=m.Tm.STD.min-1 & tab$`Melt Temperature`<=m.Tm.STD.max+1)
-    tab$Tm_QC[li]=FALSE
+    tab$Tm_QC[li]=FALSE #on modifie le controle qualité pour ces lignes
     if (length(li)!=0){ #si cette liste existe bien (non vide)
       µ.Cq.NTC=mean(as.numeric(tab$Cq[li]))
       r.Cq.NTC=range(as.numeric(tab$Cq[li]))
@@ -128,7 +128,7 @@ tri_qPCR = function(tab,Y.intercept,slope,gammeNTC=FALSE,LOQ,moyLOQ,target=FALSE
   
   if (gammeNTC=="gamme"){
     #parametre gammme => oui => Cq le moins concentré range max +2 pour non quanti 
-    ech.out = which(tab$Cq > max(tab$Cq[which(tab$ID=="STD")])) #si Cq > à Cq le moins concentré 
+    ech.out = which(tab$Cq > max(tab$Cq[which(tab$ID=="STD")])) #si Cq(ech) > à Cq(STD) le moins concentré 
     tab$Cq_modif[ech.out]=moyLOQ+2
     tab$Tm_QC[ech.out]=FALSE
   }
@@ -149,6 +149,7 @@ tri_qPCR = function(tab,Y.intercept,slope,gammeNTC=FALSE,LOQ,moyLOQ,target=FALSE
   #on rajoute une colonne pour les log des rapports 
   tab$log_rapport=log(tab$rapport,10) #attention bien mettre la base 10 (sinon base exp(1))
   
+  #on rajoute une colonne pour les données d'abondance absolue
   tab$absolu=tab$SQ_dil*42
   tab$absolu[which(tab$ID=="55")]=tab$SQ_dil[which(tab$ID=="55")]*325
   tab$absolu[which(tab$ID=="54" | tab$ID=="56"| tab$ID=="57"| tab$ID=="58"| tab$ID=="119"| tab$ID=="120"| tab$ID=="121"| tab$ID=="122")]=tab$SQ_dil[which(tab$ID=="54" | tab$ID=="56"| tab$ID=="57"| tab$ID=="58"| tab$ID=="119"| tab$ID=="120"| tab$ID=="121"| tab$ID=="122")]*2.5
@@ -374,7 +375,7 @@ TukeyHSD(aov(AB.log~1+B+M+I+M:I+C+Jour+I:Jour+Jour:M), ordered=TRUE)
 
 ### Modèle pour les campagnes EF  
 
-Analyse de la significativité des facteurs dosage (forte concentration ou faible concentration) et traitement en FQ sur le rapport SQ(gène)/SQ(ref).  
+Analyse de la significativité des facteurs dosage (forte concentration ou faible concentration), et traitement en FQ, sur le rapport SQ(gène)/SQ(ref).  
 
 ```{r EF, include=FALSE}
 D=as.factor(tab_lm_EF$Dosage) #Dosage confondu avec la campagne
@@ -395,6 +396,7 @@ TukeyHSD(aov(EF~1+D+FQ1+FQ2+FQ1:FQ2), ordered=TRUE)
 
 ```
 <br/>
+
 La normalité n'étant pas toujours respectée, une transformation des rapports en log est nécessaire :  
 
 ```{r EFlog, include=FALSE}
